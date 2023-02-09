@@ -23,6 +23,7 @@ fun main() {
     LifecycleController(lifecycle, windowState)
 
     Window(
+      title = "Today's top stories",
       state = windowState,
       onCloseRequest = { exitApplication() }
     ) {
