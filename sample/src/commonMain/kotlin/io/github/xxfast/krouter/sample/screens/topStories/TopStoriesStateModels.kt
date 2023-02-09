@@ -9,8 +9,10 @@ val Loading: Nothing? = null
 @Parcelize
 data class TopStoriesState(
   val page: Int = 1,
-  val stories: List<TopStorySummaryState>? = Loading
+  val stories: List<TopStorySummaryState>? = Loading,
 ): Parcelable
+
+val Default: TopStoriesState = TopStoriesState()
 
 @Parcelize
 data class TopStorySummaryState(
@@ -23,6 +25,6 @@ data class TopStorySummaryState(
 
 sealed interface TopStoriesEvent {
   object Refresh: TopStoriesEvent
-  data class Page(val page: Int): TopStoriesEvent
+  object NextPage: TopStoriesEvent
   data class Search(val query: String): TopStoriesEvent
 }

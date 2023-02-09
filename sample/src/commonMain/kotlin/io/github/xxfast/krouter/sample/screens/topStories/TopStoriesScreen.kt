@@ -68,7 +68,7 @@ fun TopStoriesScreen(
     state = state,
     onSelect = onSelect,
     onRefresh = viewModel::onRefresh,
-    onPage = viewModel::onPage
+    onNextPage = viewModel::onNextPage
   )
 }
 
@@ -80,7 +80,7 @@ fun TopStoriesScreen(
 fun TopStoriesView(
   state: TopStoriesState,
   onRefresh: () -> Unit,
-  onPage: (page: Int) -> Unit,
+  onNextPage: () -> Unit,
   onSelect: (id: StoryId, title: String) -> Unit,
 ) {
   val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior(state = rememberTopAppBarState())
@@ -118,7 +118,7 @@ fun TopStoriesView(
         items(state.stories) { summary -> StorySummaryView(summary, onSelect) }
 
         item {
-          LaunchedEffect(Unit) { onPage(state.page + 1) }
+          LaunchedEffect(Unit) { onNextPage() }
 
           Box(
             contentAlignment = Center,

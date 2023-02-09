@@ -18,14 +18,17 @@ fun TopStoriesDomain(
 ): TopStoriesState {
   var stories: List<TopStorySummaryState>? by remember { mutableStateOf(initialState.stories) }
   var page: Int by remember { mutableStateOf(initialState.page) }
-  var refresh: Int by remember { mutableStateOf(0) }
+  var refreshes: Int by remember { mutableStateOf(0) }
 
-  LaunchedEffect(refresh) {
+  LaunchedEffect(refreshes) {
+    // Don't autoload the stories when restored from process death
+    if(refreshes == 0 && stories?.isNotEmpty() == true) return@LaunchedEffect
+
     stories = Loading
     page = 1
   }
 
-  LaunchedEffect(refresh, page){
+  LaunchedEffect(refreshes, page) {
     val topStory: TopStoryResponse = webService.topStories(page).getOrNull()
       ?: return@LaunchedEffect // TODO: Handle errors
 
@@ -44,8 +47,8 @@ fun TopStoriesDomain(
   LaunchedEffect(Unit) {
     events.collect { event ->
       when (event) {
-        TopStoriesEvent.Refresh -> refresh++
-        is TopStoriesEvent.Page -> page = event.page
+        TopStoriesEvent.Refresh -> refreshes++
+        is TopStoriesEvent.NextPage -> page++
         is TopStoriesEvent.Search -> TODO()
       }
     }
