@@ -64,4 +64,9 @@ fun DetailScreen(detail: String) {
 }
 ```
 
-Checkout the `/sample` for full a example.
+## Sample
+
+Check out a sample news app in the `/sample` directory
+
+<img src="artwork/android.gif" align="left"/>
+<img src="artwork/desktop.gif" align="right"/>
