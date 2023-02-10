@@ -7,6 +7,8 @@
 
 An example [Compose Multiplatform](https://github.com/JetBrains/compose-jb) navigation library that use [Decompose](https://github.com/arkivanov/Decompose) and [Essenty](https://github.com/arkivanov/Essenty) to create an API inspired by [Conductor](https://github.com/bluelinelabs/Conductor)
 
+A detailed breakdown available in this [Medium article](https://medium.com/@xxfast/diy-compose-multiplatform-navigation-with-decompose-94ac8126e6b5)
+
 ## Features
 - 🚏 `Router`; A FILO stack for your screen configurations
 - 📦 `ViewModel`; A instance that survives configuration changes and gets cleared when the user leaves the screen
