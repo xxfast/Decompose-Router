@@ -22,7 +22,7 @@ fun TopStoriesDomain(
 
   LaunchedEffect(refreshes) {
     // Don't autoload the stories when restored from process death
-    if(refreshes == 0 && stories?.isNotEmpty() == true) return@LaunchedEffect
+    if(refreshes == 0 && stories != Loading) return@LaunchedEffect
 
     stories = Loading
     page = 1
@@ -42,6 +42,9 @@ fun TopStoriesDomain(
           source = story.source,
         )
       }
+
+    // Remove any duplicate stories, if new stories were added while requesting old pages
+    stories = stories?.distinct()
   }
 
   LaunchedEffect(Unit) {

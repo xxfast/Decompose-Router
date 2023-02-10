@@ -19,9 +19,12 @@ fun StoryDomain(
   webService: NewsWebService
 ): StoryState {
   var details: StoryDetailsState? by remember { mutableStateOf(initialState.details) }
-  var refresh: Int by remember { mutableStateOf(0) }
+  var refreshes: Int by remember { mutableStateOf(0) }
 
-  LaunchedEffect(refresh) {
+  LaunchedEffect(refreshes) {
+    // Don't autoload the stories when restored from process death
+    if(refreshes == 0 && details != Loading) return@LaunchedEffect
+
     details = Loading
     details = webService.story(id.value).getOrNull()
       ?.let { story ->
@@ -42,7 +45,7 @@ fun StoryDomain(
   LaunchedEffect(Unit) {
     events.collect { event ->
       when (event) {
-        StoryEvent.Refresh -> refresh++
+        StoryEvent.Refresh -> refreshes++
       }
     }
   }
