@@ -22,8 +22,16 @@ fun HomeScreen() {
     animation = stackAnimation(slide())
   ) { screen ->
     when(screen){
-      List -> TopStoriesScreen(onSelect = { id, title -> router.push(Details(id, title))})
-      is Details -> StoryScreen(id = screen.id, title = screen.title, onBack = { router.pop() })
+      List -> TopStoriesScreen(
+        onSelect = { section, uri, title -> router.push(Details(section, uri, title))}
+      )
+
+      is Details -> StoryScreen(
+        section = screen.section,
+        uri = screen.uri,
+        title = screen.title,
+        onBack = { router.pop() }
+      )
     }
   }
 }

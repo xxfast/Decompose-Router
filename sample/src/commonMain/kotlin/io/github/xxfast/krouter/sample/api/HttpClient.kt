@@ -30,9 +30,9 @@ val HttpClient = HttpClient(CIO) {
 
   defaultRequest {
     url {
-      host = "api.thenewsapi.com"
+      host = "api.nytimes.com"
       protocol = URLProtocol.HTTPS
-      parameters.append("api_token", BuildKonfig.API_KEY)
+      parameters.append("api-key", BuildKonfig.API_KEY)
     }
   }
 }

@@ -43,7 +43,7 @@ kotlin {
         implementation("io.ktor:ktor-client-content-negotiation:2.0.3")
         implementation("io.ktor:ktor-client-logging:2.0.3")
         implementation("io.ktor:ktor-serialization-kotlinx-json:2.0.3")
-        implementation("app.cash.molecule:molecule-runtime:0.7.0")
+        implementation("app.cash.molecule:molecule-runtime:0.7.1")
         implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.4.0")
       }
     }

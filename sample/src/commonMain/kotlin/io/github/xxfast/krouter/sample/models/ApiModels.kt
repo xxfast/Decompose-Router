@@ -2,35 +2,68 @@ package io.github.xxfast.krouter.sample.models
 
 import com.arkivanov.essenty.parcelable.Parcelable
 import com.arkivanov.essenty.parcelable.Parcelize
-import kotlinx.serialization.Serializable
 import kotlinx.datetime.Instant
+import kotlinx.serialization.Serializable
+
+@JvmInline
+@Serializable
+@Parcelize
+value class TopStorySection(val name: String): Parcelable
+
+object TopStorySections {
+  val arts = TopStorySection("arts")
+  val automobiles = TopStorySection("automobiles")
+  val books = TopStorySection("books")
+  val business = TopStorySection("business")
+  val fashion = TopStorySection("fashion")
+  val food = TopStorySection("food")
+  val health = TopStorySection("health")
+  val home = TopStorySection("home")
+  val insider = TopStorySection("insider")
+  val magazine = TopStorySection("magazine")
+  val movies = TopStorySection("movies")
+  val nyRegion = TopStorySection("nyregion")
+  val obituaries = TopStorySection("obituaries")
+  val opinion = TopStorySection("opinion")
+  val politics = TopStorySection("politics")
+  val realestate = TopStorySection("realestate")
+  val science = TopStorySection("science")
+  val sports = TopStorySection("sports")
+  val sundayReview = TopStorySection("sundayreview")
+  val technology = TopStorySection("technology")
+  val theater = TopStorySection("theater")
+  val tMagazine = TopStorySection("t-magazine")
+  val travel = TopStorySection("travel")
+  val upshot = TopStorySection("upshot")
+  val us = TopStorySection("us")
+  val world = TopStorySection("world")
+}
 
 @Serializable
 data class TopStoryResponse(
-  val meta: TopStoryMetadata,
-  val data: List<NewsStory>,
+  val results: List<Article>,
 )
 
-@Serializable
-data class TopStoryMetadata(
-  val page: Int,
-)
-
-@Parcelize
-@Serializable
 @JvmInline
-value class StoryId(val value: String):  Parcelable
+@Serializable
+@Parcelize
+value class ArticleUri(val value: String): Parcelable
 
 @Serializable
-data class NewsStory(
-  val uuid: StoryId,
+data class Article(
+  val uri: ArticleUri,
+  val section: TopStorySection,
+  val subsection: String,
   val title: String,
-  val description: String,
-  val keywords: String,
-  val snippet: String,
+  val abstract: String,
   val url: String,
-  val image_url: String,
-  val published_at: Instant,
-  val source: String,
-  val categories: List<String>,
+  val byline: String,
+  val published_date: Instant,
+  val multimedia: List<Multimedia> = emptyList(),
+)
+
+@Serializable
+data class Multimedia(
+  val url: String,
+  val caption: String,
 )

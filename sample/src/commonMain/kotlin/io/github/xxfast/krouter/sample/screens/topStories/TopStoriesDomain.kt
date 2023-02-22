@@ -6,56 +6,50 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import io.github.xxfast.krouter.sample.api.NewsWebService
+import io.github.xxfast.krouter.sample.api.NyTimesWebService
 import io.github.xxfast.krouter.sample.models.TopStoryResponse
+import io.github.xxfast.krouter.sample.models.TopStorySection
 import kotlinx.coroutines.flow.Flow
 
 @Composable
 fun TopStoriesDomain(
   initialState: TopStoriesState,
   events: Flow<TopStoriesEvent>,
-  webService: NewsWebService
+  webService: NyTimesWebService
 ): TopStoriesState {
-  var stories: List<TopStorySummaryState>? by remember { mutableStateOf(initialState.stories) }
-  var page: Int by remember { mutableStateOf(initialState.page) }
+  var articles: List<TopStorySummaryState>? by remember { mutableStateOf(initialState.articles) }
+  var section: TopStorySection by remember { mutableStateOf(initialState.section) }
   var refreshes: Int by remember { mutableStateOf(0) }
 
-  LaunchedEffect(refreshes) {
+  LaunchedEffect(refreshes, section) {
     // Don't autoload the stories when restored from process death
-    if(refreshes == 0 && stories != Loading) return@LaunchedEffect
+    if(refreshes == 0 && articles != Loading) return@LaunchedEffect
 
-    stories = Loading
-    page = 1
-  }
+    articles = Loading
 
-  LaunchedEffect(refreshes, page) {
-    val topStory: TopStoryResponse = webService.topStories(page).getOrNull()
+    val topStory: TopStoryResponse = webService.topStories(section).getOrNull()
       ?: return@LaunchedEffect // TODO: Handle errors
 
-    stories = stories.orEmpty() + topStory.data
-      .map { story ->
+    articles = topStory.results
+      .map { article ->
         TopStorySummaryState(
-          id = story.uuid,
-          imageUrl = story.image_url,
-          title = story.title,
-          description = story.description,
-          source = story.source,
+          uri = article.uri,
+          imageUrl = article.multimedia.first().url,
+          title = article.title,
+          description = article.abstract,
+          section = article.section,
         )
       }
-
-    // Remove any duplicate stories, if new stories were added while requesting old pages
-    stories = stories?.distinct()
   }
 
   LaunchedEffect(Unit) {
     events.collect { event ->
       when (event) {
         TopStoriesEvent.Refresh -> refreshes++
-        is TopStoriesEvent.NextPage -> page++
         is TopStoriesEvent.Search -> TODO()
       }
     }
   }
 
-  return TopStoriesState(page, stories)
+  return TopStoriesState(section, articles)
 }

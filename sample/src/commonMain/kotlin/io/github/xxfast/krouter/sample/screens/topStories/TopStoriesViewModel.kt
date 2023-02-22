@@ -5,8 +5,7 @@ import app.cash.molecule.moleculeFlow
 import io.github.xxfast.krouter.SavedStateHandle
 import io.github.xxfast.krouter.ViewModel
 import io.github.xxfast.krouter.sample.api.HttpClient
-import io.github.xxfast.krouter.sample.api.NewsWebService
-import io.github.xxfast.krouter.sample.screens.topStories.TopStoriesEvent.NextPage
+import io.github.xxfast.krouter.sample.api.NyTimesWebService
 import io.github.xxfast.krouter.sample.screens.topStories.TopStoriesEvent.Refresh
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
@@ -14,7 +13,7 @@ import kotlinx.coroutines.launch
 class TopStoriesViewModel(savedState: SavedStateHandle) : ViewModel() {
   private val eventsFlow: MutableSharedFlow<TopStoriesEvent> = MutableSharedFlow(5)
   private val initialState: TopStoriesState = savedState.get() ?: TopStoriesState()
-  private val webService = NewsWebService(HttpClient)
+  private val webService = NyTimesWebService(HttpClient)
 
   val states by lazy {
     moleculeFlow(Immediate) { TopStoriesDomain(initialState, eventsFlow, webService) }
@@ -23,5 +22,4 @@ class TopStoriesViewModel(savedState: SavedStateHandle) : ViewModel() {
   }
 
   fun onRefresh() { launch { eventsFlow.emit(Refresh) } }
-  fun onNextPage() { launch { eventsFlow.emit(NextPage) } }
 }

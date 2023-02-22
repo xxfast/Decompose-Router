@@ -1,19 +1,17 @@
 package io.github.xxfast.krouter.sample.screens.topStories
 
-import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.ExperimentalAnimationApi
-import androidx.compose.animation.core.tween
-import androidx.compose.animation.scaleIn
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.staggeredgrid.LazyStaggeredGridState
 import androidx.compose.foundation.lazy.staggeredgrid.LazyVerticalStaggeredGrid
 import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells
@@ -39,7 +37,6 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.material3.surfaceColorAtElevation
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -50,14 +47,21 @@ import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import io.github.xxfast.krouter.rememberViewModel
-import io.github.xxfast.krouter.sample.models.StoryId
+import io.github.xxfast.krouter.sample.models.ArticleUri
+import io.github.xxfast.krouter.sample.models.TopStorySection
+import io.github.xxfast.krouter.sample.resources.icons.NewYorkTimes
+import io.github.xxfast.krouter.sample.resources.icons.NewYorkTimesLogo
 import io.kamel.image.KamelImage
 import io.kamel.image.lazyPainterResource
 import io.ktor.http.Url
+import kotlinx.datetime.Clock
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.toLocalDateTime
+import io.github.xxfast.krouter.sample.resources.Icons as SampleIcons
 
 @Composable
 fun TopStoriesScreen(
-  onSelect: (id: StoryId, title: String) -> Unit,
+  onSelect: (section: TopStorySection, uri: ArticleUri, title: String) -> Unit,
 ) {
   val viewModel: TopStoriesViewModel =
     rememberViewModel { savedState -> TopStoriesViewModel(savedState) }
@@ -68,31 +72,30 @@ fun TopStoriesScreen(
     state = state,
     onSelect = onSelect,
     onRefresh = viewModel::onRefresh,
-    onNextPage = viewModel::onNextPage
   )
 }
 
 @OptIn(
-  ExperimentalMaterial3Api::class, ExperimentalMaterialApi::class,
-  ExperimentalFoundationApi::class, ExperimentalAnimationApi::class
+  ExperimentalMaterial3Api::class,
+  ExperimentalMaterialApi::class,
+  ExperimentalFoundationApi::class
 )
 @Composable
 fun TopStoriesView(
   state: TopStoriesState,
   onRefresh: () -> Unit,
-  onNextPage: () -> Unit,
-  onSelect: (id: StoryId, title: String) -> Unit,
+  onSelect: (section: TopStorySection, uri: ArticleUri, title: String) -> Unit,
 ) {
   val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior(state = rememberTopAppBarState())
 
-  val refreshState = rememberPullRefreshState(state.stories == Loading, onRefresh)
+  val refreshState = rememberPullRefreshState(state.articles == Loading, onRefresh)
 
   val lazyStaggeredGridState: LazyStaggeredGridState = rememberLazyStaggeredGridState()
 
   Scaffold(
     topBar = {
       LargeTopAppBar(
-        title = { Text("Today's top stories") },
+        title = { Icon(imageVector = SampleIcons.NewYorkTimes, contentDescription = null) },
         scrollBehavior = scrollBehavior,
         actions = {
           IconButton(onClick = onRefresh) { Icon(Icons.Rounded.Refresh, contentDescription = null) }
@@ -108,34 +111,39 @@ fun TopStoriesView(
         .padding(scaffoldPadding)
         .fillMaxSize()
     ) {
-      if (state.stories != Loading) LazyVerticalStaggeredGrid(
+      if (state.articles != Loading) LazyVerticalStaggeredGrid(
         state = lazyStaggeredGridState,
         verticalArrangement = Arrangement.spacedBy(16.dp),
         horizontalArrangement = Arrangement.spacedBy(16.dp),
         contentPadding = PaddingValues(16.dp),
-        columns = StaggeredGridCells.Adaptive(250.dp)
+        columns = StaggeredGridCells.Adaptive(250.dp),
       ) {
-        items(state.stories) { summary -> StorySummaryView(summary, onSelect) }
+        items(state.articles) { summary -> StorySummaryView(summary, onSelect) }
 
         item {
-          LaunchedEffect(Unit) { onNextPage() }
+          Row(verticalAlignment = Alignment.CenterVertically) {
+            Icon(
+              imageVector = SampleIcons.NewYorkTimesLogo,
+              contentDescription = null,
+              modifier = Modifier
+                .size(32.dp)
+                .padding(4.dp)
+            )
 
-          Box(
-            contentAlignment = Center,
-            modifier = Modifier.height(128.dp),
-          ) {
-            AnimatedVisibility(
-              visible = true,
-              enter = scaleIn(tween(10000))
-            ) {
-              CircularProgressIndicator()
+            val year: Int = Clock.System.now()
+              .toLocalDateTime(timeZone = TimeZone.currentSystemDefault())
+              .year
+
+            Column {
+              Text(text = "Data provided by", style = MaterialTheme.typography.labelSmall)
+              Text(text = "The New York Times © $year")
             }
           }
         }
       }
 
       PullRefreshIndicator(
-        refreshing = state.stories == Loading,
+        refreshing = state.articles == Loading,
         state = refreshState,
         contentColor = MaterialTheme.colorScheme.onSurface,
         backgroundColor = MaterialTheme.colorScheme.surfaceColorAtElevation(8.dp),
@@ -147,9 +155,12 @@ fun TopStoriesView(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun StorySummaryView(state: TopStorySummaryState, onSelect: (id: StoryId, title: String) -> Unit) {
+fun StorySummaryView(
+  state: TopStorySummaryState,
+  onSelect: (section: TopStorySection, uri: ArticleUri, title: String) -> Unit
+) {
   Card(
-    onClick = { onSelect(state.id, state.title) },
+    onClick = { onSelect(state.section, state.uri, state.title) },
     shape = MaterialTheme.shapes.medium
   ) {
     Column(
@@ -177,7 +188,7 @@ fun StorySummaryView(state: TopStorySummaryState, onSelect: (id: StoryId, title:
         onClick = {},
         label = {
           Text(
-            text = state.source,
+            text = state.section.name,
             style = MaterialTheme.typography.labelMedium
           )
         }

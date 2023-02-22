@@ -1,6 +1,8 @@
 package io.github.xxfast.krouter.sample.screens.story
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.gestures.Orientation
+import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -11,6 +13,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.ArrowBack
 import androidx.compose.material.icons.rounded.ExitToApp
@@ -36,7 +40,8 @@ import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import io.github.xxfast.krouter.rememberViewModel
-import io.github.xxfast.krouter.sample.models.StoryId
+import io.github.xxfast.krouter.sample.models.ArticleUri
+import io.github.xxfast.krouter.sample.models.TopStorySection
 import io.github.xxfast.krouter.sample.screens.topStories.Loading
 import io.kamel.image.KamelImage
 import io.kamel.image.lazyPainterResource
@@ -44,12 +49,13 @@ import io.ktor.http.Url
 
 @Composable
 fun StoryScreen(
-  id: StoryId,
+  section: TopStorySection,
+  uri: ArticleUri,
   title: String,
   onBack: () -> Unit,
 ) {
   val viewModel: StoryViewModel =
-    rememberViewModel { savedState -> StoryViewModel(savedState, id, title) }
+    rememberViewModel { savedState -> StoryViewModel(savedState, section, uri, title) }
 
   val state: StoryState by viewModel.states.collectAsState()
 
@@ -88,7 +94,10 @@ fun StoryView(
         .fillMaxSize()
     ) {
       if (state.details == Loading) CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
-      else Column {
+      else Column(
+        modifier = Modifier
+          .verticalScroll(rememberScrollState())
+      ) {
         KamelImage(
           resource = lazyPainterResource(Url(state.details.imageUrl)),
           contentDescription = null,
@@ -97,7 +106,7 @@ fun StoryView(
           modifier = Modifier
             .background(MaterialTheme.colorScheme.surfaceColorAtElevation(16.dp))
             .fillMaxWidth()
-            .height(200.dp)
+            .height(420.dp)
         )
 
         Column(
@@ -114,7 +123,7 @@ fun StoryView(
             onClick = {},
             label = {
               Text(
-                text = state.details.source,
+                text = state.details.section.name,
                 style = MaterialTheme.typography.labelMedium
               )
             }
@@ -159,40 +168,17 @@ fun StoryView(
             )
 
             LazyRow(horizontalArrangement = Arrangement.spacedBy(4.dp)) {
-              items(state.details.categories) { category ->
+              val sections = listOf(state.details.section.name, state.details.subsection)
+              items(sections) { section ->
                 AssistChip(
                   onClick = {},
                   label = {
                     Text(
-                      text = category,
+                      text = section,
                       style = MaterialTheme.typography.bodySmall
                     )
                   },
                   shape = MaterialTheme.shapes.extraLarge
-                )
-              }
-            }
-          }
-
-          if (state.details.keywords.isNotEmpty()) Column(
-            verticalArrangement = Arrangement.spacedBy(4.dp)
-          ) {
-            Text(
-              text = "Keywords",
-              style = MaterialTheme.typography.labelSmall,
-            )
-
-            LazyRow(horizontalArrangement = Arrangement.spacedBy(4.dp)) {
-              items(state.details.keywords) { keyword ->
-                AssistChip(
-                  onClick = {},
-                  label = {
-                    Text(
-                      text = keyword,
-                      style = MaterialTheme.typography.bodySmall
-                    )
-                  },
-                  shape = MaterialTheme.shapes.large
                 )
               }
             }
