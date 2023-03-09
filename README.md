@@ -70,5 +70,8 @@ fun DetailScreen(detail: String) {
 
 Check out a sample news app in the `/sample` directory
 
-<video src="artwork/android.mp4" align="left"/>
-<video src="artwork/desktop.mp4" align="right"/>
+https://user-images.githubusercontent.com/13775137/223930832-94a210f7-b477-4bcf-a40f-194ce15b41bd.mp4
+
+https://user-images.githubusercontent.com/13775137/223930769-78c1a839-bddc-4379-8994-f8cb028e97e1.mp4
+
+
