@@ -167,7 +167,7 @@ fun StorySummaryView(
       verticalArrangement = Arrangement.spacedBy(4.dp),
       modifier = Modifier.padding(8.dp)
     ) {
-      KamelImage(
+      if (state.imageUrl != null) KamelImage(
         resource = lazyPainterResource(Url(state.imageUrl)),
         contentDescription = null,
         onLoading = { CircularProgressIndicator(modifier = Modifier.align(Center)) },

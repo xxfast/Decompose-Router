@@ -35,7 +35,7 @@ fun StoryDomain(
           title = story.title,
           description = story.abstract,
           externalUrl = story.url,
-          imageUrl = story.multimedia.first().url,
+          imageUrl = story.multimedia?.first()?.url,
           section = story.section,
           subsection = story.subsection,
         )

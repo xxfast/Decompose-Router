@@ -98,7 +98,7 @@ fun StoryView(
         modifier = Modifier
           .verticalScroll(rememberScrollState())
       ) {
-        KamelImage(
+        if(state.details.imageUrl != null) KamelImage(
           resource = lazyPainterResource(Url(state.details.imageUrl)),
           contentDescription = null,
           onLoading = { CircularProgressIndicator(modifier = Modifier.align(Alignment.Center)) },

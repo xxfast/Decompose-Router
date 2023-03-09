@@ -34,7 +34,7 @@ fun TopStoriesDomain(
       .map { article ->
         TopStorySummaryState(
           uri = article.uri,
-          imageUrl = article.multimedia.first().url,
+          imageUrl = article.multimedia?.first()?.url,
           title = article.title,
           description = article.abstract,
           section = article.section,

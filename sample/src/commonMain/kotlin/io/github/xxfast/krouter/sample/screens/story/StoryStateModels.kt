@@ -19,7 +19,7 @@ data class StoryDetailsState(
   val title: String,
   val description: String,
   val externalUrl: String,
-  val imageUrl: String,
+  val imageUrl: String?,
   val section: TopStorySection,
   val subsection: String,
 ): Parcelable

@@ -59,7 +59,7 @@ data class Article(
   val url: String,
   val byline: String,
   val published_date: Instant,
-  val multimedia: List<Multimedia> = emptyList(),
+  val multimedia: List<Multimedia>? = emptyList(),
 )
 
 @Serializable

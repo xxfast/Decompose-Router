@@ -19,7 +19,7 @@ val Default: TopStoriesState = TopStoriesState()
 @Parcelize
 data class TopStorySummaryState(
   val uri: ArticleUri,
-  val imageUrl: String,
+  val imageUrl: String?,
   val title: String,
   val description: String,
   val section: TopStorySection
