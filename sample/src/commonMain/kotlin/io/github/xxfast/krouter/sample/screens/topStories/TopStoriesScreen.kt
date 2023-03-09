@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -17,6 +16,7 @@ import androidx.compose.foundation.lazy.staggeredgrid.LazyVerticalStaggeredGrid
 import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells
 import androidx.compose.foundation.lazy.staggeredgrid.items
 import androidx.compose.foundation.lazy.staggeredgrid.rememberLazyStaggeredGridState
+import androidx.compose.material3.BottomAppBar
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Refresh
@@ -86,7 +86,7 @@ fun TopStoriesView(
   onRefresh: () -> Unit,
   onSelect: (section: TopStorySection, uri: ArticleUri, title: String) -> Unit,
 ) {
-  val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior(state = rememberTopAppBarState())
+  val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
 
   val refreshState = rememberPullRefreshState(state.articles == Loading, onRefresh)
 
@@ -101,6 +101,28 @@ fun TopStoriesView(
           IconButton(onClick = onRefresh) { Icon(Icons.Rounded.Refresh, contentDescription = null) }
         }
       )
+    },
+    bottomBar = {
+      BottomAppBar(
+        contentPadding = PaddingValues(16.dp)
+      ) {
+        Icon(
+          imageVector = SampleIcons.NewYorkTimesLogo,
+          contentDescription = null,
+          modifier = Modifier
+            .size(32.dp)
+            .padding(4.dp)
+        )
+
+        val year: Int = Clock.System.now()
+          .toLocalDateTime(timeZone = TimeZone.currentSystemDefault())
+          .year
+
+        Column {
+          Text(text = "Data provided by", style = MaterialTheme.typography.labelSmall)
+          Text(text = "The New York Times © $year")
+        }
+      }
     },
     modifier = Modifier
       .nestedScroll(scrollBehavior.nestedScrollConnection)
@@ -119,27 +141,6 @@ fun TopStoriesView(
         columns = StaggeredGridCells.Adaptive(250.dp),
       ) {
         items(state.articles) { summary -> StorySummaryView(summary, onSelect) }
-
-        item {
-          Row(verticalAlignment = Alignment.CenterVertically) {
-            Icon(
-              imageVector = SampleIcons.NewYorkTimesLogo,
-              contentDescription = null,
-              modifier = Modifier
-                .size(32.dp)
-                .padding(4.dp)
-            )
-
-            val year: Int = Clock.System.now()
-              .toLocalDateTime(timeZone = TimeZone.currentSystemDefault())
-              .year
-
-            Column {
-              Text(text = "Data provided by", style = MaterialTheme.typography.labelSmall)
-              Text(text = "The New York Times © $year")
-            }
-          }
-        }
       }
 
       PullRefreshIndicator(
