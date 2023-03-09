@@ -6,6 +6,7 @@
         android:allowBackup="false"
         android:label="@string/appName"
         android:supportsRtl="true"
+        android:icon="@mipmap/ic_launcher"
         android:enableOnBackInvokedCallback="true"
         android:theme="@style/AppTheme">
         <activity
