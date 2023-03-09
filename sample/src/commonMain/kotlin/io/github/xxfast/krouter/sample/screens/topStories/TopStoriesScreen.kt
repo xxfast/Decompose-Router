@@ -25,6 +25,7 @@ import androidx.compose.material.pullrefresh.pullRefresh
 import androidx.compose.material.pullrefresh.rememberPullRefreshState
 import androidx.compose.material3.AssistChip
 import androidx.compose.material3.Card
+import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -94,7 +95,7 @@ fun TopStoriesView(
 
   Scaffold(
     topBar = {
-      LargeTopAppBar(
+      CenterAlignedTopAppBar(
         title = { Icon(imageVector = SampleIcons.NewYorkTimes, contentDescription = null) },
         scrollBehavior = scrollBehavior,
         actions = {
