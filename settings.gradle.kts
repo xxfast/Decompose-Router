@@ -15,4 +15,3 @@ dependencyResolutionManagement {
 
 rootProject.name = "KRouter"
 include(":krouter")
-include(":sample", ":sample:android", ":sample:desktop")
