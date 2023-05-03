@@ -5,7 +5,6 @@ plugins {
   id("com.android.library")
   id("org.jetbrains.compose")
   id("kotlin-parcelize")
-  id("app.cash.molecule")
 }
 
 kotlin {
@@ -30,9 +29,8 @@ kotlin {
         implementation(compose.foundation)
         implementation(compose.material3)
         implementation(compose.materialIconsExtended)
-        implementation("com.arkivanov.decompose:decompose:1.0.0-compose-experimental")
-        implementation("com.arkivanov.decompose:extensions-compose-jetbrains:1.0.0-compose-experimental")
-        implementation("app.cash.molecule:molecule-runtime:0.7.1")
+        implementation(libs.decompose)
+        implementation(libs.decompose.compose.multiplatform)
       }
     }
 
@@ -57,10 +55,16 @@ kotlin {
 }
 
 android {
-  namespace = "io.github.xxfast.krouter"
+  namespace = "io.github.xxfast.decompose.router"
   compileSdk = 33
   defaultConfig {
     minSdk = 24
     targetSdk = 33
   }
+}
+
+// TODO: Remove once a compiler with support for >1.8.21 available
+compose {
+  kotlinCompilerPlugin.set(dependencies.compiler.forKotlin("1.8.20"))
+  kotlinCompilerPluginArgs.add("suppressKotlinVersionCompatibilityCheck=1.8.21")
 }
