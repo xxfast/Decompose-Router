@@ -1,7 +1,29 @@
 plugins {
+  kotlin("multiplatform")
   id("com.android.library")
-  kotlin("android")
   id("org.jetbrains.compose")
+}
+
+kotlin {
+  android()
+
+  sourceSets {
+    val androidMain by getting {
+      dependencies {
+        implementation(project(":decompose-router"))
+        implementation(compose.uiTooling)
+        implementation(compose.materialIconsExtended)
+        implementation(libs.horologist.compose.layouts)
+        implementation(libs.wear.compose.foundation)
+        implementation(libs.wear.compose.material)
+        implementation(libs.wear.compose.ui.tooling)
+        implementation(libs.androidx.activity.compose)
+        implementation(libs.essenty.parcelable)
+        implementation(libs.decompose)
+        implementation(libs.decompose.compose.multiplatform)
+      }
+    }
+  }
 }
 
 android {
@@ -24,20 +46,6 @@ android {
     sourceCompatibility = JavaVersion.VERSION_17
     targetCompatibility = JavaVersion.VERSION_17
   }
-}
-
-dependencies {
-  implementation(project(":decompose-router"))
-  implementation(compose.uiTooling)
-  implementation(compose.materialIconsExtended)
-  implementation(libs.horologist.compose.layouts)
-  implementation(libs.wear.compose.foundation)
-  implementation(libs.wear.compose.material)
-  implementation(libs.wear.compose.ui.tooling)
-  implementation(libs.androidx.activity.compose)
-  implementation(libs.essenty.parcelable)
-  implementation(libs.decompose)
-  implementation(libs.decompose.compose.multiplatform)
 }
 
 // TODO: Remove once a compiler with support for >1.8.21 available
