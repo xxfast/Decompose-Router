@@ -22,6 +22,10 @@ kotlin {
     }
   }
 
+  js(IR) {
+    browser()
+  }
+
   sourceSets {
     val commonMain by getting {
       dependencies {
@@ -51,6 +55,8 @@ kotlin {
       dependencies {
       }
     }
+
+    val jsMain by getting
   }
 }
 
