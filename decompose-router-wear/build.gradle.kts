@@ -29,17 +29,9 @@ kotlin {
 android {
   namespace = "io.github.xxfast.decompose.router.wear"
   compileSdk = 33
-
   defaultConfig {
     minSdk = 24
-    testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-  }
-
-  buildTypes {
-    release {
-      isMinifyEnabled = false
-      proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
-    }
+    targetSdk = 33
   }
 
   compileOptions {
