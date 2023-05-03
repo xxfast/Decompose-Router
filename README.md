@@ -1,5 +1,6 @@
 # Decompose-Router
 [![Kotlin Experimental](https://kotl.in/badges/experimental.svg)](https://kotlinlang.org/docs/components-stability.html)
+[![Build](https://github.com/xxfast/Decompose-Router/actions/workflows/android.yml/badge.svg)](https://github.com/xxfast/Decompose-Router/actions/workflows/android.yml)
 [![Kotlin](https://img.shields.io/badge/Kotlin-1.8.21-blue.svg?style=flat&logo=kotlin)](https://kotlinlang.org)
 
 ![badge-android](http://img.shields.io/badge/platform-android-6EDB8D.svg?style=flat)
@@ -18,7 +19,7 @@ A detailed breakdown available in this [Medium article](https://proandroiddev.co
 - ☠️ `SavedState`; Restore your view models state after the process death.
 - 🚉 Multiplatform!
 
-## Usage
+## At a glance
 
 ```kotlin
 sealed class Screen: Parcelable {
