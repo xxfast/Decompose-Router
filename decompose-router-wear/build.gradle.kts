@@ -8,7 +8,7 @@ kotlin {
   android()
 
   sourceSets {
-    val androidMain by getting {
+    val commonMain by getting {
       dependencies {
         implementation(project(":decompose-router"))
         implementation(compose.uiTooling)
