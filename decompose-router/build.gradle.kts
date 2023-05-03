@@ -67,6 +67,11 @@ android {
     minSdk = 24
     targetSdk = 33
   }
+
+  compileOptions {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+  }
 }
 
 // TODO: Remove once a compiler with support for >1.8.21 available
