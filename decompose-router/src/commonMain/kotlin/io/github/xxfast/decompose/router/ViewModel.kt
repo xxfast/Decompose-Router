@@ -6,6 +6,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.essenty.instancekeeper.InstanceKeeper
+import com.arkivanov.essenty.instancekeeper.InstanceKeeper.Instance
 import com.arkivanov.essenty.instancekeeper.getOrCreate
 import com.arkivanov.essenty.statekeeper.StateKeeper
 import io.github.xxfast.decompose.LocalComponentContext
@@ -13,13 +14,9 @@ import kotlinx.coroutines.CoroutineScope
 import kotlin.coroutines.CoroutineContext
 import kotlin.reflect.KClass
 
-expect open class ViewModel() : InstanceKeeper.Instance, CoroutineScope {
-  override val coroutineContext: CoroutineContext
-}
-
 @Suppress("UNCHECKED_CAST") // ViewModels must be Instances
 @Composable
-fun <T : ViewModel> rememberViewModel(
+fun <T : Instance> rememberViewModel(
   viewModelClass: KClass<T>,
   block: @DisallowComposableCalls (savedState: SavedStateHandle) -> T
 ): T {
