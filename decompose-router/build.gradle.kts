@@ -1,5 +1,3 @@
-@file:OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
-
 plugins {
   kotlin("multiplatform")
   id("com.android.library")
