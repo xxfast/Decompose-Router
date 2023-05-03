@@ -19,6 +19,15 @@ A detailed breakdown available in this [Medium article](https://proandroiddev.co
 - ☠️ `SavedState`; Restore your view models state after the process death.
 - 🚉 Multiplatform!
 
+## Adding to your project
+
+This is a work in progress 🚧. Decompose-router is not _yet_ published to Maven Central, but is available on sonatype snapshot repositories.
+```kotlin
+repositories {
+  maven("https://s01.oss.sonatype.org/content/repositories/snapshots/")
+}
+```
+
 ## At a glance
 
 ```kotlin
