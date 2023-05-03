@@ -10,8 +10,8 @@ plugins {
 buildscript {
   dependencies {
     classpath("org.jetbrains.compose:compose-gradle-plugin:1.3.0")
-    classpath("org.jetbrains.kotlin:kotlin-serialization:1.8.0")
-    classpath("app.cash.molecule:molecule-gradle-plugin:0.7.0")
+    classpath("org.jetbrains.kotlin:kotlin-serialization:1.8.10")
+    classpath("app.cash.molecule:molecule-gradle-plugin:0.7.1")
     classpath("com.codingfeline.buildkonfig:buildkonfig-gradle-plugin:0.13.3")
   }
 }

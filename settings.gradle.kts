@@ -13,5 +13,5 @@ dependencyResolutionManagement {
   }
 }
 
-rootProject.name = "KRouter"
-include(":krouter")
+rootProject.name = "Decompose-Router"
+include(":decompose-router")
