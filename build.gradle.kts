@@ -28,7 +28,7 @@ allprojects {
   }
 
   group = "io.github.xxfast"
-  version = "0.1.0"
+  version = "0.2.0-SNAPSHOT"
 
   apply(plugin = "org.jetbrains.dokka")
   apply(plugin = "maven-publish")
