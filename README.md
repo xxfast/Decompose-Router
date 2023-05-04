@@ -2,6 +2,7 @@
 [![Kotlin Experimental](https://kotl.in/badges/experimental.svg)](https://kotlinlang.org/docs/components-stability.html)
 [![Build](https://github.com/xxfast/Decompose-Router/actions/workflows/build.yml/badge.svg)](https://github.com/xxfast/Decompose-Router/actions/workflows/build.yml)
 [![Kotlin](https://img.shields.io/badge/Kotlin-1.8.21-blue.svg?style=flat&logo=kotlin)](https://kotlinlang.org)
+[![Maven Central](https://img.shields.io/maven-central/v/io.github.xxfast/decompose-router?color=blue)](https://search.maven.org/search?q=g:io.github.xxfast)
 
 ![badge-android](http://img.shields.io/badge/platform-android-6EDB8D.svg?style=flat)
 ![badge-wearos](http://img.shields.io/badge/platform-wearos-8ECDA0.svg?style=flat)
@@ -15,8 +16,8 @@ A detailed breakdown available in this [Medium article](https://proandroiddev.co
 
 ## Features
 - 🚏 `Router`; A FILO stack for your screen configurations
-- 📦 `ViewModel`; A instance that survives configuration changes and gets cleared when the user leaves the screen
-- ☠️ `SavedState`; Restore your view models state after the process death.
+- 📦 `rememberViewModel()`; Retain instances to survives configuration changes and gets cleared when the user leaves the screen
+- ☠️ `SavedState`; Restore your state after the process death.
 - 🚉 Multiplatform!
 
 ## Adding to your project
