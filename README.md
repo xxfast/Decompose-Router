@@ -24,7 +24,7 @@ A detailed breakdown available in this [Medium article](https://proandroiddev.co
 
 ## Features
 - 🚏 A `Router` that manages a FILO stack for your screen configurations
-- 📦 `rememberViewModel()` lets you retain instances across configuration changes and gets cleared when the user leaves the screen
+- 📦 `rememberViewModel()` lets you retain your view model across configuration changes and gets cleared when the user leaves the screen
 - ☠️ A `SavedStateHandle` to restore state gracefully after the process death. (for Android)
 - 🚉 Multiplatform! Supports Android, WearOS, Desktop, iOS and Web
 
@@ -38,6 +38,85 @@ repositories {
   maven("https://s01.oss.sonatype.org/content/repositories/snapshots/")
 }
 ```
+
+Include the dependency in `commonMain`. Latest version [![Maven Central](https://img.shields.io/maven-central/v/io.github.xxfast/decompose-router?color=blue)](https://search.maven.org/search?q=g:io.github.xxfast)
+
+> **Note**
+> Check for compatible versions of Compose Multiplatform, Decompose and Essenty in the [Version Catelog](gradle/libs.version.toml)
+
+<details>
+  <summary>1. With version catalog</summary>
+
+  **libs.version.toml**
+  ```toml
+  [versions]
+  # Check in gradle/libs.version.toml
+
+  [libraries]
+  # For Compose Multiplatform
+  decompose-router = { module = "io.github.xxfast:decompose-router", version.ref = "decompose-router" }
+  
+  # For Compose Wear
+  decompose-router-wear = { module = "io.github.xxfast:decompose-router-wear", version.ref = "decompose-router" }
+
+  # You will probably need to also bring in decompose and essenty
+  decompose = { module = "com.arkivanov.decompose:decompose", version.ref = "decompose" }
+  decompose-compose-multiplatform = { module = "com.arkivanov.decompose:extensions-compose-jetbrains", version.ref = "decompose" }
+  essenty-parcelable = { module = "com.arkivanov.essenty:parcelable", version.ref = "essenty" }
+  ```
+
+  **build.gradle.kts**
+  ```kotlin
+  sourceSets {
+    // For Compose Multiplatform
+    val commonMain by getting { 
+      dependencies { 
+        implementation(libs.decompose.router)
+        
+        // You will probably need to also bring in decompose and essenty
+        implementation(libs.decompose)
+        implementation(libs.decompose.compose.multiplatform)
+        implementation(libs.essenty.parcelable)
+      } 
+    }
+    
+    // For Compose Wear
+    val androidMain by getting {
+      dependencies { 
+        implementation(libs.decompose.router.wear)
+      } 
+    }
+  }
+  ```
+</details>
+
+<details>
+  <summary>2. Without version catalog</summary>
+
+  **build.gradle.kts**
+  ```kotlin
+  sourceSets {
+    // For Compose Multiplatform
+    val commonMain by getting {
+      dependencies {
+        implementation("io.github.xxfast:decompose-router:${versions.decompose-router}")
+  
+        // You will probably need to also bring in decompose and essenty
+        implementation("com.arkivanov.decompose:decompose:${versions.decompose}")
+        implementation("com.arkivanov.decompose:extensions-compose-jetbrains:${versions.decompose}")
+        implementation("com.arkivanov.essenty:parcelable:${versions.essenty}")
+      }
+    }
+  
+    // For Compose Wear
+    val androidMain by getting {
+      dependencies {
+        implementation("io.github.xxfast:decompose-router-wear:${versions.decompose-router}")
+      }
+    }
+  }
+  ```
+</details>
 
 ## At a glance
 
@@ -69,7 +148,7 @@ fun ListDetailScreen() {
 // If you want your view-model to survive config changes 🔁, make it implement the [Instance] interface
 class ListViewModel : InstanceKeeper.Instance
 
-// If you want your state to process death ☠️, derive your initial state from [SavedStateHandle] 
+// If you want your state to survive process death ☠️, derive your initial state from [SavedStateHandle] 
 class DetailViewModel(savedState: SavedStateHandle, detail: String) : InstanceKeeper.Instance {
   private val initialState: DetailState = savedState.get() ?: DetailState(detail)
   private val stateFlow = MutableStateFlow(initialState)
