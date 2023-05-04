@@ -15,16 +15,18 @@ A Compose-multiplatform navigation library that leverage [Decompose](https://git
 A detailed breakdown available in this [Medium article](https://proandroiddev.com/diy-compose-multiplatform-navigation-with-decompose-94ac8126e6b5)
 
 ## Features
-- 🚏 `Router`; A FILO stack for your screen configurations
-- 📦 `rememberViewModel()`; Retain instances to survives configuration changes and gets cleared when the user leaves the screen
-- ☠️ `SavedState`; Restore your state after the process death.
+- 🚏 A `Router` that manages a FILO stack for your screen configurations
+- 📦 `rememberViewModel()` lets you retain instances across configuration changes and gets cleared when the user leaves the screen
+- ☠️ A `SavedStateHandle` to restore state gracefully after the process death. (for Android)
 - 🚉 Multiplatform!
 
 ## Adding to your project
 
-This is a work in progress 🚧. Decompose-router is not _yet_ published to Maven Central, but is available on sonatype snapshot repositories.
+Decompose-Router is published on Maven Central
 ```kotlin
 repositories {
+  mavenCentral()
+  // or for snapshot builds
   maven("https://s01.oss.sonatype.org/content/repositories/snapshots/")
 }
 ```
