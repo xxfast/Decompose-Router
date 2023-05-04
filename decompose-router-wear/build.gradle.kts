@@ -5,7 +5,9 @@ plugins {
 }
 
 kotlin {
-  android()
+  android {
+    publishLibraryVariants("release", "debug")
+  }
 
   sourceSets {
     val commonMain by getting {

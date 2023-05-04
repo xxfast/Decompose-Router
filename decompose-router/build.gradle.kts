@@ -6,7 +6,9 @@ plugins {
 }
 
 kotlin {
-  android()
+  android {
+    publishLibraryVariants("release", "debug")
+  }
 
   iosX64()
   iosArm64()
@@ -27,12 +29,11 @@ kotlin {
   sourceSets {
     val commonMain by getting {
       dependencies {
-        api(libs.essenty.parcelable)
-
         implementation(compose.runtime)
         implementation(compose.foundation)
         implementation(compose.material3)
         implementation(compose.materialIconsExtended)
+        implementation(libs.essenty.parcelable)
         implementation(libs.decompose)
         implementation(libs.decompose.compose.multiplatform)
       }
