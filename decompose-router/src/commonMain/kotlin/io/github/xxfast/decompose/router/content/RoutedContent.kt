@@ -11,6 +11,14 @@ import io.github.xxfast.decompose.LocalComponentContext
 import io.github.xxfast.decompose.router.LocalRouter
 import io.github.xxfast.decompose.router.Router
 
+/***
+ * Composable to hoist content that are navigated by the router
+ *
+ * @param router Router to be used
+ * @param modifier
+ * @param animation [StackAnimation] used for transitions
+ * @param content
+ */
 @Composable
 fun <C : Parcelable> RoutedContent(
   router: Router<C>,

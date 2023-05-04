@@ -4,9 +4,17 @@ import com.arkivanov.essenty.instancekeeper.InstanceKeeper
 import com.arkivanov.essenty.parcelable.Parcelable
 import com.arkivanov.essenty.parcelable.Parcelize
 
+/***
+ * A wrapper to retain [Parcelable] across process death
+ *
+ * @param value parcelable to retain
+ */
 @Parcelize
 data class SavedState(val value: Parcelable): Parcelable
 
+/***
+ * Handle to help the view models manage saved state
+ */
 @Suppress("UNCHECKED_CAST") // I know what i'm doing
 class SavedStateHandle(default: SavedState?): InstanceKeeper.Instance {
   private var savedState: SavedState? = default

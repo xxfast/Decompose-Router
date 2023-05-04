@@ -10,10 +10,14 @@ import com.arkivanov.essenty.instancekeeper.InstanceKeeper.Instance
 import com.arkivanov.essenty.instancekeeper.getOrCreate
 import com.arkivanov.essenty.statekeeper.StateKeeper
 import io.github.xxfast.decompose.LocalComponentContext
-import kotlinx.coroutines.CoroutineScope
-import kotlin.coroutines.CoroutineContext
 import kotlin.reflect.KClass
 
+/***
+ * Creates a instance of [T] that is scoped to the current screen
+ *
+ * @param viewModelClass class of [T] instance
+ * @param block lambda to create an instance of [T] with a given [SavedStateHandle]
+ */
 @Suppress("UNCHECKED_CAST") // ViewModels must be Instances
 @Composable
 fun <T : Instance> rememberViewModel(

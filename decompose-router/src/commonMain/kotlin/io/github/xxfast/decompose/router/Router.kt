@@ -12,17 +12,31 @@ import com.arkivanov.essenty.parcelable.Parcelable
 import io.github.xxfast.decompose.rememberChildStack
 import kotlin.reflect.KClass
 
-/**
+/***
+ * Router with a given navigator and a stack
  * Detailed breakdown of this available [here](https://proandroiddev.com/diy-compose-multiplatform-navigation-with-decompose-94ac8126e6b5)
+ *
+ * @param navigator decompose navigator to use
+ * @param stack state of decompose child stack to use
  */
 class Router<C : Parcelable>(
   private val navigator: StackNavigation<C>,
   val stack: State<ChildStack<C, ComponentContext>>,
 ) : StackNavigation<C> by navigator
 
+/***
+ * Compositional local for component context
+ */
 val LocalRouter: ProvidableCompositionLocal<Router<*>?> =
   staticCompositionLocalOf { null }
 
+/***
+ * Creates a router that retains a stack of [C] configuration
+ *
+ * @param type configuration class type
+ * @param stack initial stack of configurations
+ * @param handleBackButton should the router handle back button
+ */
 @Composable
 fun <C : Parcelable> rememberRouter(
   type: KClass<C>,
