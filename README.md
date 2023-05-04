@@ -15,7 +15,7 @@
 ![badge-android](http://img.shields.io/badge/platform-android-6EDB8D.svg?style=flat)
 ![badge-wearos](http://img.shields.io/badge/platform-wearos-8ECDA0.svg?style=flat)
 ![badge-desktop](http://img.shields.io/badge/platform-desktop-4D76CD.svg?style=flat)
-![badge-desktop](http://img.shields.io/badge/platform-ios-EAEAEA.svg?style=flat)
+![badge-ios](http://img.shields.io/badge/platform-ios-EAEAEA.svg?style=flat)
 ![badge-browser](https://img.shields.io/badge/platform-js-F8DB5D.svg?style=flat)
 
 A Compose-multiplatform navigation library that leverage [Decompose](https://github.com/arkivanov/Decompose) to create an API inspired by [Conductor](https://github.com/bluelinelabs/Conductor)
@@ -26,7 +26,7 @@ A detailed breakdown available in this [Medium article](https://proandroiddev.co
 - 🚏 A `Router` that manages a FILO stack for your screen configurations
 - 📦 `rememberViewModel()` lets you retain instances across configuration changes and gets cleared when the user leaves the screen
 - ☠️ A `SavedStateHandle` to restore state gracefully after the process death. (for Android)
-- 🚉 Multiplatform!
+- 🚉 Multiplatform! Supports Android, WearOS, Desktop, iOS and Web
 
 ## Adding to your project
 
@@ -42,6 +42,7 @@ repositories {
 ## At a glance
 
 ```kotlin
+// Declare your screen configurations for type-safety
 sealed class Screen: Parcelable {
   @Parcelize object List : Screen()
   @Parcelize data class Details(val detail: String) : Screen()
@@ -49,43 +50,38 @@ sealed class Screen: Parcelable {
 
 @Composable
 fun ListDetailScreen() {
+  // Create a router with a stack of screen configurations 🚏
   val router: Router<Screen> = rememberRouter(listOf(List))
 
-  RoutedContent(
-    router = router,
-    animation = stackAnimation(slide()),
-  ) { screen ->
+  // Hoist your screens for each configuration 🏗️
+  RoutedContent(router = router) { screen ->
     when (screen) {
-      List -> ListScreen(onSelect { detail -> router.push(detail) } )
+      List -> ListScreen(
+        // Navigate by pushing new configurations on the router 🧭
+        onSelectItem = { detail -> router.push(detail) } 
+      )
+      
       is Details -> DetailsScreen(screen.detail)
     }
   }
 }
 
-@Composable
-fun ListScreen(onSelect: (detail: String) -> Unit) {
-  val viewModel: ListViewModel = 
-    rememberViewModel { savedState -> ListViewModel(savedState) }
-  
-  val state: ListState by viewModel.states.collectAsState()
+// If you want your view-model to survive config changes 🔁, make it implement the [Instance] interface
+class ListViewModel : InstanceKeeper.Instance
 
-  LazyColumn {
-    items(state.items) { item ->
-      TextButton(onClick = { onSelect(item) } ) {
-        Text(text = item)
-      }
-    }
-  }
+// If you want your state to process death ☠️, derive your initial state from [SavedStateHandle] 
+class DetailViewModel(savedState: SavedStateHandle, detail: String) : InstanceKeeper.Instance {
+  private val initialState: DetailState = savedState.get() ?: DetailState(detail)
+  private val stateFlow = MutableStateFlow(initialState)
+  val states: StateFlow<DetailState> = stateFlow
 }
 
 @Composable
-fun DetailScreen(detail: String) {
-  val viewModel: ListViewModel = 
-    rememberViewModel(key = detail) { DetailsViewModel(detail) }
-
-  val state: DetailsState by viewModel.states.collectAsState()
-
-  Toolbar(title = detail)
-  Text(state.descriptions)
+fun DetailsScreen(detail: String) {
+  // Scope your view models to screen so that they get cleared when user leaves the screen 
+  val viewModel: DetailViewModel = rememberViewModel { savedState -> DetailViewModel(savedState, detail) }
+  
+  val state: DetailState by viewModel.states.collectAsState()
+  Text(text = state.detail)
 }
 ```
