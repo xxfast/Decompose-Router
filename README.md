@@ -42,7 +42,7 @@ repositories {
 Include the dependency in `commonMain`. Latest version [![Maven Central](https://img.shields.io/maven-central/v/io.github.xxfast/decompose-router?color=blue)](https://search.maven.org/search?q=g:io.github.xxfast)
 
 > **Note**
-> Check for compatible versions of Compose Multiplatform, Decompose and Essenty in the [Version Catelog](gradle/libs.version.toml)
+> Check for compatible versions of Compose Multiplatform, Decompose and Essenty in the [Version Catalog](gradle/libs.versions.toml)
 
 <details>
   <summary>1. With version catalog</summary>
@@ -50,7 +50,7 @@ Include the dependency in `commonMain`. Latest version [![Maven Central](https:/
   **libs.version.toml**
   ```toml
   [versions]
-  # Check in gradle/libs.version.toml
+  # Check in gradle/libs.versions.toml
 
   [libraries]
   # For Compose Multiplatform
@@ -164,3 +164,104 @@ fun DetailsScreen(detail: String) {
   Text(text = state.detail)
 }
 ```
+
+## Platform configurations 🚉
+
+<details>
+  <summary>Android / WearOS</summary>
+
+**build.gradle.kts**
+  ```kotlin
+  class MainActivity : ComponentActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+      super.onCreate(savedInstanceState)
+      val rootComponentContext: DefaultComponentContext = defaultComponentContext()
+      setContent {
+        CompositionLocalProvider(LocalComponentContext provides rootComponentContext) {
+          MaterialTheme {
+            ListDetailScreen()
+          }
+        }
+      }
+    }
+  }
+  ```
+</details>
+
+<details>
+  <summary>Desktop</summary>
+
+**build.gradle.kts**
+  ```kotlin
+  fun main() {
+    val lifecycle = LifecycleRegistry()
+    val rootComponentContext = DefaultComponentContext(lifecycle = lifecycle)
+    
+    application {
+      Window {
+        CompositionLocalProvider(LocalComponentContext provides rootComponentContext) {
+          MaterialTheme {
+            ListDetailScreen()
+          }
+        }
+      }
+    }
+  }
+  ```
+</details>
+
+<details>
+  <summary>iOS</summary>
+
+**build.gradle.kts**
+  ```kotlin
+  fun main(): UIViewController = ComposeUIViewController {
+    val lifecycle = LifecycleRegistry()
+    val rootComponentContext = DefaultComponentContext(lifecycle = lifecycle)
+    CompositionLocalProvider(LocalComponentContext provides rootComponentContext) {
+      MaterialTheme {
+        ListDetailScreen()
+      }
+    }
+  }
+
+  ```
+</details>
+
+<details>
+  <summary>Web</summary>
+
+**build.gradle.kts**
+  ```kotlin
+  fun main() {
+    onWasmReady {
+      val lifecycle = LifecycleRegistry()
+      val rootComponentContext = DefaultComponentContext(lifecycle = lifecycle)
+  
+      BrowserViewportWindow(..) {
+        CompositionLocalProvider(LocalComponentContext provides rootComponentContext) {
+          MaterialTheme {
+            ListDetailScreen()
+          }
+        }
+      }
+    }
+  }
+  ```
+</details>
+
+## Licence
+
+    Copyright 2023 Isuru Rajapakse
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
