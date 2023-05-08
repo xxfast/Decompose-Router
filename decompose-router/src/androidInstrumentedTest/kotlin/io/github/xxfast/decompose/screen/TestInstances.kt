@@ -20,12 +20,13 @@ class ListInstance(savedStateHandle: SavedStateHandle) : Instance, CoroutineScop
     flow {
       emit(ListState(Loading))
       delay(300L)
-      emit(ListState((1.. 100).map { it.toString() }))
+      emit(ListState((1.. 100).toList()))
     }
       .stateIn(this, Lazily, initialState)
   }
 
   override val coroutineContext: CoroutineContext = Dispatchers.Main
+
   override fun onDestroy() {
     coroutineContext.cancel()
   }

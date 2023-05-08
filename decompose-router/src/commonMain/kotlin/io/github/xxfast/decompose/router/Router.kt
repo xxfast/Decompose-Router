@@ -58,5 +58,3 @@ fun <C : Parcelable> rememberRouter(
 
   return remember { Router(navigator = navigator, stack = childStackState) }
 }
-
-val <C: Parcelable> Router<C>.configuration: C get() = stack.value.active.configuration

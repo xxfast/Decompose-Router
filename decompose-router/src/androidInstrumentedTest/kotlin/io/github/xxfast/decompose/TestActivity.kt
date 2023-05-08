@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.core.view.WindowCompat
 import com.arkivanov.decompose.DefaultComponentContext
@@ -17,9 +18,11 @@ class TestActivity : ComponentActivity() {
     val rootComponentContext: DefaultComponentContext = defaultComponentContext()
 
     setContent {
-      CompositionLocalProvider(LocalComponentContext provides rootComponentContext) {
-        MaterialTheme {
-          HomeScreen()
+      Surface {
+        CompositionLocalProvider(LocalComponentContext provides rootComponentContext) {
+          MaterialTheme {
+            HomeScreen()
+          }
         }
       }
     }
