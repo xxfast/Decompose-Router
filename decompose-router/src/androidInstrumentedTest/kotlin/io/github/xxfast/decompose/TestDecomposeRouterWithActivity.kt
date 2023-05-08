@@ -35,22 +35,6 @@ private val lazyColumn = hasTestTag(LAZY_COLUMN_TAG)
 
 typealias TestActivityRule = AndroidComposeTestRule<ActivityScenarioRule<TestActivity>, TestActivity>
 
-class TestActivity : ComponentActivity() {
-  override fun onCreate(savedInstanceState: Bundle?) {
-    super.onCreate(savedInstanceState)
-    WindowCompat.setDecorFitsSystemWindows(window, false)
-    val rootComponentContext: DefaultComponentContext = defaultComponentContext()
-
-    setContent {
-      CompositionLocalProvider(LocalComponentContext provides rootComponentContext) {
-        MaterialTheme {
-          HomeScreen()
-        }
-      }
-    }
-  }
-}
-
 class TestDecomposeRouterWithActivity {
   @get:Rule
   val composeRule: TestActivityRule = createAndroidComposeRule()

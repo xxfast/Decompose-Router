@@ -59,15 +59,18 @@ kotlin {
 
     val jsMain by getting
 
-    val androidInstrumentedTest by getting {
+    val androidMain by getting {
       dependencies {
-        implementation(project(":decompose-router"))
         implementation(compose.material3)
         implementation(libs.decompose)
         implementation(libs.decompose.compose.multiplatform)
         implementation(libs.androidx.activity.ktx)
         implementation(libs.androidx.activity.compose)
-        implementation(libs.compose.ui.test.manifest)
+      }
+    }
+
+    val androidInstrumentedTest by getting {
+      dependencies {
         implementation(libs.compose.ui.junit4)
       }
     }
