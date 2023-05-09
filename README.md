@@ -145,23 +145,24 @@ fun ListDetailScreen() {
   }
 }
 
-// If you want your view-model to survive config changes 🔁, make it implement the [Instance] interface
-class ListViewModel : InstanceKeeper.Instance
-
-// If you want your state to survive process death ☠️, derive your initial state from [SavedStateHandle] 
-class DetailViewModel(savedState: SavedStateHandle, detail: String) : InstanceKeeper.Instance {
-  private val initialState: DetailState = savedState.get() ?: DetailState(detail)
-  private val stateFlow = MutableStateFlow(initialState)
-  val states: StateFlow<DetailState> = stateFlow
-}
+// If you want any instance (a view model, state-holder or whatever) to be remembered on a route,
+// make them inherit [Instance] interface 
+class ListInstance : InstanceKeeper.Instance
 
 @Composable
 fun DetailsScreen(detail: String) {
-  // Scope your view models to screen so that they get cleared when user leaves the screen 
-  val viewModel: DetailViewModel = rememberViewModel { savedState -> DetailViewModel(savedState, detail) }
+  // And then scope your instance to screen with [rememberOnRoute] so that they get cleared when user leaves the screen 
+  val instance: DetailInstance = rememberOnRoute { savedState -> DetailInstance(savedState, detail) }
   
   val state: DetailState by viewModel.states.collectAsState()
   Text(text = state.detail)
+}
+
+// If you want your state to survive process death ☠️, derive your initial state from [SavedStateHandle] 
+class DetailInstance(savedState: SavedStateHandle, detail: String) : InstanceKeeper.Instance {
+  private val initialState: DetailState = savedState.get() ?: DetailState(detail)
+  private val stateFlow = MutableStateFlow(initialState)
+  val states: StateFlow<DetailState> = stateFlow
 }
 ```
 
