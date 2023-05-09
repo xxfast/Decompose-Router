@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
+
 plugins {
   kotlin("multiplatform")
   id("com.android.library")
@@ -31,8 +33,6 @@ kotlin {
       dependencies {
         implementation(compose.runtime)
         implementation(compose.foundation)
-        implementation(compose.material3)
-        implementation(compose.materialIconsExtended)
         implementation(libs.essenty.parcelable)
         implementation(libs.decompose)
         implementation(libs.decompose.compose.multiplatform)
@@ -58,6 +58,29 @@ kotlin {
     }
 
     val jsMain by getting
+
+    val androidMain by getting {
+      dependencies {
+        implementation(compose.material3)
+        implementation(libs.decompose)
+        implementation(libs.decompose.compose.multiplatform)
+        implementation(libs.androidx.activity.ktx)
+        implementation(libs.androidx.activity.compose)
+      }
+    }
+
+    val androidInstrumentedTest by getting {
+      dependencies {
+        implementation(libs.compose.ui.junit4)
+      }
+    }
+
+    @OptIn(ExperimentalKotlinGradlePluginApi::class)
+    sourceSets.invokeWhenCreated("androidDebug") {
+      dependencies {
+        implementation(libs.compose.ui.test.manifest)
+      }
+    }
   }
 }
 
@@ -67,11 +90,18 @@ android {
   defaultConfig {
     minSdk = 24
     targetSdk = 33
+    testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
   }
 
   compileOptions {
     sourceCompatibility = JavaVersion.VERSION_17
     targetCompatibility = JavaVersion.VERSION_17
+  }
+
+  testOptions {
+    unitTests {
+      isIncludeAndroidResources = true
+    }
   }
 }
 
