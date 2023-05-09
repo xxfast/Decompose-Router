@@ -145,20 +145,18 @@ fun ListDetailScreen() {
   }
 }
 
-// If you want any instance (a view model, state-holder or whatever) to be remembered on a route,
-// make them inherit [Instance] interface 
-class ListInstance : InstanceKeeper.Instance
-
 @Composable
 fun DetailsScreen(detail: String) {
-  // And then scope your instance to screen with [rememberOnRoute] so that they get cleared when user leaves the screen 
+  // 📦 Scope an instance (a view model, a state-holder or whatever) to a route with [rememberOnRoute] 
+  //   1. Makes your instances survive configuration changes (on android) 🔁
+  //   2. Holds-on the instance as long as it is in the backstack 🔗
   val instance: DetailInstance = rememberOnRoute { savedState -> DetailInstance(savedState, detail) }
   
-  val state: DetailState by viewModel.states.collectAsState()
+  val state: DetailState by instance.states.collectAsState()
   Text(text = state.detail)
 }
 
-// If you want your state to survive process death ☠️, derive your initial state from [SavedStateHandle] 
+// If you want your state to survive process death ☠️ derive your initial state from [SavedStateHandle] 
 class DetailInstance(savedState: SavedStateHandle, detail: String) : InstanceKeeper.Instance {
   private val initialState: DetailState = savedState.get() ?: DetailState(detail)
   private val stateFlow = MutableStateFlow(initialState)
