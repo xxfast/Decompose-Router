@@ -46,8 +46,8 @@ import com.arkivanov.decompose.router.stack.pop
 import com.arkivanov.decompose.router.stack.push
 import io.github.xxfast.decompose.router.Router
 import io.github.xxfast.decompose.router.content.RoutedContent
+import io.github.xxfast.decompose.router.rememberOnRoute
 import io.github.xxfast.decompose.router.rememberRouter
-import io.github.xxfast.decompose.router.rememberViewModel
 import io.github.xxfast.decompose.screen.Screen.Round
 
 const val TOOLBAR_TAG = "toolbar"
@@ -82,7 +82,7 @@ fun HomeScreen() {
 fun ListScreen(
   onSelect: (count: Int) -> Unit,
 ) {
-  val instance: ListInstance = rememberViewModel(ListInstance::class) { savedState ->
+  val instance: ListInstance = rememberOnRoute(ListInstance::class) { savedState ->
     ListInstance(savedState)
   }
 

@@ -145,23 +145,22 @@ fun ListDetailScreen() {
   }
 }
 
-// If you want your view-model to survive config changes 🔁, make it implement the [Instance] interface
-class ListViewModel : InstanceKeeper.Instance
+@Composable
+fun DetailsScreen(detail: String) {
+  // 📦 Scope an instance (a view model, a state-holder or whatever) to a route with [rememberOnRoute] 
+  //   1. Makes your instances survive configuration changes (on android) 🔁
+  //   2. Holds-on the instance as long as it is in the backstack 🔗
+  val instance: DetailInstance = rememberOnRoute { savedState -> DetailInstance(savedState, detail) }
+  
+  val state: DetailState by instance.states.collectAsState()
+  Text(text = state.detail)
+}
 
-// If you want your state to survive process death ☠️, derive your initial state from [SavedStateHandle] 
-class DetailViewModel(savedState: SavedStateHandle, detail: String) : InstanceKeeper.Instance {
+// If you want your state to survive process death ☠️ derive your initial state from [SavedStateHandle] 
+class DetailInstance(savedState: SavedStateHandle, detail: String) : InstanceKeeper.Instance {
   private val initialState: DetailState = savedState.get() ?: DetailState(detail)
   private val stateFlow = MutableStateFlow(initialState)
   val states: StateFlow<DetailState> = stateFlow
-}
-
-@Composable
-fun DetailsScreen(detail: String) {
-  // Scope your view models to screen so that they get cleared when user leaves the screen 
-  val viewModel: DetailViewModel = rememberViewModel { savedState -> DetailViewModel(savedState, detail) }
-  
-  val state: DetailState by viewModel.states.collectAsState()
-  Text(text = state.detail)
 }
 ```
 

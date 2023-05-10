@@ -13,6 +13,7 @@ public final class io/github/xxfast/decompose/router/Router : com/arkivanov/deco
 
 public final class io/github/xxfast/decompose/router/RouterKt {
 	public static final fun getLocalRouter ()Landroidx/compose/runtime/ProvidableCompositionLocal;
+	public static final fun rememberOnRoute (Lkotlin/reflect/KClass;Lkotlin/jvm/functions/Function1;Landroidx/compose/runtime/Composer;I)Lcom/arkivanov/essenty/instancekeeper/InstanceKeeper$Instance;
 	public static final fun rememberRouter (Lkotlin/reflect/KClass;Ljava/util/List;ZLandroidx/compose/runtime/Composer;II)Lio/github/xxfast/decompose/router/Router;
 }
 
@@ -35,10 +36,6 @@ public final class io/github/xxfast/decompose/router/SavedStateHandle : com/arki
 	public final fun getValue ()Lcom/arkivanov/essenty/parcelable/Parcelable;
 	public fun onDestroy ()V
 	public final fun set (Lcom/arkivanov/essenty/parcelable/Parcelable;)V
-}
-
-public final class io/github/xxfast/decompose/router/ViewModelKt {
-	public static final fun rememberViewModel (Lkotlin/reflect/KClass;Lkotlin/jvm/functions/Function1;Landroidx/compose/runtime/Composer;I)Lcom/arkivanov/essenty/instancekeeper/InstanceKeeper$Instance;
 }
 
 public final class io/github/xxfast/decompose/router/content/RoutedContentKt {
