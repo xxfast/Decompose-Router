@@ -7,6 +7,9 @@ jobs:
   test:
     name: Test android instrumentation
     runs-on: macos-latest
+    strategy:
+      matrix:
+        config: [ { sdk: 21 }, { target: 33 }]
 
     steps:
       - uses: actions/checkout@v3
@@ -30,5 +33,5 @@ jobs:
       - name: Run android instrumentation tests for sanity check
         uses: reactivecircus/android-emulator-runner@v2
         with:
-          api-level: 29
+          api-level: ${{ matrix.config.sdk }}
           script: ./gradlew :decompose-router:connectedDebugAndroidTest --stacktrace
