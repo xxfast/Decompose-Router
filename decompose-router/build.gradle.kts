@@ -88,7 +88,7 @@ android {
   namespace = "io.github.xxfast.decompose.router"
   compileSdk = 33
   defaultConfig {
-    minSdk = 24
+    minSdk = 21
     targetSdk = 33
     testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
   }

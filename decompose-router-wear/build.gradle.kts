@@ -32,7 +32,7 @@ android {
   namespace = "io.github.xxfast.decompose.router.wear"
   compileSdk = 33
   defaultConfig {
-    minSdk = 24
+    minSdk = 21
     targetSdk = 33
   }
 
