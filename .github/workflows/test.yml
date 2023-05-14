@@ -9,7 +9,7 @@ jobs:
     runs-on: macos-latest
     strategy:
       matrix:
-        config: [ { sdk: 21 }, { target: 33 }]
+        config: [ { sdk: 21 }, { sdk: 33 }]
 
     steps:
       - uses: actions/checkout@v3
