@@ -86,8 +86,10 @@ fun <T : Instance> rememberOnRoute(
 
   val packageName: String =
     requireNotNull(instanceClass.simpleName) { "Unable to retain anonymous instance of $instanceClass"}
-  val instanceKey = "$packageName.instance"
-  val stateKey = "$packageName.savedState"
+
+  val keyName = "$packageName.($key)"
+  val instanceKey = "$keyName.instance"
+  val stateKey = "$keyName.savedState"
 
   val (instance, savedState) = remember(key) {
     val savedState: SavedStateHandle = instanceKeeper
