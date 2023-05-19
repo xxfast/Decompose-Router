@@ -24,7 +24,7 @@ A detailed breakdown available in this [Medium article](https://proandroiddev.co
 
 ## Features
 - 🚏 A `Router` that manages a FILO stack for your screen configurations
-- 📦 `rememberViewModel()` lets you retain your view model across configuration changes and gets cleared when the user leaves the screen
+- 📦 `rememberOnRoute()` lets you retain your view model across configuration changes and gets cleared when the user leaves the screen
 - ☠️ A `SavedStateHandle` to restore state gracefully after the process death. (for Android)
 - 🚉 Multiplatform! Supports Android, WearOS, Desktop, iOS and Web
 
