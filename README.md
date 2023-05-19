@@ -148,9 +148,10 @@ fun ListDetailScreen() {
 @Composable
 fun DetailsScreen(detail: String) {
   // 📦 Scope an instance (a view model, a state-holder or whatever) to a route with [rememberOnRoute] 
-  //   1. Makes your instances survive configuration changes (on android) 🔁
-  //   2. Holds-on the instance as long as it is in the backstack 🔗
-  val instance: DetailInstance = rememberOnRoute { savedState -> DetailInstance(savedState, detail) }
+  // This makes your instances survive configuration changes (on android) 🔁
+  // And holds-on the instance as long as it is in the backstack 🔗
+  // Pass in key if you want to reissue a new instance when key changes 🔑 (optional) 
+  val instance: DetailInstance = rememberOnRoute(key = detail) { savedState -> DetailInstance(savedState, detail) }
   
   val state: DetailState by instance.states.collectAsState()
   Text(text = state.detail)

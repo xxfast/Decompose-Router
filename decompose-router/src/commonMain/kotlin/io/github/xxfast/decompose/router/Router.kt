@@ -70,12 +70,14 @@ fun <C : Parcelable> rememberRouter(
  * Creates a instance of [T] that is scoped to the current route
  *
  * @param instanceClass class of [T] instance
+ * @param key key to remember the instance with. Defaults to [instanceClass]
  * @param block lambda to create an instance of [T] with a given [SavedStateHandle]
  */
 @Suppress("UNCHECKED_CAST")
 @Composable
 fun <T : Instance> rememberOnRoute(
   instanceClass: KClass<T>,
+  key: Any = instanceClass,
   block: @DisallowComposableCalls (savedState: SavedStateHandle) -> T
 ): T {
   val component: ComponentContext = LocalComponentContext.current
@@ -87,7 +89,7 @@ fun <T : Instance> rememberOnRoute(
   val instanceKey = "$packageName.instance"
   val stateKey = "$packageName.savedState"
 
-  val (instance, savedState) = remember(instanceClass) {
+  val (instance, savedState) = remember(key) {
     val savedState: SavedStateHandle = instanceKeeper
       .getOrCreate(stateKey) { SavedStateHandle(stateKeeper.consume(stateKey, SavedState::class)) }
     var instance: T? = instanceKeeper.get(instanceKey) as T?
