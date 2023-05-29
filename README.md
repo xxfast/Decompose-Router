@@ -122,9 +122,10 @@ Include the dependency in `commonMain`. Latest version [![Maven Central](https:/
 
 ```kotlin
 // Declare your screen configurations for type-safety
+@Parcelize
 sealed class Screen: Parcelable {
-  @Parcelize object List : Screen()
-  @Parcelize data class Details(val detail: String) : Screen()
+  object List : Screen()
+  data class Details(val detail: String) : Screen()
 }
 
 @Composable
