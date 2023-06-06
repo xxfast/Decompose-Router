@@ -59,7 +59,7 @@ Include the dependency in `commonMain`. Latest version [![Maven Central](https:/
   # For Compose Wear
   decompose-router-wear = { module = "io.github.xxfast:decompose-router-wear", version.ref = "decompose-router" }
 
-  # You will probably need to also bring in decompose and essenty
+  # You will need to also bring in decompose and essenty
   decompose = { module = "com.arkivanov.decompose:decompose", version.ref = "decompose" }
   decompose-compose-multiplatform = { module = "com.arkivanov.decompose:extensions-compose-jetbrains", version.ref = "decompose" }
   essenty-parcelable = { module = "com.arkivanov.essenty:parcelable", version.ref = "essenty" }
@@ -101,7 +101,7 @@ Include the dependency in `commonMain`. Latest version [![Maven Central](https:/
       dependencies {
         implementation("io.github.xxfast:decompose-router:${versions.decompose-router}")
   
-        // You will probably need to also bring in decompose and essenty
+        // You will need to also bring in decompose and essenty
         implementation("com.arkivanov.decompose:decompose:${versions.decompose}")
         implementation("com.arkivanov.decompose:extensions-compose-jetbrains:${versions.decompose}")
         implementation("com.arkivanov.essenty:parcelable:${versions.essenty}")
@@ -122,9 +122,10 @@ Include the dependency in `commonMain`. Latest version [![Maven Central](https:/
 
 ```kotlin
 // Declare your screen configurations for type-safety
+@Parcelize
 sealed class Screen: Parcelable {
-  @Parcelize object List : Screen()
-  @Parcelize data class Details(val detail: String) : Screen()
+  object List : Screen()
+  data class Details(val detail: String) : Screen()
 }
 
 @Composable
