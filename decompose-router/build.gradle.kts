@@ -87,6 +87,7 @@ kotlin {
 android {
   namespace = "io.github.xxfast.decompose.router"
   compileSdk = 33
+  compileSdkPreview = "UpsideDownCake"
   defaultConfig {
     minSdk = 21
     targetSdk = 33
