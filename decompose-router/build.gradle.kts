@@ -86,11 +86,10 @@ kotlin {
 
 android {
   namespace = "io.github.xxfast.decompose.router"
-  compileSdk = 33
-  compileSdkPreview = "UpsideDownCake"
+  compileSdk = 34
   defaultConfig {
     minSdk = 21
-    targetSdk = 33
+    targetSdk = 34
     testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
   }
 

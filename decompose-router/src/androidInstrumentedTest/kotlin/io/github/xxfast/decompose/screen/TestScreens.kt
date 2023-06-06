@@ -40,10 +40,13 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import com.arkivanov.decompose.ExperimentalDecomposeApi
+import com.arkivanov.decompose.extensions.compose.jetbrains.stack.animation.predictiveBackAnimation
 import com.arkivanov.decompose.extensions.compose.jetbrains.stack.animation.slide
 import com.arkivanov.decompose.extensions.compose.jetbrains.stack.animation.stackAnimation
 import com.arkivanov.decompose.router.stack.pop
 import com.arkivanov.decompose.router.stack.push
+import io.github.xxfast.decompose.LocalComponentContext
 import io.github.xxfast.decompose.router.Router
 import io.github.xxfast.decompose.router.content.RoutedContent
 import io.github.xxfast.decompose.router.rememberOnRoute
@@ -56,12 +59,17 @@ const val TITLEBAR_TAG = "titleBar"
 const val DETAILS_TAG = "details"
 const val LAZY_COLUMN_TAG = "lazyColumn"
 
+@OptIn(ExperimentalDecomposeApi::class)
 @Composable
 fun HomeScreen() {
   val router: Router<Screen> = rememberRouter(Screen::class, listOf(Screen.Game))
   RoutedContent(
     router = router,
-    animation = stackAnimation(slide())
+    animation = predictiveBackAnimation(
+      animation = stackAnimation(slide()),
+      onBack = { router.pop() },
+      backHandler = LocalComponentContext.current.backHandler
+    )
   ) { screen ->
     when (screen) {
       Screen.Game -> ListScreen(

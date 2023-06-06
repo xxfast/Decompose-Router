@@ -30,10 +30,10 @@ kotlin {
 
 android {
   namespace = "io.github.xxfast.decompose.router.wear"
-  compileSdk = 33
+  compileSdk = 34
   defaultConfig {
     minSdk = 21
-    targetSdk = 33
+    targetSdk = 34
   }
 
   compileOptions {
