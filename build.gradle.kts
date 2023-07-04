@@ -2,7 +2,7 @@ import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
 
 plugins {
   id("org.jetbrains.dokka") version "1.8.20"
-  id("org.jetbrains.kotlinx.binary-compatibility-validator") version "0.13.1"
+  id("org.jetbrains.kotlinx.binary-compatibility-validator") version "0.13.2"
 }
 
 buildscript {
