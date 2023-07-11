@@ -47,18 +47,15 @@ val LocalRouter: ProvidableCompositionLocal<Router<*>?> =
 @Composable
 fun <C : Parcelable> rememberRouter(
   type: KClass<C>,
+  key: Any = "${type.key}.router",
   stack: List<C>,
   handleBackButton: Boolean = true
 ): Router<C> {
   val navigator: StackNavigation<C> = remember { StackNavigation() }
-
-  val packageName: String =
-    requireNotNull(type.simpleName) { "Unable to retain anonymous instance of $type"}
-
   val childStackState: State<ChildStack<C, ComponentContext>> = rememberChildStack(
     source = navigator,
     initialStack = { stack },
-    key = packageName,
+    key = key.toString(), // Has to use strings for Android 😢
     handleBackButton = handleBackButton,
     type = type,
   )
@@ -69,28 +66,22 @@ fun <C : Parcelable> rememberRouter(
 /***
  * Creates a instance of [T] that is scoped to the current route
  *
- * @param instanceClass class of [T] instance
- * @param key key to remember the instance with. Defaults to [instanceClass]
+ * @param type class of [T] instance
+ * @param key key to remember the instance with. Defaults to [type]'s key
  * @param block lambda to create an instance of [T] with a given [SavedStateHandle]
  */
 @Suppress("UNCHECKED_CAST")
 @Composable
 fun <T : Instance> rememberOnRoute(
-  instanceClass: KClass<T>,
-  key: Any = instanceClass,
+  type: KClass<T>,
+  key: Any = type.key,
   block: @DisallowComposableCalls (savedState: SavedStateHandle) -> T
 ): T {
   val component: ComponentContext = LocalComponentContext.current
   val stateKeeper: StateKeeper = component.stateKeeper
   val instanceKeeper: InstanceKeeper = component.instanceKeeper
-
-  val packageName: String =
-    requireNotNull(instanceClass.simpleName) { "Unable to retain anonymous instance of $instanceClass"}
-
-  val keyName = "$packageName.($key)"
-  val instanceKey = "$keyName.instance"
-  val stateKey = "$keyName.savedState"
-
+  val instanceKey = "$key.instance"
+  val stateKey = "$key.state"
   val (instance, savedState) = remember(key) {
     val savedState: SavedStateHandle = instanceKeeper
       .getOrCreate(stateKey) { SavedStateHandle(stateKeeper.consume(stateKey, SavedState::class)) }
