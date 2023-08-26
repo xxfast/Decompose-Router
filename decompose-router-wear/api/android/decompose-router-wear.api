@@ -1,0 +1,4 @@
+public final class io/github/xxfast/decompose/router/wear/content/RoutedContentKt {
+	public static final fun RoutedContent (Lio/github/xxfast/decompose/router/Router;Landroidx/compose/ui/Modifier;Lkotlin/jvm/functions/Function3;Landroidx/compose/runtime/Composer;II)V
+}
+
