@@ -62,7 +62,7 @@ const val LAZY_COLUMN_TAG = "lazyColumn"
 @OptIn(ExperimentalDecomposeApi::class)
 @Composable
 fun HomeScreen() {
-  val router: Router<Screen> = rememberRouter(Screen::class, listOf(Screen.Game))
+  val router: Router<Screen> = rememberRouter(Screen::class, stack = listOf(Screen.Game))
   RoutedContent(
     router = router,
     animation = predictiveBackAnimation(
