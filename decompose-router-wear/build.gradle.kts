@@ -5,12 +5,15 @@ plugins {
 }
 
 kotlin {
-  android {
+  androidTarget {
     publishLibraryVariants("release", "debug")
   }
 
+  // TODO: Remove the phantom target after https://github.com/Kotlin/dokka/issues/3122
+  jvm()
+
   sourceSets {
-    val commonMain by getting {
+    val androidMain by getting {
       dependencies {
         implementation(project(":decompose-router"))
         implementation(compose.uiTooling)
