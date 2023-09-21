@@ -17,6 +17,7 @@ import com.arkivanov.essenty.parcelable.Parcelable
 import com.arkivanov.essenty.statekeeper.StateKeeper
 import io.github.xxfast.decompose.LocalComponentContext
 import io.github.xxfast.decompose.rememberChildStack
+import io.github.xxfast.decompose.rememberStackNavigator
 import kotlin.reflect.KClass
 
 /***
@@ -51,16 +52,16 @@ fun <C : Parcelable> rememberRouter(
   stack: List<C>,
   handleBackButton: Boolean = true
 ): Router<C> {
-  val navigator: StackNavigation<C> = remember { StackNavigation() }
+  val navigator: StackNavigation<C> = rememberStackNavigator("$key.navigator")
   val childStackState: State<ChildStack<C, ComponentContext>> = rememberChildStack(
     source = navigator,
     initialStack = { stack },
-    key = key.toString(), // Has to use strings for Android 😢
+    key = "$key.stack",
     handleBackButton = handleBackButton,
     type = type,
   )
 
-  return remember { Router(navigator = navigator, stack = childStackState) }
+  return remember(key) { Router(navigator = navigator, stack = childStackState) }
 }
 
 /***

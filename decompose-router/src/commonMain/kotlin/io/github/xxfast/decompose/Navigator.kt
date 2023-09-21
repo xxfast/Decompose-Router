@@ -8,6 +8,7 @@ import androidx.compose.runtime.staticCompositionLocalOf
 import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.decompose.extensions.compose.jetbrains.subscribeAsState
 import com.arkivanov.decompose.router.stack.ChildStack
+import com.arkivanov.decompose.router.stack.StackNavigation
 import com.arkivanov.decompose.router.stack.StackNavigationSource
 import com.arkivanov.decompose.router.stack.childStack
 import com.arkivanov.essenty.lifecycle.doOnDestroy
@@ -47,6 +48,12 @@ val LocalComponentContext: ProvidableCompositionLocal<ComponentContext> =
   staticCompositionLocalOf { error("Root component context was not provided") }
 
 @Composable
+internal fun <C : Parcelable> rememberStackNavigator(key: String): StackNavigation<C> {
+  val componentContext: ComponentContext = LocalComponentContext.current
+  return remember(key) { componentContext.getOrCreate(key) { StackNavigation() } }
+}
+
+@Composable
 internal fun <C : Parcelable> rememberChildStack(
   type: KClass<C>,
   source: StackNavigationSource<C>,
@@ -54,9 +61,9 @@ internal fun <C : Parcelable> rememberChildStack(
   key: String = "DefaultChildStack",
   handleBackButton: Boolean = false,
 ): State<ChildStack<C, ComponentContext>> {
-  val componentContext = LocalComponentContext.current
+  val componentContext: ComponentContext = LocalComponentContext.current
 
-  return remember {
+  return remember(key) {
     componentContext.getOrCreate(key = key) {
       componentContext.childStack(
         source = source,
