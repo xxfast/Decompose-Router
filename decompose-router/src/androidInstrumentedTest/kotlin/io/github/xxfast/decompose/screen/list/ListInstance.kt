@@ -1,4 +1,4 @@
-package io.github.xxfast.decompose.screen
+package io.github.xxfast.decompose.screen.list
 
 import com.arkivanov.essenty.instancekeeper.InstanceKeeper.Instance
 import io.github.xxfast.decompose.router.SavedStateHandle
