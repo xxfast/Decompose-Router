@@ -7,7 +7,7 @@ import com.arkivanov.decompose.extensions.compose.jetbrains.stack.animation.slid
 import com.arkivanov.decompose.extensions.compose.jetbrains.stack.animation.stackAnimation
 import com.arkivanov.decompose.router.stack.pop
 import com.arkivanov.decompose.router.stack.push
-import io.github.xxfast.decompose.LocalComponentContext
+import io.github.xxfast.decompose.router.LocalRouterContext
 import io.github.xxfast.decompose.router.Router
 import io.github.xxfast.decompose.router.content.RoutedContent
 import io.github.xxfast.decompose.router.rememberRouter
@@ -26,7 +26,7 @@ fun HomeScreen() {
     animation = predictiveBackAnimation(
       animation = stackAnimation(slide()),
       onBack = { router.pop() },
-      backHandler = LocalComponentContext.current.backHandler
+      backHandler = LocalRouterContext.current.backHandler
     )
   ) { screen ->
     when (screen) {

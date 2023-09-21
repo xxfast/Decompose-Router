@@ -1,7 +1,3 @@
-public final class io/github/xxfast/decompose/NavigatorKt {
-	public static final fun getLocalComponentContext ()Landroidx/compose/runtime/ProvidableCompositionLocal;
-}
-
 public final class io/github/xxfast/decompose/router/Router : com/arkivanov/decompose/router/stack/StackNavigation {
 	public static final field $stable I
 	public fun <init> (Lcom/arkivanov/decompose/router/stack/StackNavigation;Landroidx/compose/runtime/State;)V
@@ -9,6 +5,20 @@ public final class io/github/xxfast/decompose/router/Router : com/arkivanov/deco
 	public fun navigate (Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function2;)V
 	public fun subscribe (Lkotlin/jvm/functions/Function1;)V
 	public fun unsubscribe (Lkotlin/jvm/functions/Function1;)V
+}
+
+public final class io/github/xxfast/decompose/router/RouterContext : com/arkivanov/decompose/ComponentContext {
+	public static final field $stable I
+	public fun <init> (Lcom/arkivanov/essenty/lifecycle/Lifecycle;Lcom/arkivanov/essenty/statekeeper/StateKeeper;Lcom/arkivanov/essenty/instancekeeper/InstanceKeeper;Lcom/arkivanov/essenty/backhandler/BackHandler;)V
+	public synthetic fun <init> (Lcom/arkivanov/essenty/lifecycle/Lifecycle;Lcom/arkivanov/essenty/statekeeper/StateKeeper;Lcom/arkivanov/essenty/instancekeeper/InstanceKeeper;Lcom/arkivanov/essenty/backhandler/BackHandler;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun getBackHandler ()Lcom/arkivanov/essenty/backhandler/BackHandler;
+	public fun getInstanceKeeper ()Lcom/arkivanov/essenty/instancekeeper/InstanceKeeper;
+	public fun getLifecycle ()Lcom/arkivanov/essenty/lifecycle/Lifecycle;
+	public fun getStateKeeper ()Lcom/arkivanov/essenty/statekeeper/StateKeeper;
+}
+
+public final class io/github/xxfast/decompose/router/RouterContextKt {
+	public static final fun getLocalRouterContext ()Landroidx/compose/runtime/ProvidableCompositionLocal;
 }
 
 public final class io/github/xxfast/decompose/router/RouterKt {
