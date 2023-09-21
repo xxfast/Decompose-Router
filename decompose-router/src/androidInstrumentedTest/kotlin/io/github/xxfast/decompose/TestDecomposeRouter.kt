@@ -16,16 +16,18 @@ import androidx.compose.ui.test.performScrollToNode
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import io.github.xxfast.decompose.screen.BACK_BUTTON_TAG
 import io.github.xxfast.decompose.screen.DETAILS_TAG
-import io.github.xxfast.decompose.screen.LAZY_COLUMN_TAG
-import io.github.xxfast.decompose.screen.TITLEBAR_TAG
+import io.github.xxfast.decompose.screen.FAVORITE_TAG
+import io.github.xxfast.decompose.screen.LIST_TAG
+import io.github.xxfast.decompose.screen.TITLE_BAR_TAG
 import org.junit.Rule
 import org.junit.Test
 
 private val backButton = hasTestTag(BACK_BUTTON_TAG)
-private val titleBar = hasTestTag(TITLEBAR_TAG)
+private val titleBar = hasTestTag(TITLE_BAR_TAG)
 private val details = hasTestTag(DETAILS_TAG)
 private val circularProgressIndicator = hasProgressBarRangeInfo(ProgressBarRangeInfo.Indeterminate)
-private val lazyColumn = hasTestTag(LAZY_COLUMN_TAG)
+private val lazyColumn = hasTestTag(LIST_TAG)
+private val favouriteButton = hasTestTag(FAVORITE_TAG)
 
 typealias TestActivityRule = AndroidComposeTestRule<ActivityScenarioRule<TestActivity>, TestActivity>
 
@@ -109,5 +111,21 @@ class TestDecomposeRouterWithActivity {
     // Verify if state and scroll position is restored
     onNode(circularProgressIndicator).assertDoesNotExist()
     onNode(hasText(testItem)).assertExists()
+  }
+
+  @Test
+  fun testNestedNavigation(): Unit = with(composeRule) {
+    onNode(favouriteButton).performClick()
+    onNode(titleBar).assertExists().assertTextEquals("Colors")
+    onNode(hasText("Primary")).performClick()
+    onNode(titleBar).assertExists().assertTextEquals("Primary")
+    onNode(backButton).performClick()
+    onNode(hasText("Secondary")).performClick()
+    onNode(titleBar).assertExists().assertTextEquals("Secondary")
+    onNode(hasText("10")).performClick()
+    onNode(titleBar).assertExists().assertTextEquals("10")
+    onNode(hasText("5")).performClick()
+    onNode(backButton).performClick()
+    onNode(titleBar).assertExists().assertTextEquals("Secondary")
   }
 }
