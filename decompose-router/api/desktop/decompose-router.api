@@ -24,7 +24,7 @@ public final class io/github/xxfast/decompose/router/RouterContextKt {
 public final class io/github/xxfast/decompose/router/RouterKt {
 	public static final fun getLocalRouter ()Landroidx/compose/runtime/ProvidableCompositionLocal;
 	public static final fun rememberOnRoute (Lkotlin/reflect/KClass;Ljava/lang/Object;Lkotlin/jvm/functions/Function1;Landroidx/compose/runtime/Composer;II)Lcom/arkivanov/essenty/instancekeeper/InstanceKeeper$Instance;
-	public static final fun rememberRouter (Lkotlin/reflect/KClass;Ljava/lang/Object;Ljava/util/List;ZLandroidx/compose/runtime/Composer;II)Lio/github/xxfast/decompose/router/Router;
+	public static final fun rememberRouter (Lkotlin/reflect/KClass;Ljava/lang/Object;ZLkotlin/jvm/functions/Function0;Landroidx/compose/runtime/Composer;II)Lio/github/xxfast/decompose/router/Router;
 }
 
 public final class io/github/xxfast/decompose/router/SavedState : com/arkivanov/essenty/parcelable/Parcelable {

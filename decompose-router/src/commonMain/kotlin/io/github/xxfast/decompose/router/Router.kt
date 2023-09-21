@@ -25,13 +25,13 @@ import kotlin.reflect.KClass
  * Router with a given navigator and a stack
  * Detailed breakdown of this available [here](https://proandroiddev.com/diy-compose-multiplatform-navigation-with-decompose-94ac8126e6b5)
  *
- * @param navigator decompose navigator to use
+ * @param navigation decompose navigator to use
  * @param stack state of decompose child stack to use
  */
 class Router<C : Parcelable>(
-  private val navigator: StackNavigation<C>,
+  private val navigation: StackNavigation<C>,
   val stack: State<ChildStack<C, RouterContext>>,
-) : StackNavigation<C> by navigator
+) : StackNavigation<C> by navigation
 
 /***
  * Compositional local for component context
@@ -43,33 +43,35 @@ val LocalRouter: ProvidableCompositionLocal<Router<*>?> =
  * Creates a router that retains a stack of [C] configuration
  *
  * @param type configuration class type
- * @param stack initial stack of configurations
+ * @param key
+ * @param initialStack initial stack of configurations
  * @param handleBackButton should the router handle back button
  */
 @Composable
 fun <C : Parcelable> rememberRouter(
   type: KClass<C>,
-  key: Any = "${type.key}.router",
-  stack: List<C>,
-  handleBackButton: Boolean = true
+  key: Any = type.key,
+  handleBackButton: Boolean = true,
+  initialStack: () -> List<C>,
 ): Router<C> {
-  val routerContext = LocalRouterContext.current
-  val keyStr = key.toString()
+  val routerContext: RouterContext = LocalRouterContext.current
+  val routerKey = "$key.router"
 
-  return remember {
-    routerContext.getOrCreate(key = keyStr) {
-      val navigation = StackNavigation<C>()
-      Router(
-        navigator = navigation,
-        stack = routerContext.childStack(
+  return remember(routerKey) {
+    routerContext.getOrCreate(key = routerKey) {
+      val navigation: StackNavigation<C> = StackNavigation()
+      val stack: State<ChildStack<C, RouterContext>> = routerContext
+        .childStack(
           source = navigation,
-          initialStack = { stack },
+          initialStack = initialStack,
           configurationClass = type,
-          key = keyStr,
+          key = routerKey,
           handleBackButton = handleBackButton,
           childFactory = { _, childComponentContext -> RouterContext(childComponentContext) },
-        ).asState(routerContext.lifecycle),
-      )
+        )
+        .asState(routerContext.lifecycle)
+
+      Router(navigation, stack)
     }
   }
 }
