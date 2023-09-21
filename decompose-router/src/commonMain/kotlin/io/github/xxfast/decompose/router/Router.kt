@@ -5,18 +5,20 @@ import androidx.compose.runtime.DisallowComposableCalls
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.ProvidableCompositionLocal
 import androidx.compose.runtime.State
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.staticCompositionLocalOf
-import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.decompose.router.stack.ChildStack
 import com.arkivanov.decompose.router.stack.StackNavigation
+import com.arkivanov.decompose.router.stack.childStack
+import com.arkivanov.decompose.value.Value
+import com.arkivanov.decompose.value.observe
 import com.arkivanov.essenty.instancekeeper.InstanceKeeper
 import com.arkivanov.essenty.instancekeeper.InstanceKeeper.Instance
 import com.arkivanov.essenty.instancekeeper.getOrCreate
+import com.arkivanov.essenty.lifecycle.Lifecycle
 import com.arkivanov.essenty.parcelable.Parcelable
 import com.arkivanov.essenty.statekeeper.StateKeeper
-import io.github.xxfast.decompose.LocalComponentContext
-import io.github.xxfast.decompose.rememberChildStack
 import kotlin.reflect.KClass
 
 /***
@@ -28,7 +30,7 @@ import kotlin.reflect.KClass
  */
 class Router<C : Parcelable>(
   private val navigator: StackNavigation<C>,
-  val stack: State<ChildStack<C, ComponentContext>>,
+  val stack: State<ChildStack<C, RouterContext>>,
 ) : StackNavigation<C> by navigator
 
 /***
@@ -51,16 +53,31 @@ fun <C : Parcelable> rememberRouter(
   stack: List<C>,
   handleBackButton: Boolean = true
 ): Router<C> {
-  val navigator: StackNavigation<C> = remember { StackNavigation() }
-  val childStackState: State<ChildStack<C, ComponentContext>> = rememberChildStack(
-    source = navigator,
-    initialStack = { stack },
-    key = key.toString(), // Has to use strings for Android 😢
-    handleBackButton = handleBackButton,
-    type = type,
-  )
+  val routerContext = LocalRouterContext.current
+  val keyStr = key.toString()
 
-  return remember { Router(navigator = navigator, stack = childStackState) }
+  return remember {
+    routerContext.getOrCreate(key = keyStr) {
+      val navigation = StackNavigation<C>()
+      Router(
+        navigator = navigation,
+        stack = routerContext.childStack(
+          source = navigation,
+          initialStack = { stack },
+          configurationClass = type,
+          key = keyStr,
+          handleBackButton = handleBackButton,
+          childFactory = { _, childComponentContext -> RouterContext(childComponentContext) },
+        ).asState(routerContext.lifecycle),
+      )
+    }
+  }
+}
+
+private fun <T : Any> Value<T>.asState(lifecycle: Lifecycle): State<T> {
+  val state = mutableStateOf(value)
+  observe(lifecycle = lifecycle) { state.value = it }
+  return state
 }
 
 /***
@@ -77,7 +94,7 @@ fun <T : Instance> rememberOnRoute(
   key: Any = type.key,
   block: @DisallowComposableCalls (savedState: SavedStateHandle) -> T
 ): T {
-  val component: ComponentContext = LocalComponentContext.current
+  val component: RouterContext = LocalRouterContext.current
   val stateKeeper: StateKeeper = component.stateKeeper
   val instanceKeeper: InstanceKeeper = component.instanceKeeper
   val instanceKey = "$key.instance"

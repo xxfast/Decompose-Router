@@ -17,12 +17,12 @@ import androidx.wear.compose.material.SwipeToDismissBox
 import androidx.wear.compose.material.SwipeToDismissKeys.Background
 import androidx.wear.compose.material.rememberSwipeToDismissBoxState
 import com.arkivanov.decompose.Child
-import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.decompose.router.stack.ChildStack
 import com.arkivanov.decompose.router.stack.pop
-import io.github.xxfast.decompose.LocalComponentContext
 import io.github.xxfast.decompose.router.LocalRouter
+import io.github.xxfast.decompose.router.LocalRouterContext
 import io.github.xxfast.decompose.router.Router
+import io.github.xxfast.decompose.router.RouterContext
 
 @OptIn(ExperimentalWearFoundationApi::class)
 @Composable
@@ -31,9 +31,9 @@ fun <C : Parcelable> RoutedContent(
   modifier: Modifier = Modifier,
   content: @Composable (C) -> Unit,
 ) {
-  val stack: ChildStack<C, ComponentContext> by router.stack
-  val active: Child.Created<C, ComponentContext> = stack.active
-  val background: Child.Created<C, ComponentContext>? = stack.backStack.lastOrNull()
+  val stack: ChildStack<C, RouterContext> by router.stack
+  val active: Child.Created<C, RouterContext> = stack.active
+  val background: Child.Created<C, RouterContext>? = stack.backStack.lastOrNull()
   val holder: SaveableStateHolder = rememberSaveableStateHolder()
   holder.RetainStates(stack.getConfigurations())
 
@@ -55,7 +55,7 @@ fun <C : Parcelable> RoutedContent(
     ) { isBackground ->
       val child = if (isBackground) requireNotNull(background) else active
       holder.SaveableStateProvider(child.configuration.key()) {
-        CompositionLocalProvider(LocalComponentContext provides child.instance) {
+        CompositionLocalProvider(LocalRouterContext provides child.instance) {
           HierarchicalFocusCoordinator(requiresFocus = { !isBackground }) {
             content(child.configuration)
           }

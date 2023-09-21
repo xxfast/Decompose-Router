@@ -66,6 +66,7 @@ kotlin {
         implementation(libs.decompose.compose.multiplatform)
         implementation(libs.androidx.activity.ktx)
         implementation(libs.androidx.activity.compose)
+        implementation(libs.androidx.fragment.ktx)
       }
     }
 
