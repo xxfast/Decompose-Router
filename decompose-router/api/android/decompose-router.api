@@ -2,6 +2,11 @@ public final class io/github/xxfast/decompose/NavigatorKt {
 	public static final fun getLocalComponentContext ()Landroidx/compose/runtime/ProvidableCompositionLocal;
 }
 
+public final class io/github/xxfast/decompose/router/RetainedComponentContextKt {
+	public static final fun retainedComponentContext (Landroidx/activity/ComponentActivity;)Lcom/arkivanov/decompose/ComponentContext;
+	public static final fun retainedComponentContext (Landroidx/fragment/app/Fragment;)Lcom/arkivanov/decompose/ComponentContext;
+}
+
 public final class io/github/xxfast/decompose/router/Router : com/arkivanov/decompose/router/stack/StackNavigation {
 	public static final field $stable I
 	public fun <init> (Lcom/arkivanov/decompose/router/stack/StackNavigation;Landroidx/compose/runtime/State;)V
