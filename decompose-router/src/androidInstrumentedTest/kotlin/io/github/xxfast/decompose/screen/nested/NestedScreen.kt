@@ -55,7 +55,7 @@ fun NestedScreen(
   onBack: () -> Unit,
   onSelect: (Int) -> Unit
 ) {
-  val router: Router<NestedScreens> = rememberRouter(NestedScreens::class, stack = listOf(Home))
+  val router: Router<NestedScreens> = rememberRouter(NestedScreens::class) { listOf(Home) }
 
   val items: List<Int> = buildList { repeat(50) { add(it) } }
 

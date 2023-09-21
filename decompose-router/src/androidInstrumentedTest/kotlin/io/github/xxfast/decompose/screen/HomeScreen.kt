@@ -18,8 +18,7 @@ import io.github.xxfast.decompose.screen.nested.NestedScreen
 @OptIn(ExperimentalDecomposeApi::class)
 @Composable
 fun HomeScreen() {
-  val router: Router<HomeScreens> =
-    rememberRouter(HomeScreens::class, stack = listOf(HomeScreens.List))
+  val router: Router<HomeScreens> = rememberRouter(HomeScreens::class) { listOf(HomeScreens.List) }
 
   RoutedContent(
     router = router,
