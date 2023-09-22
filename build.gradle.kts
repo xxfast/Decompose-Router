@@ -14,8 +14,8 @@ buildscript {
 
   dependencies {
     classpath(libs.agp)
-    classpath(libs.kotlin.gradle.plugin)
     classpath(libs.compose.multiplatform)
+    classpath(libs.kotlin.gradle.plugin)
   }
 }
 
@@ -29,6 +29,9 @@ allprojects {
 
   group = "io.github.xxfast"
   version = "0.5.1-SNAPSHOT"
+
+  // Do not publish the app
+  if (name.contains("app")) return@allprojects
 
   apply(plugin = "org.jetbrains.dokka")
   apply(plugin = "maven-publish")
