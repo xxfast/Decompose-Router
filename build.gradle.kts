@@ -19,6 +19,10 @@ buildscript {
   }
 }
 
+apiValidation {
+  ignoredProjects += listOf("app")
+}
+
 allprojects {
   repositories {
     google()
