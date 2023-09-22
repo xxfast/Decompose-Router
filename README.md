@@ -9,7 +9,7 @@
 
 [![Kotlin Experimental](https://kotl.in/badges/experimental.svg)](https://kotlinlang.org/docs/components-stability.html)
 [![Build](https://github.com/xxfast/Decompose-Router/actions/workflows/build.yml/badge.svg)](https://github.com/xxfast/Decompose-Router/actions/workflows/build.yml)
-[![Kotlin](https://img.shields.io/badge/Kotlin-1.9.0-blue.svg?style=flat&logo=kotlin)](https://kotlinlang.org)
+[![Kotlin](https://img.shields.io/badge/Kotlin-1.9.10-blue.svg?style=flat&logo=kotlin)](https://kotlinlang.org)
 [![Maven Central](https://img.shields.io/maven-central/v/io.github.xxfast/decompose-router?color=blue)](https://search.maven.org/search?q=g:io.github.xxfast)
 
 ![badge-android](http://img.shields.io/badge/platform-android-6EDB8D.svg?style=flat)
@@ -131,7 +131,7 @@ sealed class Screen: Parcelable {
 @Composable
 fun ListDetailScreen() {
   // Create a router with a stack of screen configurations 🚏
-  val router: Router<Screen> = rememberRouter(listOf(List))
+  val router: Router<Screen> = rememberRouter { listOf(List) }
 
   // Hoist your screens for each configuration 🏗️
   RoutedContent(router = router) { screen ->
@@ -176,9 +176,9 @@ class DetailInstance(savedState: SavedStateHandle, detail: String) : InstanceKee
   class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
       super.onCreate(savedInstanceState)
-      val rootComponentContext: DefaultComponentContext = defaultComponentContext()
+      val rootRouterContext: RouterContext = defaultRouterContext()
       setContent {
-        CompositionLocalProvider(LocalComponentContext provides rootComponentContext) {
+        CompositionLocalProvider(LocalRouterContext provides rootRouterContext) {
           MaterialTheme {
             ListDetailScreen()
           }
@@ -196,11 +196,11 @@ class DetailInstance(savedState: SavedStateHandle, detail: String) : InstanceKee
   ```kotlin
   fun main() {
     val lifecycle = LifecycleRegistry()
-    val rootComponentContext = DefaultComponentContext(lifecycle = lifecycle)
+    val rootRouterContext = RouterContext(lifecycle = lifecycle)
     
     application {
       Window {
-        CompositionLocalProvider(LocalComponentContext provides rootComponentContext) {
+        CompositionLocalProvider(LocalRouterContext provides rootRouterContext) {
           MaterialTheme {
             ListDetailScreen()
           }
@@ -218,8 +218,8 @@ class DetailInstance(savedState: SavedStateHandle, detail: String) : InstanceKee
   ```kotlin
   fun main(): UIViewController = ComposeUIViewController {
     val lifecycle = LifecycleRegistry()
-    val rootComponentContext = DefaultComponentContext(lifecycle = lifecycle)
-    CompositionLocalProvider(LocalComponentContext provides rootComponentContext) {
+    val rootRouterContext = RouterContext(lifecycle = lifecycle)
+    CompositionLocalProvider(LocalRouterContext provides rootRouterContext) {
       MaterialTheme {
         ListDetailScreen()
       }
@@ -237,7 +237,7 @@ class DetailInstance(savedState: SavedStateHandle, detail: String) : InstanceKee
   fun main() {
     onWasmReady {
       val lifecycle = LifecycleRegistry()
-      val rootComponentContext = DefaultComponentContext(lifecycle = lifecycle)
+      val rootRouterContext = RouterContext(lifecycle = lifecycle)
   
       BrowserViewportWindow(..) {
         CompositionLocalProvider(LocalComponentContext provides rootComponentContext) {
