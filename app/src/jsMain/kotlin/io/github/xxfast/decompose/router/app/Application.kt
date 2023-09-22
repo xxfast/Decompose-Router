@@ -10,10 +10,10 @@ import io.github.xxfast.decompose.router.app.utils.BrowserViewportWindow
 import org.jetbrains.skiko.wasm.onWasmReady
 
 fun main() {
-  onWasmReady {
-    val lifecycle = LifecycleRegistry()
-    val rootRouterContext = RouterContext(lifecycle = lifecycle)
+  val lifecycle = LifecycleRegistry()
+  val rootRouterContext = RouterContext(lifecycle = lifecycle)
 
+  onWasmReady {
     BrowserViewportWindow("App") {
       CompositionLocalProvider(
         LocalRouterContext provides rootRouterContext,

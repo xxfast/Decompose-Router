@@ -18,7 +18,7 @@ import io.github.xxfast.decompose.router.app.screens.HomeScreen
 import platform.UIKit.UIViewController
 
 @OptIn(ExperimentalDecomposeApi::class)
-fun Main(): UIViewController = ComposeUIViewController {
+fun Main(): UIViewController {
   val lifecycle = LifecycleRegistry()
   val backDispatcher = BackDispatcher()
 
@@ -27,21 +27,23 @@ fun Main(): UIViewController = ComposeUIViewController {
     backHandler = backDispatcher
   )
 
-  CompositionLocalProvider(
-    LocalRouterContext provides rootRouterContext,
-  ) {
-    MaterialTheme {
-      PredictiveBackGestureOverlay(
-        backDispatcher = backDispatcher, // Use the same BackDispatcher as above
-        backIcon = { progress, _ ->
-          PredictiveBackGestureIcon(
-            imageVector = Icons.Default.ArrowBack,
-            progress = progress,
-          )
-        },
-        modifier = Modifier.fillMaxSize(),
-      ) {
-        HomeScreen()
+  return ComposeUIViewController {
+    CompositionLocalProvider(
+      LocalRouterContext provides rootRouterContext,
+    ) {
+      MaterialTheme {
+        PredictiveBackGestureOverlay(
+          backDispatcher = backDispatcher, // Use the same BackDispatcher as above
+          backIcon = { progress, _ ->
+            PredictiveBackGestureIcon(
+              imageVector = Icons.Default.ArrowBack,
+              progress = progress,
+            )
+          },
+          modifier = Modifier.fillMaxSize(),
+        ) {
+          HomeScreen()
+        }
       }
     }
   }

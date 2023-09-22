@@ -4,7 +4,7 @@ import org.jetbrains.compose.desktop.application.dsl.TargetFormat.Msi
 
 plugins {
   kotlin("multiplatform")
-  id("com.android.library")
+  id("com.android.application")
   id("org.jetbrains.compose")
   id("kotlin-parcelize")
 }
