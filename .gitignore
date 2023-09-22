@@ -1,6 +1,5 @@
 *.iml
 .gradle
-.idea
 .DS_Store
 build
 captures
@@ -8,3 +7,12 @@ captures
 .cxx
 local.properties
 xcuserdata
+
+# Ignore .idea
+/.idea
+
+# But allow code styles and run configurations
+!/.idea/codeStyles
+!/.idea/runConfigurations
+!/.idea/icon.svg
+!/.idea/.name
