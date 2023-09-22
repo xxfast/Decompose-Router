@@ -1,3 +1,7 @@
+import org.jetbrains.compose.desktop.application.dsl.TargetFormat.Deb
+import org.jetbrains.compose.desktop.application.dsl.TargetFormat.Dmg
+import org.jetbrains.compose.desktop.application.dsl.TargetFormat.Msi
+
 plugins {
   kotlin("multiplatform")
   id("com.android.library")
@@ -24,6 +28,14 @@ kotlin {
   ).forEach {
     it.binaries.framework {
       baseName = "app"
+    }
+  }
+
+  jvm("desktop") {
+    compilations.all {
+      kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_17.getMajorVersion()
+      }
     }
   }
 
@@ -61,6 +73,14 @@ kotlin {
         implementation(libs.compose.ui.junit4)
       }
     }
+
+    val desktopMain by getting {
+      dependencies {
+        implementation(compose.desktop.currentOs)
+        implementation(libs.decompose.compose.multiplatform)
+        implementation(libs.kotlinx.coroutines.swing)
+      }
+    }
   }
 }
 
@@ -84,5 +104,18 @@ android {
   compileOptions {
     sourceCompatibility = JavaVersion.VERSION_17
     targetCompatibility = JavaVersion.VERSION_17
+  }
+}
+
+compose.desktop {
+  application {
+    mainClass = "io.github.xxfast.decompose.router.app.ApplicationKt"
+
+    nativeDistributions {
+      targetFormats(Dmg, Msi, Deb)
+
+      packageName = "App"
+      packageVersion = "1.0.0"
+    }
   }
 }
