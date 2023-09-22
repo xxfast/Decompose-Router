@@ -39,6 +39,11 @@ kotlin {
     }
   }
 
+  js(IR) {
+    browser()
+    binaries.executable()
+  }
+
   sourceSets {
     val commonMain by getting {
       dependencies {
@@ -117,5 +122,10 @@ compose.desktop {
       packageName = "App"
       packageVersion = "1.0.0"
     }
+  }
+}
+
+compose.experimental {
+  web.application {
   }
 }
