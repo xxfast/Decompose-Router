@@ -11,29 +11,40 @@ import com.arkivanov.decompose.ExperimentalDecomposeApi
 import com.arkivanov.decompose.extensions.compose.jetbrains.PredictiveBackGestureIcon
 import com.arkivanov.decompose.extensions.compose.jetbrains.PredictiveBackGestureOverlay
 import com.arkivanov.essenty.backhandler.BackDispatcher
-import com.arkivanov.essenty.lifecycle.LifecycleRegistry
 import io.github.xxfast.decompose.router.LocalRouterContext
 import io.github.xxfast.decompose.router.RouterContext
 import io.github.xxfast.decompose.router.app.screens.HomeScreen
+import kotlinx.cinterop.BetaInteropApi
+import kotlinx.cinterop.ExperimentalForeignApi
+import kotlinx.cinterop.autoreleasepool
+import kotlinx.cinterop.cstr
+import kotlinx.cinterop.memScoped
+import kotlinx.cinterop.toCValues
+import platform.Foundation.NSStringFromClass
+import platform.UIKit.UIApplicationMain
 import platform.UIKit.UIViewController
 
+@OptIn(ExperimentalForeignApi::class, BetaInteropApi::class)
+fun main() {
+  val args = emptyArray<String>()
+  memScoped {
+    val argc = args.size + 1
+    val argv = (arrayOf("skikoApp") + args).map { it.cstr.ptr }.toCValues()
+    autoreleasepool {
+      UIApplicationMain(argc, argv, null, NSStringFromClass(AppDelegate))
+    }
+  }
+}
+
 @OptIn(ExperimentalDecomposeApi::class)
-fun Main(): UIViewController {
-  val lifecycle = LifecycleRegistry()
-  val backDispatcher = BackDispatcher()
-
-  val rootRouterContext = RouterContext(
-    lifecycle = lifecycle,
-    backHandler = backDispatcher
-  )
-
+fun MainUIController(routerContext: RouterContext): UIViewController {
   return ComposeUIViewController {
     CompositionLocalProvider(
-      LocalRouterContext provides rootRouterContext,
+      LocalRouterContext provides routerContext,
     ) {
       MaterialTheme {
         PredictiveBackGestureOverlay(
-          backDispatcher = backDispatcher, // Use the same BackDispatcher as above
+          backDispatcher = routerContext.backHandler as BackDispatcher, // Use the same BackDispatcher as above
           backIcon = { progress, _ ->
             PredictiveBackGestureIcon(
               imageVector = Icons.Default.ArrowBack,
