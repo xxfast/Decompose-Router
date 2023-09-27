@@ -214,19 +214,21 @@ class DetailInstance(savedState: SavedStateHandle, detail: String) : InstanceKee
 <details>
   <summary>iOS</summary>
 
-**build.gradle.kts**
+  Make sure to create your root router context outside of `ComposeUIViewController`'s composable lambda and pass it in to `LocalRouterContext` 
+
+  **build.gradle.kts**
   ```kotlin
-  fun main(): UIViewController = ComposeUIViewController {
-    val lifecycle = LifecycleRegistry()
-    val rootRouterContext = RouterContext(lifecycle = lifecycle)
+  fun MainUIController(rootRouterContext: RouterContext): UIViewController = ComposeUIViewController {
     CompositionLocalProvider(LocalRouterContext provides rootRouterContext) {
       MaterialTheme {
         ListDetailScreen()
       }
     }
   }
-
   ```
+  > [!IMPORTANT]
+  > You will need to tie root `RouterContext`'s lifecycle to an `AppDelegate`. See example kotlin app delegate [here](https://github.com/xxfast/Decompose-Router/blob/main/app/src/iosMain/kotlin/io/github/xxfast/decompose/router/app/AppDelegate.kt), or swift delegate [here](https://github.com/xxfast/Decompose-Router/blob/main/app/ios/ios/AppDelegate.swift). Read more on the docs [here](https://arkivanov.github.io/Decompose/getting-started/quick-start/#ios-with-swiftui)
+
 </details>
 
 <details>
