@@ -1,7 +1,24 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="ios" type="KmmRunConfiguration" factoryName="iOS Application" CONFIG_VERSION="1" EXEC_TARGET_ID="ADF84076-026E-492A-9688-A02A4D1E0B65" XCODE_PROJECT="$PROJECT_DIR$/app/ios/ios.xcodeproj" XCODE_CONFIGURATION="Debug" XCODE_SCHEME="ios">
-    <method v="2">
-      <option name="com.jetbrains.kmm.ios.BuildIOSAppTask" enabled="true" />
-    </method>
+  <configuration default="false" name="ios" type="GradleRunConfiguration" factoryName="Gradle">
+    <ExternalSystemSettings>
+      <option name="executionName" />
+      <option name="externalProjectPath" value="$PROJECT_DIR$" />
+      <option name="externalSystemIdString" value="GRADLE" />
+      <option name="scriptParameters" value="" />
+      <option name="taskDescriptions">
+        <list />
+      </option>
+      <option name="taskNames">
+        <list>
+          <option value="iosDeployIPhone12ProDebug" />
+        </list>
+      </option>
+      <option name="vmOptions" value="" />
+    </ExternalSystemSettings>
+    <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+    <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+    <DebugAllEnabled>false</DebugAllEnabled>
+    <ForceTestExec>false</ForceTestExec>
+    <method v="2" />
   </configuration>
 </component>
