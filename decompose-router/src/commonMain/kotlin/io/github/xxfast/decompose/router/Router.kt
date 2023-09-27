@@ -53,33 +53,13 @@ fun <C : Parcelable> rememberRouter(
   key: Any = type.key,
   handleBackButton: Boolean = true,
   initialStack: () -> List<C>,
-): Router<C> {
-  val routerContext: RouterContext = LocalRouterContext.current
+): Router<C> = with(LocalRouterContext.current) {
+  val navigation: StackNavigation<C> = rememberNavigation(key)
+  val stack: State<ChildStack<C, RouterContext>> =
+    rememberChildStack(type, key, navigation, handleBackButton, initialStack)
+
   val routerKey = "$key.router"
-
-  return remember(routerKey) {
-    routerContext.getOrCreate(key = routerKey) {
-      val navigation: StackNavigation<C> = StackNavigation()
-      val stack: State<ChildStack<C, RouterContext>> = routerContext
-        .childStack(
-          source = navigation,
-          initialStack = initialStack,
-          configurationClass = type,
-          key = routerKey,
-          handleBackButton = handleBackButton,
-          childFactory = { _, childComponentContext -> RouterContext(childComponentContext) },
-        )
-        .asState(routerContext.lifecycle)
-
-      Router(navigation, stack)
-    }
-  }
-}
-
-private fun <T : Any> Value<T>.asState(lifecycle: Lifecycle): State<T> {
-  val state = mutableStateOf(value)
-  observe(lifecycle = lifecycle) { state.value = it }
-  return state
+  return remember(routerKey) { getOrCreate(key = routerKey) { Router(navigation, stack) } }
 }
 
 /***
