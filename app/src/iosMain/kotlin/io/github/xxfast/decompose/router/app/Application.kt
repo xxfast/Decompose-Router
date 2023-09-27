@@ -37,24 +37,22 @@ fun main() {
 }
 
 @OptIn(ExperimentalDecomposeApi::class)
-fun MainUIController(routerContext: RouterContext): UIViewController {
-  return ComposeUIViewController {
-    CompositionLocalProvider(
-      LocalRouterContext provides routerContext,
-    ) {
-      MaterialTheme {
-        PredictiveBackGestureOverlay(
-          backDispatcher = routerContext.backHandler as BackDispatcher, // Use the same BackDispatcher as above
-          backIcon = { progress, _ ->
-            PredictiveBackGestureIcon(
-              imageVector = Icons.Default.ArrowBack,
-              progress = progress,
-            )
-          },
-          modifier = Modifier.fillMaxSize(),
-        ) {
-          HomeScreen()
-        }
+fun MainUIController(routerContext: RouterContext): UIViewController = ComposeUIViewController {
+  CompositionLocalProvider(
+    LocalRouterContext provides routerContext,
+  ) {
+    MaterialTheme {
+      PredictiveBackGestureOverlay(
+        backDispatcher = routerContext.backHandler as BackDispatcher, // Use the same BackDispatcher as above
+        backIcon = { progress, _ ->
+          PredictiveBackGestureIcon(
+            imageVector = Icons.Default.ArrowBack,
+            progress = progress,
+          )
+        },
+        modifier = Modifier.fillMaxSize(),
+      ) {
+        HomeScreen()
       }
     }
   }

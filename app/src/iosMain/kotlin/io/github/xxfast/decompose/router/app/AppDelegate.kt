@@ -1,11 +1,11 @@
 package io.github.xxfast.decompose.router.app
 
-import com.arkivanov.essenty.backhandler.BackDispatcher
-import com.arkivanov.essenty.lifecycle.LifecycleRegistry
 import com.arkivanov.essenty.lifecycle.destroy
 import com.arkivanov.essenty.lifecycle.resume
 import com.arkivanov.essenty.lifecycle.stop
 import io.github.xxfast.decompose.router.RouterContext
+import io.github.xxfast.decompose.router.app.utils.registry
+import io.github.xxfast.decompose.router.defaultRouterContext
 import kotlinx.cinterop.BetaInteropApi
 import kotlinx.cinterop.ExperimentalForeignApi
 import platform.UIKit.UIApplication
@@ -20,13 +20,7 @@ import platform.UIKit.UIWindow
 class AppDelegate @OverrideInit constructor() : UIResponder(), UIApplicationDelegateProtocol {
   companion object : UIResponderMeta(), UIApplicationDelegateProtocolMeta
 
-  private val backDispatcher = BackDispatcher()
-  private val lifecycle = LifecycleRegistry()
-
-  private val routerContext = RouterContext(
-    lifecycle = lifecycle,
-    backHandler = backDispatcher
-  )
+  private val routerContext: RouterContext = defaultRouterContext()
 
   private var _window: UIWindow? = null
   override fun window() = _window
@@ -46,15 +40,14 @@ class AppDelegate @OverrideInit constructor() : UIResponder(), UIApplicationDele
   }
 
   override fun applicationDidBecomeActive(application: UIApplication) {
-    lifecycle.resume()
+    routerContext.lifecycle.registry.resume()
   }
 
   override fun applicationWillResignActive(application: UIApplication) {
-    lifecycle.stop()
-
+    routerContext.lifecycle.registry.stop()
   }
 
   override fun applicationWillTerminate(application: UIApplication) {
-    lifecycle.destroy()
+    routerContext.lifecycle.registry.destroy()
   }
 }
