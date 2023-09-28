@@ -234,15 +234,16 @@ class DetailInstance(savedState: SavedStateHandle, detail: String) : InstanceKee
 <details>
   <summary>Web</summary>
 
-**build.gradle.kts**
+  See example [here](https://github.com/xxfast/Decompose-Router/blob/main/app/src/jsMain/kotlin/io/github/xxfast/decompose/router/app/Application.kt), or read more on docs [here](https://arkivanov.github.io/Decompose/getting-started/quick-start/#javascript-web)
+
+  **build.gradle.kts**
   ```kotlin
   fun main() {
     onWasmReady {
-      val lifecycle = LifecycleRegistry()
-      val rootRouterContext = RouterContext(lifecycle = lifecycle)
+      val rootRouterContext: RouterContext = defaultRouterContext()
   
       BrowserViewportWindow(..) {
-        CompositionLocalProvider(LocalComponentContext provides rootComponentContext) {
+        CompositionLocalProvider(LocalRouterContext provides rootRouterContext) {
           MaterialTheme {
             ListDetailScreen()
           }
