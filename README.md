@@ -199,6 +199,9 @@ class DetailInstance(savedState: SavedStateHandle, detail: String) : InstanceKee
     val rootRouterContext = RouterContext(lifecycle = lifecycle)
     
     application {
+      val windowState: WindowState = rememberWindowState()
+      LifecycleController(lifecycle, windowState)
+      
       Window {
         CompositionLocalProvider(LocalRouterContext provides rootRouterContext) {
           MaterialTheme {
