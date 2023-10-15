@@ -202,7 +202,7 @@ class DetailInstance(savedState: SavedStateHandle, detail: String) : InstanceKee
       val windowState: WindowState = rememberWindowState()
       LifecycleController(lifecycle, windowState)
       
-      Window {
+      Window(state = windowState) {
         CompositionLocalProvider(LocalRouterContext provides rootRouterContext) {
           MaterialTheme {
             ListDetailScreen()
