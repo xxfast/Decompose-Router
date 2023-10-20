@@ -5,7 +5,7 @@ import app
 class AppDelegate: UIResponder, UIApplicationDelegate {
   var window: UIWindow?
   
-  var rootRouterContext = RouterContextKt.defaultRouterContext()
+  var rootRouterContext = DefaultRouterContextKt.defaultRouterContext()
   
   func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
     window = UIWindow(frame: UIScreen.main.bounds)
@@ -15,17 +15,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     return true
   }
   
-  
   func applicationDidBecomeActive(_ application: UIApplication) {
-    RouterContextKt.resume(rootRouterContext.lifecycle)
+    rootRouterContext.resume()
   }
   
   func applicationWillResignActive(_ application: UIApplication) {
-    RouterContextKt.stop(rootRouterContext.lifecycle)
+    rootRouterContext.stop()
   }
   
   func applicationWillTerminate(_ application: UIApplication) {
-    RouterContextKt.destroy(rootRouterContext.lifecycle)
+    rootRouterContext.destroy()
   }
 }
 
