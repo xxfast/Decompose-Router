@@ -37,7 +37,7 @@ fun main() {
 }
 
 @OptIn(ExperimentalDecomposeApi::class)
-fun MainUIController(routerContext: RouterContext): UIViewController = ComposeUIViewController {
+fun HomeUIViewController(routerContext: RouterContext): UIViewController = ComposeUIViewController {
   CompositionLocalProvider(
     LocalRouterContext provides routerContext,
   ) {

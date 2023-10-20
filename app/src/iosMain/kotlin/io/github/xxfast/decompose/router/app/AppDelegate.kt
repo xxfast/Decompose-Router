@@ -33,7 +33,7 @@ class AppDelegate @OverrideInit constructor() : UIResponder(), UIApplicationDele
     didFinishLaunchingWithOptions: Map<Any?, *>?
   ): Boolean {
     window = UIWindow(frame = UIScreen.mainScreen.bounds)
-    window!!.rootViewController = MainUIController(routerContext)
+    window!!.rootViewController = HomeUIViewController(routerContext)
     window!!.makeKeyAndVisible()
     return true
   }
