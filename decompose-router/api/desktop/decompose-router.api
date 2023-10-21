@@ -1,3 +1,7 @@
+public final class io/github/xxfast/decompose/router/DefaultRouterContextKt {
+	public static final fun defaultRouterContext (Lcom/arkivanov/essenty/backhandler/BackDispatcher;Lcom/arkivanov/essenty/lifecycle/LifecycleRegistry;Landroidx/compose/ui/window/WindowState;Landroidx/compose/runtime/Composer;II)Lio/github/xxfast/decompose/router/RouterContext;
+}
+
 public final class io/github/xxfast/decompose/router/Router : com/arkivanov/decompose/router/stack/StackNavigation {
 	public static final field $stable I
 	public fun <init> (Lcom/arkivanov/decompose/router/stack/StackNavigation;Landroidx/compose/runtime/State;)V
