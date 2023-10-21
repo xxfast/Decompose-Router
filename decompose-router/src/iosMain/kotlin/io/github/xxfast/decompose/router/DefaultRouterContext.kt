@@ -4,6 +4,7 @@ import com.arkivanov.essenty.backhandler.BackDispatcher
 import com.arkivanov.essenty.lifecycle.Lifecycle
 import com.arkivanov.essenty.lifecycle.LifecycleRegistry
 import com.arkivanov.essenty.lifecycle.destroy
+import com.arkivanov.essenty.lifecycle.pause
 import com.arkivanov.essenty.lifecycle.resume
 import com.arkivanov.essenty.lifecycle.stop
 
@@ -17,3 +18,4 @@ private val RouterContext.lifecycleRegistry: LifecycleRegistry get() = this.life
 fun RouterContext.destroy() = lifecycleRegistry.destroy()
 fun RouterContext.resume() = lifecycleRegistry.resume()
 fun RouterContext.stop() = lifecycleRegistry.stop()
+fun RouterContext.pause() = lifecycleRegistry.pause()

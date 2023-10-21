@@ -2,7 +2,7 @@ import SwiftUI
 import app
 
 //@UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class UIKitAppDelegate: UIResponder, UIApplicationDelegate {
   var window: UIWindow?
   
   var rootRouterContext = DefaultRouterContextKt.defaultRouterContext()

@@ -9,9 +9,8 @@
 /* Begin PBXBuildFile section */
 		058557BB273AAA24004C7B11 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 058557BA273AAA24004C7B11 /* Assets.xcassets */; };
 		058557D9273AAEEB004C7B11 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 058557D8273AAEEB004C7B11 /* Preview Assets.xcassets */; };
-		2152FB042600AC8F00CF470E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2152FB032600AC8F00CF470E /* AppDelegate.swift */; };
-		DB85742B2AE2331E0069250C /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB85742A2AE2331E0069250C /* App.swift */; };
-		DB85742D2AE234B10069250C /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB85742C2AE234B10069250C /* HomeView.swift */; };
+		2152FB042600AC8F00CF470E /* UIKitAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2152FB032600AC8F00CF470E /* UIKitAppDelegate.swift */; };
+		DB85742B2AE2331E0069250C /* SwiftUIApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB85742A2AE2331E0069250C /* SwiftUIApp.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -30,11 +29,10 @@
 /* Begin PBXFileReference section */
 		058557BA273AAA24004C7B11 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		058557D8273AAEEB004C7B11 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		2152FB032600AC8F00CF470E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		2152FB032600AC8F00CF470E /* UIKitAppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIKitAppDelegate.swift; sourceTree = "<group>"; };
 		7555FF7B242A565900829871 /* ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ios.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7555FF8C242A565B00829871 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		DB85742A2AE2331E0069250C /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
-		DB85742C2AE234B10069250C /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		DB85742A2AE2331E0069250C /* SwiftUIApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIApp.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,10 +76,9 @@
 			children = (
 				058557BA273AAA24004C7B11 /* Assets.xcassets */,
 				7555FF8C242A565B00829871 /* Info.plist */,
-				2152FB032600AC8F00CF470E /* AppDelegate.swift */,
+				2152FB032600AC8F00CF470E /* UIKitAppDelegate.swift */,
 				058557D7273AAEEB004C7B11 /* Preview Content */,
-				DB85742A2AE2331E0069250C /* App.swift */,
-				DB85742C2AE234B10069250C /* HomeView.swift */,
+				DB85742A2AE2331E0069250C /* SwiftUIApp.swift */,
 			);
 			path = ios;
 			sourceTree = "<group>";
@@ -185,9 +182,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DB85742D2AE234B10069250C /* HomeView.swift in Sources */,
-				2152FB042600AC8F00CF470E /* AppDelegate.swift in Sources */,
-				DB85742B2AE2331E0069250C /* App.swift in Sources */,
+				2152FB042600AC8F00CF470E /* UIKitAppDelegate.swift in Sources */,
+				DB85742B2AE2331E0069250C /* SwiftUIApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
