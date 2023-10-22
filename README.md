@@ -168,96 +168,48 @@ class DetailInstance(savedState: SavedStateHandle, detail: String) : InstanceKee
 
 ## Platform configurations 🚉
 
-<details>
-  <summary>Android / WearOS</summary>
+### Android / WearOS
 
-**build.gradle.kts**
-  ```kotlin
-  class MainActivity : ComponentActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-      super.onCreate(savedInstanceState)
-      val rootRouterContext: RouterContext = defaultRouterContext()
-      setContent {
-        CompositionLocalProvider(LocalRouterContext provides rootRouterContext) {
-          MaterialTheme {
-            ListDetailScreen()
-          }
-        }
-      }
-    }
-  }
-  ```
+https://github.com/xxfast/Decompose-Router/blob/98e6d62ed067c01f10d73c769a73fe1d7afbf49d/app/src/androidMain/kotlin/io/github/xxfast/decompose/router/app/MainActivity.kt#L15-L30
+
+### Desktop
+
+https://github.com/xxfast/Decompose-Router/blob/98e6d62ed067c01f10d73c769a73fe1d7afbf49d/app/src/desktopMain/kotlin/io/github/xxfast/decompose/router/app/Application.kt#L17-L36
+
+### iOS
+
+Make sure to create your root router context outside of `ComposeUIViewController`'s composable lambda and pass it in to `LocalRouterContext` 
+
+https://github.com/xxfast/Decompose-Router/blob/98e6d62ed067c01f10d73c769a73fe1d7afbf49d/app/src/iosMain/kotlin/io/github/xxfast/decompose/router/app/Application.kt#L39-L59
+
+> [!IMPORTANT]
+> You will need to tie root `RouterContext`'s lifecycle to an `AppDelegate`. 
+
+<details>
+  <summary>Kotlin app delegate</summary>
+  https://github.com/xxfast/Decompose-Router/blob/98e6d62ed067c01f10d73c769a73fe1d7afbf49d/app/src/iosMain/kotlin/io/github/xxfast/decompose/router/app/AppDelegate.kt#L18-L52
 </details>
 
 <details>
-  <summary>Desktop</summary>
+  <summary>SwiftUI App / Swift UIKit AppDelegat</summary>
 
-**build.gradle.kts**
-  ```kotlin
-  fun main() {
-  val windowState: WindowState = rememberWindowState()
-  val rootRouterContext: RouterContext = defaultRouterContext(windowState = windowState)
-    
-    application {
-      Window(state = windowState) {
-        CompositionLocalProvider(LocalRouterContext provides rootRouterContext) {
-          MaterialTheme {
-            ListDetailScreen()
-          }
-        }
-      }
-    }
-  }
-  ```
-</details>
+  #### UIKitAppDelegate
+  https://github.com/xxfast/Decompose-Router/blob/98e6d62ed067c01f10d73c769a73fe1d7afbf49d/app/ios/ios/UIKitAppDelegate.swift#L5-L29
 
-<details>
-  <summary>iOS</summary>
-
-  Make sure to create your root router context outside of `ComposeUIViewController`'s composable lambda and pass it in to `LocalRouterContext` 
-
-  **build.gradle.kts**
-  ```kotlin
-  fun MainUIController(rootRouterContext: RouterContext): UIViewController = ComposeUIViewController {
-    CompositionLocalProvider(LocalRouterContext provides rootRouterContext) {
-      MaterialTheme {
-        ListDetailScreen()
-      }
-    }
-  }
-  ```
-  > [!IMPORTANT]
-  > You will need to tie root `RouterContext`'s lifecycle to an `AppDelegate`. 
-  > * See Kotlin app delegate [here](https://github.com/xxfast/Decompose-Router/blob/main/app/src/iosMain/kotlin/io/github/xxfast/decompose/router/app/AppDelegate.kt), 
-  > * See Swift UIKit AppDelegate [here](https://github.com/xxfast/Decompose-Router/blob/main/app/ios/ios/UIKitAppDelegate.swift). 
-  > * See SwiftUI App [here](https://github.com/xxfast/Decompose-Router/blob/main/app/ios/ios/SwiftUIApp.swift). 
-  > * Read more on the docs [here](https://arkivanov.github.io/Decompose/getting-started/quick-start/#ios-with-swiftui)
+  #### SwiftUIApp
   
+  https://github.com/xxfast/Decompose-Router/blob/98e6d62ed067c01f10d73c769a73fe1d7afbf49d/app/ios/ios/SwiftUIApp.swift#L12-L55
+  Read more on the docs [here](https://arkivanov.github.io/Decompose/getting-started/quick-start/#ios-with-swiftui)
+
   > [!NOTE]
-  > To invoke decompose router's `defaultRouterContext()` from swift, you will need to export decompose-router from your shared module   
+  > To invoke decompose router's `defaultRouterContext()` from swift, you will need to export decompose-router from your shared module
+  > https://github.com/xxfast/Decompose-Router/blob/98e6d62ed067c01f10d73c769a73fe1d7afbf49d/app/build.gradle.kts#L25-L36
 </details>
 
-<details>
-  <summary>Web</summary>
+### Web
 
-  See example [here](https://github.com/xxfast/Decompose-Router/blob/main/app/src/jsMain/kotlin/io/github/xxfast/decompose/router/app/Application.kt), or read more on docs [here](https://arkivanov.github.io/Decompose/getting-started/quick-start/#javascript-web)
+https://github.com/xxfast/Decompose-Router/blob/98e6d62ed067c01f10d73c769a73fe1d7afbf49d/app/src/jsMain/kotlin/io/github/xxfast/decompose/router/app/Application.kt#L12-L26
 
-  **build.gradle.kts**
-  ```kotlin
-  fun main() {
-    onWasmReady {
-      val rootRouterContext: RouterContext = defaultRouterContext()
-  
-      BrowserViewportWindow(..) {
-        CompositionLocalProvider(LocalRouterContext provides rootRouterContext) {
-          MaterialTheme {
-            ListDetailScreen()
-          }
-        }
-      }
-    }
-  }
-  ```
 </details>
 
 ## Licence
