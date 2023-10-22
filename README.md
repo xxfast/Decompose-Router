@@ -195,13 +195,10 @@ class DetailInstance(savedState: SavedStateHandle, detail: String) : InstanceKee
 **build.gradle.kts**
   ```kotlin
   fun main() {
-    val lifecycle = LifecycleRegistry()
-    val rootRouterContext = RouterContext(lifecycle = lifecycle)
+  val windowState: WindowState = rememberWindowState()
+  val rootRouterContext: RouterContext = defaultRouterContext(windowState = windowState)
     
     application {
-      val windowState: WindowState = rememberWindowState()
-      LifecycleController(lifecycle, windowState)
-      
       Window(state = windowState) {
         CompositionLocalProvider(LocalRouterContext provides rootRouterContext) {
           MaterialTheme {
@@ -235,6 +232,9 @@ class DetailInstance(savedState: SavedStateHandle, detail: String) : InstanceKee
   > * See Swift UIKit AppDelegate [here](https://github.com/xxfast/Decompose-Router/blob/main/app/ios/ios/UIKitAppDelegate.swift). 
   > * See SwiftUI App [here](https://github.com/xxfast/Decompose-Router/blob/main/app/ios/ios/SwiftUIApp.swift). 
   > * Read more on the docs [here](https://arkivanov.github.io/Decompose/getting-started/quick-start/#ios-with-swiftui)
+  
+  > [!NOTE]
+  > To invoke decompose router's `defaultRouterContext()` from swift, you will need to export decompose-router from your shared module   
 </details>
 
 <details>
