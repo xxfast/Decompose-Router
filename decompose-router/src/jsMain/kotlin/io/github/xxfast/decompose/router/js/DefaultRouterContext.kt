@@ -1,9 +1,10 @@
-package io.github.xxfast.decompose.router
+package io.github.xxfast.decompose.router.js
 
 import com.arkivanov.essenty.backhandler.BackDispatcher
 import com.arkivanov.essenty.lifecycle.LifecycleRegistry
 import com.arkivanov.essenty.lifecycle.resume
 import com.arkivanov.essenty.lifecycle.stop
+import io.github.xxfast.decompose.router.RouterContext
 import kotlinx.browser.document
 import org.w3c.dom.Document
 
