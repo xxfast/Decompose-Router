@@ -1,3 +1,8 @@
+public final class io/github/xxfast/decompose/router/DefaultRouterContextKt {
+	public static final fun defaultRouterContext (Landroidx/activity/ComponentActivity;)Lio/github/xxfast/decompose/router/RouterContext;
+	public static final fun defaultRouterContext (Landroidx/fragment/app/Fragment;Landroidx/activity/OnBackPressedDispatcher;)Lio/github/xxfast/decompose/router/RouterContext;
+}
+
 public final class io/github/xxfast/decompose/router/Router : com/arkivanov/decompose/router/stack/StackNavigation {
 	public static final field $stable I
 	public fun <init> (Lcom/arkivanov/decompose/router/stack/StackNavigation;Landroidx/compose/runtime/State;)V
@@ -15,11 +20,6 @@ public final class io/github/xxfast/decompose/router/RouterContext : com/arkivan
 	public fun getInstanceKeeper ()Lcom/arkivanov/essenty/instancekeeper/InstanceKeeper;
 	public fun getLifecycle ()Lcom/arkivanov/essenty/lifecycle/Lifecycle;
 	public fun getStateKeeper ()Lcom/arkivanov/essenty/statekeeper/StateKeeper;
-}
-
-public final class io/github/xxfast/decompose/router/RouterContextExtKt {
-	public static final fun defaultRouterContext (Landroidx/activity/ComponentActivity;)Lio/github/xxfast/decompose/router/RouterContext;
-	public static final fun defaultRouterContext (Landroidx/fragment/app/Fragment;Landroidx/activity/OnBackPressedDispatcher;)Lio/github/xxfast/decompose/router/RouterContext;
 }
 
 public final class io/github/xxfast/decompose/router/RouterContextKt {

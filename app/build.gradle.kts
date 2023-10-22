@@ -30,6 +30,9 @@ kotlin {
     it.binaries{
       framework {
         baseName = "app"
+
+        // Only need this if you wish to add your own AppDelegate in swift
+        export(project(":decompose-router"))
       }
 
       executable {
@@ -59,7 +62,8 @@ kotlin {
   sourceSets {
     val commonMain by getting {
       dependencies {
-        implementation(project(":decompose-router"))
+        // Only need to add this as api if you wish to add your own AppDelegate in swift
+        api(project(":decompose-router"))
 
         implementation(compose.runtime)
         implementation(compose.foundation)

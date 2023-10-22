@@ -1,11 +1,10 @@
 package io.github.xxfast.decompose.router.app
 
-import com.arkivanov.essenty.lifecycle.destroy
-import com.arkivanov.essenty.lifecycle.resume
-import com.arkivanov.essenty.lifecycle.stop
 import io.github.xxfast.decompose.router.RouterContext
-import io.github.xxfast.decompose.router.app.utils.registry
 import io.github.xxfast.decompose.router.defaultRouterContext
+import io.github.xxfast.decompose.router.destroy
+import io.github.xxfast.decompose.router.resume
+import io.github.xxfast.decompose.router.stop
 import kotlinx.cinterop.BetaInteropApi
 import kotlinx.cinterop.ExperimentalForeignApi
 import platform.UIKit.UIApplication
@@ -34,20 +33,20 @@ class AppDelegate @OverrideInit constructor() : UIResponder(), UIApplicationDele
     didFinishLaunchingWithOptions: Map<Any?, *>?
   ): Boolean {
     window = UIWindow(frame = UIScreen.mainScreen.bounds)
-    window!!.rootViewController = MainUIController(routerContext)
+    window!!.rootViewController = HomeUIViewController(routerContext)
     window!!.makeKeyAndVisible()
     return true
   }
 
   override fun applicationDidBecomeActive(application: UIApplication) {
-    routerContext.lifecycle.registry.resume()
+    routerContext.resume()
   }
 
   override fun applicationWillResignActive(application: UIApplication) {
-    routerContext.lifecycle.registry.stop()
+    routerContext.stop()
   }
 
   override fun applicationWillTerminate(application: UIApplication) {
-    routerContext.lifecycle.registry.destroy()
+    routerContext.destroy()
   }
 }

@@ -12,15 +12,12 @@ import com.arkivanov.essenty.lifecycle.LifecycleRegistry
 import io.github.xxfast.decompose.router.LocalRouterContext
 import io.github.xxfast.decompose.router.RouterContext
 import io.github.xxfast.decompose.router.app.screens.HomeScreen
+import io.github.xxfast.decompose.router.defaultRouterContext
 
-@OptIn(ExperimentalDecomposeApi::class)
 fun main() {
-  val lifecycle = LifecycleRegistry()
-  val rootRouterContext = RouterContext(lifecycle = lifecycle)
-
   application {
     val windowState: WindowState = rememberWindowState()
-    LifecycleController(lifecycle, windowState)
+    val rootRouterContext: RouterContext = defaultRouterContext(windowState = windowState)
 
     Window(
       title = "App",

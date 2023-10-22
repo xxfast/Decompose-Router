@@ -195,13 +195,10 @@ class DetailInstance(savedState: SavedStateHandle, detail: String) : InstanceKee
 **build.gradle.kts**
   ```kotlin
   fun main() {
-    val lifecycle = LifecycleRegistry()
-    val rootRouterContext = RouterContext(lifecycle = lifecycle)
+  val windowState: WindowState = rememberWindowState()
+  val rootRouterContext: RouterContext = defaultRouterContext(windowState = windowState)
     
     application {
-      val windowState: WindowState = rememberWindowState()
-      LifecycleController(lifecycle, windowState)
-      
       Window(state = windowState) {
         CompositionLocalProvider(LocalRouterContext provides rootRouterContext) {
           MaterialTheme {
@@ -230,8 +227,14 @@ class DetailInstance(savedState: SavedStateHandle, detail: String) : InstanceKee
   }
   ```
   > [!IMPORTANT]
-  > You will need to tie root `RouterContext`'s lifecycle to an `AppDelegate`. See example kotlin app delegate [here](https://github.com/xxfast/Decompose-Router/blob/main/app/src/iosMain/kotlin/io/github/xxfast/decompose/router/app/AppDelegate.kt), or swift delegate [here](https://github.com/xxfast/Decompose-Router/blob/main/app/ios/ios/AppDelegate.swift). Read more on the docs [here](https://arkivanov.github.io/Decompose/getting-started/quick-start/#ios-with-swiftui)
-
+  > You will need to tie root `RouterContext`'s lifecycle to an `AppDelegate`. 
+  > * See Kotlin app delegate [here](https://github.com/xxfast/Decompose-Router/blob/main/app/src/iosMain/kotlin/io/github/xxfast/decompose/router/app/AppDelegate.kt), 
+  > * See Swift UIKit AppDelegate [here](https://github.com/xxfast/Decompose-Router/blob/main/app/ios/ios/UIKitAppDelegate.swift). 
+  > * See SwiftUI App [here](https://github.com/xxfast/Decompose-Router/blob/main/app/ios/ios/SwiftUIApp.swift). 
+  > * Read more on the docs [here](https://arkivanov.github.io/Decompose/getting-started/quick-start/#ios-with-swiftui)
+  
+  > [!NOTE]
+  > To invoke decompose router's `defaultRouterContext()` from swift, you will need to export decompose-router from your shared module   
 </details>
 
 <details>
