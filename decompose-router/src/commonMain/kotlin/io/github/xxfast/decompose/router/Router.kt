@@ -8,6 +8,7 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.staticCompositionLocalOf
+import com.arkivanov.decompose.Child
 import com.arkivanov.decompose.router.stack.ChildStack
 import com.arkivanov.decompose.router.stack.StackNavigation
 import com.arkivanov.decompose.router.stack.childStack
@@ -127,4 +128,43 @@ fun <T : Instance, C: @Serializable Any> rememberOnRoute(
   }
 
   return instance
+}
+
+/***
+ * Retrieve a instance of [V] that is scoped to the current route
+ *
+ * @param type of [V] instance
+ * @param childClass class of stack child[T]
+ * @param keyBlock lambda to configure the key [which was used to save the instance [T]] by default [type].key
+ */
+
+inline fun <C : @Serializable Any, reified T : Any, reified V : Instance> Router<C>.getInstanceFromBackStack(
+  type: KClass<V>,
+  childClass: KClass<T>,
+  block: ((childConfiguration: T) -> Any?) = { null }
+): V {
+  val child: Child.Created<C, RouterContext>? = this.stack.value.backStack
+    .firstOrNull { it.configuration is T }
+
+  require(child != null) {
+    "Couldn't find the ${T::class} in the backstack"
+  }
+
+  val configuration: C = child.configuration
+  require(configuration is T) {
+    "Couldn't find the ${T::class} in the backstack"
+  }
+
+  val childConfiguration: T = configuration
+  val key: Any? = block(childConfiguration)
+  val keyInstance: String = if (key == null) "${type.key}.instance"
+  else "${key}.instance"
+
+  val viewModelInstance: Instance? = child.instance.instanceKeeper.get(keyInstance)
+
+  require(viewModelInstance is V) {
+    "Couldn't find the viewModel for  ${T::class} in the backstack"
+  }
+
+  return viewModelInstance
 }
