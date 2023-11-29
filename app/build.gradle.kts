@@ -1,7 +1,6 @@
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat.Deb
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat.Dmg
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat.Msi
-import org.jetbrains.compose.experimental.dsl.IOSDevices
 
 plugins {
   kotlin("multiplatform")
@@ -142,29 +141,5 @@ compose.desktop {
 }
 
 compose.experimental {
-  web.application {
-  }
-
-  uikit.application {
-    bundleIdPrefix = "io.github.xxfast.decompose.router.app"
-    projectName = "DecomposeRouterApp"
-
-    deployConfigurations {
-      simulator("IPhone12Pro") {
-        // Usage: ./gradlew iosDeployIPhone12ProDebug
-        device = IOSDevices.IPHONE_12_PRO
-      }
-
-      /*
-       * Usage: ./gradlew iosDeployDeviceDebug
-       *
-       * If your are getting "A valid provisioning profile for this executable was not found" error,
-       * see: https://developer.apple.com/forums/thread/128121?answerId=403323022#403323022
-       */
-      connectedDevice("Device") {
-        // Uncomment and fill with your Team ID
-        // teamId = ""
-      }
-    }
-  }
+  web.application { }
 }
