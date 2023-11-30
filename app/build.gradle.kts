@@ -4,9 +4,9 @@ import org.jetbrains.compose.desktop.application.dsl.TargetFormat.Msi
 
 plugins {
   kotlin("multiplatform")
+  kotlin("plugin.serialization")
   id("com.android.application")
   id("org.jetbrains.compose")
-  id("kotlin-parcelize")
 }
 
 @OptIn(org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi::class)
@@ -70,7 +70,6 @@ kotlin {
 
         implementation(libs.decompose)
         implementation(libs.decompose.compose.multiplatform)
-        implementation(libs.essenty.parcelable)
       }
     }
 

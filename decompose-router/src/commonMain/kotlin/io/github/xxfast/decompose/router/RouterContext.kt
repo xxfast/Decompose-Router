@@ -9,7 +9,7 @@ import com.arkivanov.essenty.instancekeeper.InstanceKeeper
 import com.arkivanov.essenty.lifecycle.Lifecycle
 import com.arkivanov.essenty.statekeeper.StateKeeper
 
-class RouterContext internal constructor(
+class RouterContext(
   private val delegate: ComponentContext,
 ) : ComponentContext by delegate {
 
@@ -20,10 +20,10 @@ class RouterContext internal constructor(
     backHandler: BackHandler? = null,
   ) : this(DefaultComponentContext(lifecycle, stateKeeper, instanceKeeper, backHandler))
 
-  internal val storage: MutableMap<Any, Any> = HashMap()
+  val storage: MutableMap<Any, Any> = HashMap()
 }
 
-internal inline fun <reified T : Any> RouterContext.getOrCreate(key: Any, factory: () -> T) : T {
+inline fun <reified T : Any> RouterContext.getOrCreate(key: Any, factory: () -> T) : T {
   var instance: T? = storage[key] as T?
   if (instance == null) {
     instance = factory()

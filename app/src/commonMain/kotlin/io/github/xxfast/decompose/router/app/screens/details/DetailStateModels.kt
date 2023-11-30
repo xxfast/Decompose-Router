@@ -1,7 +1,6 @@
 package io.github.xxfast.decompose.router.app.screens.details
 
-import com.arkivanov.essenty.parcelable.Parcelable
-import com.arkivanov.essenty.parcelable.Parcelize
+import kotlinx.serialization.Serializable
 
-@Parcelize
-data class DetailState(val count: Int): Parcelable
+@Serializable
+data class DetailState(val count: Int)

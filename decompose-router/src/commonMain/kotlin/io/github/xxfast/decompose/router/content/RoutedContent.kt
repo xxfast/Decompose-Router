@@ -10,6 +10,7 @@ import io.github.xxfast.decompose.router.LocalRouter
 import io.github.xxfast.decompose.router.LocalRouterContext
 import io.github.xxfast.decompose.router.Router
 import io.github.xxfast.decompose.router.RouterContext
+import kotlinx.serialization.Serializable
 
 /***
  * Composable to hoist content that are navigated by the router
@@ -20,7 +21,7 @@ import io.github.xxfast.decompose.router.RouterContext
  * @param content
  */
 @Composable
-fun <C : Parcelable> RoutedContent(
+fun <C: @Serializable Any> RoutedContent(
   router: Router<C>,
   modifier: Modifier = Modifier,
   animation: StackAnimation<C, RouterContext>? = null,

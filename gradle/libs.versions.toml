@@ -9,6 +9,7 @@ essenty = "1.3.0-beta01"
 horologist = "0.5.7"
 kotlin = "1.9.20"
 kotlinx-coroutines = "1.7.3"
+kotlinx-serialization = "1.6.0"
 wear-compose = "1.3.0-alpha03"
 
 [libraries]
@@ -21,10 +22,10 @@ compose-ui-junit4 = { module = "androidx.compose.ui:ui-test-junit4", version.ref
 compose-ui-test-manifest = { module = "androidx.compose.ui:ui-test-manifest", version.ref = "compose-test-rule" }
 decompose = { module = "com.arkivanov.decompose:decompose", version.ref = "decompose" }
 decompose-compose-multiplatform = { module = "com.arkivanov.decompose:extensions-compose-jetbrains", version.ref = "decompose" }
-essenty-parcelable = { module = "com.arkivanov.essenty:parcelable", version.ref = "essenty" }
 horologist-compose-layouts = { module = "com.google.android.horologist:horologist-compose-layout", version.ref = "horologist" }
 kotlin-gradle-plugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
 kotlinx-coroutines-swing = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-swing", version.ref = "kotlinx-coroutines" }
+kotlinx-serialization = { module = "org.jetbrains.kotlin:kotlin-serialization", version.ref = "kotlinx-serialization" }
 wear-compose-foundation = { module = "androidx.wear.compose:compose-foundation", version.ref = "wear-compose" }
 wear-compose-material = { module = "androidx.wear.compose:compose-material", version.ref = "wear-compose" }
 wear-compose-ui-tooling = { module = "androidx.wear.compose:compose-ui-tooling", version.ref = "wear-compose" }
