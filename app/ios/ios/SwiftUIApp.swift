@@ -9,19 +9,6 @@
 import SwiftUI
 import app
 
-class DefaultRouterHolder : ObservableObject {
-  let defaultRouterContext: RouterContext = DefaultRouterContextKt.defaultRouterContext()
-
-  deinit {
-    // Destroy the root component before it is deallocated
-    defaultRouterContext.destroy()
-  }
-}
-
-class AppDelegate: NSObject, UIApplicationDelegate {
-    let holder: DefaultRouterHolder = DefaultRouterHolder()
-}
-
 @main
 struct SwiftUIApp: App {
   @UIApplicationDelegateAdaptor var delegate: AppDelegate
@@ -43,6 +30,21 @@ struct SwiftUIApp: App {
     }
   }
 }
+
+class DefaultRouterHolder : ObservableObject {
+  let defaultRouterContext: RouterContext = DefaultRouterContextKt.defaultRouterContext()
+
+  deinit {
+    // Destroy the root component before it is deallocated
+    defaultRouterContext.destroy()
+  }
+}
+
+class AppDelegate: NSObject, UIApplicationDelegate {
+    let holder: DefaultRouterHolder = DefaultRouterHolder()
+}
+
+
 
 struct HomeView: UIViewControllerRepresentable {
   let routerContext: RouterContext

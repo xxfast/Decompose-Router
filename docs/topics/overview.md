@@ -1,11 +1,6 @@
-
 # Decompose Router
 
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://user-images.githubusercontent.com/13775137/236108051-73a54cd2-839a-4113-a8c0-25eeaad6b673.svg">
-  <source media="(prefers-color-scheme: light)" srcset="https://user-images.githubusercontent.com/13775137/236108679-0ed87db8-fc1e-4f23-bcf7-3c10eeedc82a.svg">
-  <img src="https://user-images.githubusercontent.com/13775137/236108679-0ed87db8-fc1e-4f23-bcf7-3c10eeedc82a.svg" height="128" align="right"> 
-</picture>
+<img src="decompose_router.svg" alt="Alt text" width="200"/>
 
 [![Kotlin Experimental](https://kotl.in/badges/experimental.svg)](https://kotlinlang.org/docs/components-stability.html)
 [![Build](https://github.com/xxfast/Decompose-Router/actions/workflows/build.yml/badge.svg)](https://github.com/xxfast/Decompose-Router/actions/workflows/build.yml)
@@ -19,8 +14,6 @@
 ![badge-browser](https://img.shields.io/badge/platform-js-F8DB5D.svg?style=flat)
 
 A Compose-multiplatform navigation library that leverage [Decompose](https://github.com/arkivanov/Decompose) to create an API inspired by [Conductor](https://github.com/bluelinelabs/Conductor)
-
-A detailed breakdown available in this [Medium article](https://proandroiddev.com/diy-compose-multiplatform-navigation-with-decompose-94ac8126e6b5)
 
 ## Features
 - 🚏 A `Router` that manages a FILO stack for your screen configurations
@@ -76,24 +69,9 @@ class DetailInstance(savedState: SavedStateHandle, detail: String) : InstanceKee
 }
 ```
 
-### Installation and Usage
-
-Documentation [here](https://xxfast.github.io/Decompose-Router/)
-
-API Reference [here](https://xxfast.github.io/Decompose-Router//docs/)
-
-## Licence
-
-    Copyright 2023 Isuru Rajapakse
-
-    Licensed under the Apache License, Version 2.0 (the "License");
-    you may not use this file except in compliance with the License.
-    You may obtain a copy of the License at
-
-       http://www.apache.org/licenses/LICENSE-2.0
-
-    Unless required by applicable law or agreed to in writing, software
-    distributed under the License is distributed on an "AS IS" BASIS,
-    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-    See the License for the specific language governing permissions and
-    limitations under the License.
+<seealso style="cards">
+  <category ref="external">
+    <a href="https://proandroiddev.com/diy-compose-multiplatform-navigation-with-decompose-94ac8126e6b5">Medium article that started this off</a>
+    <a href="https://xxfast.github.io/Decompose-Router/api/">API Doc</a>
+  </category>
+</seealso>
