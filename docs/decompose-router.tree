@@ -9,5 +9,5 @@
     <toc-element topic="overview.md"/>
     <toc-element topic="installation.md" toc-title="Installation">
     </toc-element>
-    <toc-element topic="platform-confugurations.md"/>
+    <toc-element topic="platform-configurations.md"/>
 </instance-profile>
