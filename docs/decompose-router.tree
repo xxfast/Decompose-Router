@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE instance-profile
+        SYSTEM "https://resources.jetbrains.com/writerside/1.0/product-profile.dtd">
+
+<instance-profile id="decompose-router"
+                 name="decompose-router"
+                 start-page="overview.md">
+
+    <toc-element topic="overview.md"/>
+    <toc-element topic="installation.md" toc-title="Installation">
+    </toc-element>
+    <toc-element topic="platform-confugurations.md"/>
+</instance-profile>
