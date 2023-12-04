@@ -20,6 +20,7 @@ permissions:
 jobs:
   check:
     runs-on: ubuntu-latest
+    name: Verify API
     permissions:
       pull-requests: write
     steps:
@@ -63,6 +64,7 @@ jobs:
         run: ./gradlew build
 
   release:
+    name: Release to sonatype
     if: ${{ github.event_name != 'pull_request' }}
     runs-on: macos-latest
     needs:

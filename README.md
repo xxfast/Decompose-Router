@@ -76,51 +76,11 @@ class DetailInstance(savedState: SavedStateHandle, detail: String) : InstanceKee
 }
 ```
 
-## Platform configurations 🚉
+### Installation and Usage
 
-### Android / WearOS
+Documentation [here](https://xxfast.github.io/Decompose-Router/)
 
-https://github.com/xxfast/Decompose-Router/blob/98e6d62ed067c01f10d73c769a73fe1d7afbf49d/app/src/androidMain/kotlin/io/github/xxfast/decompose/router/app/MainActivity.kt#L15-L30
-
-### Desktop
-
-https://github.com/xxfast/Decompose-Router/blob/98e6d62ed067c01f10d73c769a73fe1d7afbf49d/app/src/desktopMain/kotlin/io/github/xxfast/decompose/router/app/Application.kt#L17-L36
-
-### iOS
-
-Make sure to create your root router context outside of `ComposeUIViewController`'s composable lambda and pass it in to `LocalRouterContext` 
-
-https://github.com/xxfast/Decompose-Router/blob/98e6d62ed067c01f10d73c769a73fe1d7afbf49d/app/src/iosMain/kotlin/io/github/xxfast/decompose/router/app/Application.kt#L39-L59
-
-> [!IMPORTANT]
-> You will need to tie root `RouterContext`'s lifecycle to an `AppDelegate`. 
-
-<details>
-  <summary>Kotlin app delegate</summary>
-  https://github.com/xxfast/Decompose-Router/blob/98e6d62ed067c01f10d73c769a73fe1d7afbf49d/app/src/iosMain/kotlin/io/github/xxfast/decompose/router/app/AppDelegate.kt#L18-L52
-</details>
-
-<details>
-  <summary>SwiftUI App / Swift UIKit AppDelegat</summary>
-
-  #### UIKitAppDelegate
-  https://github.com/xxfast/Decompose-Router/blob/98e6d62ed067c01f10d73c769a73fe1d7afbf49d/app/ios/ios/UIKitAppDelegate.swift#L5-L29
-
-  #### SwiftUIApp
-  
-  https://github.com/xxfast/Decompose-Router/blob/98e6d62ed067c01f10d73c769a73fe1d7afbf49d/app/ios/ios/SwiftUIApp.swift#L12-L55
-  Read more on the docs [here](https://arkivanov.github.io/Decompose/getting-started/quick-start/#ios-with-swiftui)
-
-  > [!NOTE]
-  > To invoke decompose router's `defaultRouterContext()` from swift, you will need to export decompose-router from your shared module
-  > https://github.com/xxfast/Decompose-Router/blob/98e6d62ed067c01f10d73c769a73fe1d7afbf49d/app/build.gradle.kts#L25-L36
-</details>
-
-### Web
-
-https://github.com/xxfast/Decompose-Router/blob/98e6d62ed067c01f10d73c769a73fe1d7afbf49d/app/src/jsMain/kotlin/io/github/xxfast/decompose/router/app/Application.kt#L12-L26
-
-</details>
+API Reference [here](https://xxfast.github.io/Decompose-Router//docs/)
 
 ## Licence
 
