@@ -32,7 +32,7 @@ allprojects {
   }
 
   group = "io.github.xxfast"
-  version = "0.5.1"
+  version = "0.6.0-SNAPSHOT"
 
   // Do not publish the app
   if (name.contains("app")) return@allprojects
