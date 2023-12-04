@@ -1,6 +1,5 @@
 package io.github.xxfast.decompose.router.wear.content
 
-import android.os.Parcelable
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.DisposableEffect
@@ -23,10 +22,11 @@ import io.github.xxfast.decompose.router.LocalRouter
 import io.github.xxfast.decompose.router.LocalRouterContext
 import io.github.xxfast.decompose.router.Router
 import io.github.xxfast.decompose.router.RouterContext
+import kotlinx.serialization.Serializable
 
 @OptIn(ExperimentalWearFoundationApi::class)
 @Composable
-fun <C : Parcelable> RoutedContent(
+fun <C : @Serializable Any> RoutedContent(
   router: Router<C>,
   modifier: Modifier = Modifier,
   content: @Composable (C) -> Unit,

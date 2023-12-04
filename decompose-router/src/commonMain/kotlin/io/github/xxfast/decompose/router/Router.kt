@@ -17,8 +17,8 @@ import com.arkivanov.essenty.instancekeeper.InstanceKeeper
 import com.arkivanov.essenty.instancekeeper.InstanceKeeper.Instance
 import com.arkivanov.essenty.instancekeeper.getOrCreate
 import com.arkivanov.essenty.lifecycle.Lifecycle
-import com.arkivanov.essenty.parcelable.Parcelable
 import com.arkivanov.essenty.statekeeper.StateKeeper
+import kotlinx.serialization.*
 import kotlin.reflect.KClass
 
 /***
@@ -28,7 +28,7 @@ import kotlin.reflect.KClass
  * @param navigation decompose navigator to use
  * @param stack state of decompose child stack to use
  */
-class Router<C : Parcelable>(
+class Router<C: Any>(
   private val navigation: StackNavigation<C>,
   val stack: State<ChildStack<C, RouterContext>>,
 ) : StackNavigation<C> by navigation
@@ -39,6 +39,14 @@ class Router<C : Parcelable>(
 val LocalRouter: ProvidableCompositionLocal<Router<*>?> =
   staticCompositionLocalOf { null }
 
+// TODO: Add this back to API once this [issue](https://github.com/JetBrains/compose-multiplatform/issues/2900) is fixed
+//@Composable
+//inline fun <reified C: @Serializable Any> rememberRouter(
+//  key: Any = C::class,
+//  handleBackButton: Boolean = true,
+//  noinline initialStack: () -> List<C>,
+//): Router<C> = rememberRouter(C::class, key, handleBackButton, initialStack)
+
 /***
  * Creates a router that retains a stack of [C] configuration
  *
@@ -47,8 +55,9 @@ val LocalRouter: ProvidableCompositionLocal<Router<*>?> =
  * @param initialStack initial stack of configurations
  * @param handleBackButton should the router handle back button
  */
+@OptIn(InternalSerializationApi::class)
 @Composable
-fun <C : Parcelable> rememberRouter(
+fun <C: @Serializable Any> rememberRouter(
   type: KClass<C>,
   key: Any = type.key,
   handleBackButton: Boolean = true,
@@ -63,8 +72,8 @@ fun <C : Parcelable> rememberRouter(
       val stack: State<ChildStack<C, RouterContext>> = routerContext
         .childStack(
           source = navigation,
+          serializer = type.serializerOrNull(),
           initialStack = initialStack,
-          configurationClass = type,
           key = routerKey,
           handleBackButton = handleBackButton,
           childFactory = { _, childComponentContext -> RouterContext(childComponentContext) },
@@ -76,23 +85,23 @@ fun <C : Parcelable> rememberRouter(
   }
 }
 
-private fun <T : Any> Value<T>.asState(lifecycle: Lifecycle): State<T> {
+fun <T : Any> Value<T>.asState(lifecycle: Lifecycle): State<T> {
   val state = mutableStateOf(value)
   observe(lifecycle = lifecycle) { state.value = it }
   return state
 }
 
 /***
- * Creates a instance of [T] that is scoped to the current route
+ * Creates an instance of [T] that is scoped to the current route
  *
  * @param type class of [T] instance
  * @param key key to remember the instance with. Defaults to [type]'s key
  * @param block lambda to create an instance of [T] with a given [SavedStateHandle]
  */
-@Suppress("UNCHECKED_CAST")
 @Composable
-fun <T : Instance> rememberOnRoute(
+fun <T : Instance, C: @Serializable Any> rememberOnRoute(
   type: KClass<T>,
+  strategy: KSerializer<C>,
   key: Any = type.key,
   block: @DisallowComposableCalls (savedState: SavedStateHandle) -> T
 ): T {
@@ -103,7 +112,7 @@ fun <T : Instance> rememberOnRoute(
   val stateKey = "$key.state"
   val (instance, savedState) = remember(key) {
     val savedState: SavedStateHandle = instanceKeeper
-      .getOrCreate(stateKey) { SavedStateHandle(stateKeeper.consume(stateKey, SavedState::class)) }
+      .getOrCreate(stateKey) { SavedStateHandle(stateKeeper.consume(stateKey, strategy)) }
     var instance: T? = instanceKeeper.get(instanceKey) as T?
     if (instance == null) {
       instance = block(savedState)
@@ -114,7 +123,7 @@ fun <T : Instance> rememberOnRoute(
 
   LaunchedEffect(Unit) {
     if (!stateKeeper.isRegistered(stateKey))
-      stateKeeper.register(stateKey) { savedState.value }
+      stateKeeper.register(stateKey, strategy) { savedState.value as C? }
   }
 
   return instance

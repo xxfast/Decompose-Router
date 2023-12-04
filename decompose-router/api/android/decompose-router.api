@@ -3,6 +3,10 @@ public final class io/github/xxfast/decompose/router/DefaultRouterContextKt {
 	public static final fun defaultRouterContext (Landroidx/fragment/app/Fragment;Landroidx/activity/OnBackPressedDispatcher;)Lio/github/xxfast/decompose/router/RouterContext;
 }
 
+public final class io/github/xxfast/decompose/router/KeyKt {
+	public static final fun getKey (Lkotlin/reflect/KClass;)Ljava/lang/String;
+}
+
 public final class io/github/xxfast/decompose/router/Router : com/arkivanov/decompose/router/stack/StackNavigation {
 	public static final field $stable I
 	public fun <init> (Lcom/arkivanov/decompose/router/stack/StackNavigation;Landroidx/compose/runtime/State;)V
@@ -14,12 +18,14 @@ public final class io/github/xxfast/decompose/router/Router : com/arkivanov/deco
 
 public final class io/github/xxfast/decompose/router/RouterContext : com/arkivanov/decompose/ComponentContext {
 	public static final field $stable I
+	public fun <init> (Lcom/arkivanov/decompose/ComponentContext;)V
 	public fun <init> (Lcom/arkivanov/essenty/lifecycle/Lifecycle;Lcom/arkivanov/essenty/statekeeper/StateKeeper;Lcom/arkivanov/essenty/instancekeeper/InstanceKeeper;Lcom/arkivanov/essenty/backhandler/BackHandler;)V
 	public synthetic fun <init> (Lcom/arkivanov/essenty/lifecycle/Lifecycle;Lcom/arkivanov/essenty/statekeeper/StateKeeper;Lcom/arkivanov/essenty/instancekeeper/InstanceKeeper;Lcom/arkivanov/essenty/backhandler/BackHandler;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public fun getBackHandler ()Lcom/arkivanov/essenty/backhandler/BackHandler;
 	public fun getInstanceKeeper ()Lcom/arkivanov/essenty/instancekeeper/InstanceKeeper;
 	public fun getLifecycle ()Lcom/arkivanov/essenty/lifecycle/Lifecycle;
 	public fun getStateKeeper ()Lcom/arkivanov/essenty/statekeeper/StateKeeper;
+	public final fun getStorage ()Ljava/util/Map;
 }
 
 public final class io/github/xxfast/decompose/router/RouterContextKt {
@@ -27,41 +33,19 @@ public final class io/github/xxfast/decompose/router/RouterContextKt {
 }
 
 public final class io/github/xxfast/decompose/router/RouterKt {
+	public static final fun asState (Lcom/arkivanov/decompose/value/Value;Lcom/arkivanov/essenty/lifecycle/Lifecycle;)Landroidx/compose/runtime/State;
 	public static final fun getLocalRouter ()Landroidx/compose/runtime/ProvidableCompositionLocal;
-	public static final fun rememberOnRoute (Lkotlin/reflect/KClass;Ljava/lang/Object;Lkotlin/jvm/functions/Function1;Landroidx/compose/runtime/Composer;II)Lcom/arkivanov/essenty/instancekeeper/InstanceKeeper$Instance;
+	public static final fun rememberOnRoute (Lkotlin/reflect/KClass;Lkotlinx/serialization/KSerializer;Ljava/lang/Object;Lkotlin/jvm/functions/Function1;Landroidx/compose/runtime/Composer;II)Lcom/arkivanov/essenty/instancekeeper/InstanceKeeper$Instance;
 	public static final fun rememberRouter (Lkotlin/reflect/KClass;Ljava/lang/Object;ZLkotlin/jvm/functions/Function0;Landroidx/compose/runtime/Composer;II)Lio/github/xxfast/decompose/router/Router;
-}
-
-public final class io/github/xxfast/decompose/router/SavedState : android/os/Parcelable {
-	public static final field $stable I
-	public static final field CREATOR Landroid/os/Parcelable$Creator;
-	public fun <init> (Landroid/os/Parcelable;)V
-	public final fun component1 ()Landroid/os/Parcelable;
-	public final fun copy (Landroid/os/Parcelable;)Lio/github/xxfast/decompose/router/SavedState;
-	public static synthetic fun copy$default (Lio/github/xxfast/decompose/router/SavedState;Landroid/os/Parcelable;ILjava/lang/Object;)Lio/github/xxfast/decompose/router/SavedState;
-	public fun describeContents ()I
-	public fun equals (Ljava/lang/Object;)Z
-	public final fun getValue ()Landroid/os/Parcelable;
-	public fun hashCode ()I
-	public fun toString ()Ljava/lang/String;
-	public fun writeToParcel (Landroid/os/Parcel;I)V
-}
-
-public final class io/github/xxfast/decompose/router/SavedState$Creator : android/os/Parcelable$Creator {
-	public fun <init> ()V
-	public final fun createFromParcel (Landroid/os/Parcel;)Lio/github/xxfast/decompose/router/SavedState;
-	public synthetic fun createFromParcel (Landroid/os/Parcel;)Ljava/lang/Object;
-	public final fun newArray (I)[Lio/github/xxfast/decompose/router/SavedState;
-	public synthetic fun newArray (I)[Ljava/lang/Object;
 }
 
 public final class io/github/xxfast/decompose/router/SavedStateHandle : com/arkivanov/essenty/instancekeeper/InstanceKeeper$Instance {
 	public static final field $stable I
-	public fun <init> (Lio/github/xxfast/decompose/router/SavedState;)V
-	public final fun get ()Landroid/os/Parcelable;
-	public final fun getValue ()Landroid/os/Parcelable;
+	public fun <init> (Ljava/lang/Object;)V
+	public final fun get ()Ljava/lang/Object;
+	public final fun getValue ()Ljava/lang/Object;
 	public fun onDestroy ()V
-	public final fun set (Landroid/os/Parcelable;)V
+	public final fun set (Ljava/lang/Object;)V
 }
 
 public final class io/github/xxfast/decompose/router/content/RoutedContentKt {

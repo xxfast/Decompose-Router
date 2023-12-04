@@ -35,14 +35,19 @@ import io.github.xxfast.decompose.router.app.screens.FAVORITE_TAG
 import io.github.xxfast.decompose.router.app.screens.LIST_TAG
 import io.github.xxfast.decompose.router.app.screens.TITLE_BAR_TAG
 import io.github.xxfast.decompose.router.app.screens.TOOLBAR_TAG
+import kotlinx.serialization.InternalSerializationApi
+import kotlinx.serialization.serializer
 
-@OptIn(ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class, InternalSerializationApi::class)
 @Composable
 fun ListScreen(
   onSelect: (count: Int) -> Unit,
   onSelectColor: () -> Unit,
 ) {
-  val instance: ListInstance = rememberOnRoute(ListInstance::class) { savedState ->
+  val instance: ListInstance = rememberOnRoute(
+    type = ListInstance::class,
+    strategy = ListState::class.serializer()
+  ) { savedState ->
     ListInstance(savedState)
   }
 
