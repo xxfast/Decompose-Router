@@ -32,8 +32,8 @@ A detailed breakdown available in this [Medium article](https://proandroiddev.co
 
 ```kotlin
 // Declare your screen configurations for type-safety
-@Parcelize
-sealed class Screen: Parcelable {
+@Serializable 
+sealed class Screen {
   object List : Screen()
   data class Details(val detail: String) : Screen()
 }

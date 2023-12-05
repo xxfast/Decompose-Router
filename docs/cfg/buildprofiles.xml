@@ -9,6 +9,7 @@
             <color-preset>soft</color-preset>
             <primary-color>blue</primary-color>
             <header-logo>decompose_router.svg</header-logo>
+            <custom-favicons>fav.svg</custom-favicons>
         </variables>
     </build-profile>
 
