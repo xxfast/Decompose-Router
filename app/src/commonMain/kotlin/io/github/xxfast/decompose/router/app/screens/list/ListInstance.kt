@@ -30,4 +30,9 @@ class ListInstance(savedStateHandle: SavedStateHandle) : Instance, CoroutineScop
   override fun onDestroy() {
     coroutineContext.cancel()
   }
+
+  fun setVisitedItem(position: Int) {
+    val visitedList: Set<Int> = state.value.visitedItems + position
+    state.value.visitedItems = visitedList
+  }
 }

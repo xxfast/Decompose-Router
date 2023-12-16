@@ -14,6 +14,7 @@ import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Favorite
 import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -28,6 +29,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 import io.github.xxfast.decompose.router.rememberOnRoute
@@ -96,14 +98,22 @@ fun ListScreen(
       contentPadding = PaddingValues(16.dp),
     ) {
       items(items) { item ->
+        val isSelected: Boolean = item in state.visitedItems
+        val containerColor: Color = if (isSelected) MaterialTheme.colorScheme.primaryContainer
+        else MaterialTheme.colorScheme.surfaceVariant
+
         Card(
           modifier = Modifier
             .height(100.dp)
             .clip(MaterialTheme.shapes.medium)
             .clickable { onSelect(item) },
+          colors = CardDefaults.cardColors(containerColor = containerColor)
         ) {
           Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-            Text(text = item.toString(), style = MaterialTheme.typography.titleLarge)
+            Text(
+              text = item.toString(),
+              style = MaterialTheme.typography.titleLarge
+            )
           }
         }
       }

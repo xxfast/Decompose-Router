@@ -14,8 +14,10 @@ import io.github.xxfast.decompose.router.app.screens.HomeScreens.Nested
 import io.github.xxfast.decompose.router.content.RoutedContent
 import io.github.xxfast.decompose.router.rememberRouter
 import io.github.xxfast.decompose.router.app.screens.details.DetailScreen
+import io.github.xxfast.decompose.router.app.screens.list.ListInstance
 import io.github.xxfast.decompose.router.app.screens.list.ListScreen
 import io.github.xxfast.decompose.router.app.screens.nested.NestedScreen
+import io.github.xxfast.decompose.router.getInstanceFromBackStack
 
 @OptIn(ExperimentalDecomposeApi::class)
 @Composable
@@ -43,7 +45,14 @@ fun HomeScreen() {
 
       is Details -> DetailScreen(
         count = screen.number,
-        onBack = { router.pop() }
+        onBack = {
+          val previousInstance: ListInstance = router.getInstanceFromBackStack(
+            type = ListInstance::class,
+            childClass = HomeScreens.List::class
+          )
+          previousInstance.setVisitedItem(screen.number)
+          router.pop()
+        }
       )
     }
   }
