@@ -33,12 +33,6 @@ class Router<C: Any>(
   val stack: State<ChildStack<C, RouterContext>>,
 ) : StackNavigation<C> by navigation
 
-/***
- * Compositional local for component context
- */
-val LocalRouter: ProvidableCompositionLocal<Router<*>?> =
-  staticCompositionLocalOf { null }
-
 // TODO: Add this back to API once this [issue](https://github.com/JetBrains/compose-multiplatform/issues/2900) is fixed
 //@Composable
 //inline fun <reified C: @Serializable Any> rememberRouter(

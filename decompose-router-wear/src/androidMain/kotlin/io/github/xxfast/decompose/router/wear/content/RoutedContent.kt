@@ -18,7 +18,6 @@ import androidx.wear.compose.material.rememberSwipeToDismissBoxState
 import com.arkivanov.decompose.Child
 import com.arkivanov.decompose.router.stack.ChildStack
 import com.arkivanov.decompose.router.stack.pop
-import io.github.xxfast.decompose.router.LocalRouter
 import io.github.xxfast.decompose.router.LocalRouterContext
 import io.github.xxfast.decompose.router.Router
 import io.github.xxfast.decompose.router.RouterContext
@@ -43,22 +42,20 @@ fun <C : @Serializable Any> RoutedContent(
   val fudgeAmount: Float = 1f - ((fudgeFactor % 2) * 0.01f)
   val backgroundScrimColor: Color = MaterialTheme.colors.background.copy(alpha = fudgeAmount)
 
-  CompositionLocalProvider(LocalRouter provides router) {
-    SwipeToDismissBox(
-      onDismissed = { router.pop() },
-      state = rememberSwipeToDismissBoxState(),
-      modifier = modifier,
-      backgroundScrimColor = backgroundScrimColor,
-      backgroundKey = background?.configuration ?: Background,
-      hasBackground = background != null,
-      contentKey = active.configuration,
-    ) { isBackground ->
-      val child = if (isBackground) requireNotNull(background) else active
-      holder.SaveableStateProvider(child.configuration.key()) {
-        CompositionLocalProvider(LocalRouterContext provides child.instance) {
-          HierarchicalFocusCoordinator(requiresFocus = { !isBackground }) {
-            content(child.configuration)
-          }
+  SwipeToDismissBox(
+    onDismissed = { router.pop() },
+    state = rememberSwipeToDismissBoxState(),
+    modifier = modifier,
+    backgroundScrimColor = backgroundScrimColor,
+    backgroundKey = background?.configuration ?: Background,
+    hasBackground = background != null,
+    contentKey = active.configuration,
+  ) { isBackground ->
+    val child = if (isBackground) requireNotNull(background) else active
+    holder.SaveableStateProvider(child.configuration.key()) {
+      CompositionLocalProvider(LocalRouterContext provides child.instance) {
+        HierarchicalFocusCoordinator(requiresFocus = { !isBackground }) {
+          content(child.configuration)
         }
       }
     }
