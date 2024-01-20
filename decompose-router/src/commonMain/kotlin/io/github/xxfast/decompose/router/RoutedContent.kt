@@ -1,13 +1,10 @@
-package io.github.xxfast.decompose.router.content
+package io.github.xxfast.decompose.router
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Modifier
 import com.arkivanov.decompose.extensions.compose.jetbrains.stack.Children
 import com.arkivanov.decompose.extensions.compose.jetbrains.stack.animation.StackAnimation
-import io.github.xxfast.decompose.router.LocalRouterContext
-import io.github.xxfast.decompose.router.Router
-import io.github.xxfast.decompose.router.RouterContext
 import kotlinx.serialization.Serializable
 
 /***

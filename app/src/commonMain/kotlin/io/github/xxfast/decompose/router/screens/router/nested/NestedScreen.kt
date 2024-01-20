@@ -1,4 +1,4 @@
-package io.github.xxfast.decompose.router.app.screens.nested
+package io.github.xxfast.decompose.router.screens.router.nested
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.Orientation.Vertical
@@ -39,16 +39,16 @@ import com.arkivanov.decompose.extensions.compose.jetbrains.stack.animation.stac
 import com.arkivanov.decompose.router.stack.pop
 import com.arkivanov.decompose.router.stack.push
 import io.github.xxfast.decompose.router.Router
-import io.github.xxfast.decompose.router.content.RoutedContent
+import io.github.xxfast.decompose.router.RoutedContent
 import io.github.xxfast.decompose.router.rememberRouter
-import io.github.xxfast.decompose.router.app.screens.BACK_BUTTON_TAG
-import io.github.xxfast.decompose.router.app.screens.LIST_TAG
-import io.github.xxfast.decompose.router.app.screens.TITLE_BAR_TAG
-import io.github.xxfast.decompose.router.app.screens.TOOLBAR_TAG
-import io.github.xxfast.decompose.router.app.screens.nested.NestedScreens.Home
-import io.github.xxfast.decompose.router.app.screens.nested.NestedScreens.Primary
-import io.github.xxfast.decompose.router.app.screens.nested.NestedScreens.Secondary
-import io.github.xxfast.decompose.router.app.screens.nested.NestedScreens.Tertiary
+import io.github.xxfast.decompose.router.screens.BACK_BUTTON_TAG
+import io.github.xxfast.decompose.router.screens.LIST_TAG
+import io.github.xxfast.decompose.router.screens.TITLE_BAR_TAG
+import io.github.xxfast.decompose.router.screens.TOOLBAR_TAG
+import io.github.xxfast.decompose.router.screens.router.nested.NestedScreens.Home
+import io.github.xxfast.decompose.router.screens.router.nested.NestedScreens.Primary
+import io.github.xxfast.decompose.router.screens.router.nested.NestedScreens.Secondary
+import io.github.xxfast.decompose.router.screens.router.nested.NestedScreens.Tertiary
 
 @Composable
 fun NestedScreen(
