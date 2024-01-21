@@ -1,4 +1,4 @@
-package io.github.xxfast.decompose.router.app.screens
+package io.github.xxfast.decompose.router.screens
 
 const val LIST_TAG = "list"
 const val TOOLBAR_TAG = "toolbar"

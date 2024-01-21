@@ -1,7 +1,6 @@
 package io.github.xxfast.decompose.router
 
 import com.arkivanov.essenty.backhandler.BackDispatcher
-import com.arkivanov.essenty.lifecycle.Lifecycle
 import com.arkivanov.essenty.lifecycle.LifecycleRegistry
 import com.arkivanov.essenty.lifecycle.destroy
 import com.arkivanov.essenty.lifecycle.pause

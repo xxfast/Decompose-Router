@@ -1,4 +1,4 @@
-package io.github.xxfast.decompose.router
+package io.github.xxfast.decompose
 
 import com.arkivanov.essenty.instancekeeper.InstanceKeeper
 import kotlinx.serialization.Serializable

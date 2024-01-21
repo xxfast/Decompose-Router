@@ -13,7 +13,7 @@ import com.arkivanov.decompose.extensions.compose.jetbrains.PredictiveBackGestur
 import com.arkivanov.essenty.backhandler.BackDispatcher
 import io.github.xxfast.decompose.router.LocalRouterContext
 import io.github.xxfast.decompose.router.RouterContext
-import io.github.xxfast.decompose.router.app.screens.HomeScreen
+import io.github.xxfast.decompose.router.screens.HomeScreen
 import kotlinx.cinterop.BetaInteropApi
 import kotlinx.cinterop.ExperimentalForeignApi
 import kotlinx.cinterop.autoreleasepool
