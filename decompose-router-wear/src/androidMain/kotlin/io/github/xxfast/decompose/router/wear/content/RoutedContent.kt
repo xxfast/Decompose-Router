@@ -19,7 +19,7 @@ import com.arkivanov.decompose.Child
 import com.arkivanov.decompose.router.stack.ChildStack
 import com.arkivanov.decompose.router.stack.pop
 import io.github.xxfast.decompose.router.LocalRouterContext
-import io.github.xxfast.decompose.router.Router
+import io.github.xxfast.decompose.router.stack.Router
 import io.github.xxfast.decompose.router.RouterContext
 import kotlinx.serialization.Serializable
 

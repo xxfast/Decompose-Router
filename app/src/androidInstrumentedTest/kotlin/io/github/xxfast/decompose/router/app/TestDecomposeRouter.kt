@@ -14,11 +14,11 @@ import androidx.compose.ui.test.onChildren
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performScrollToNode
 import androidx.test.ext.junit.rules.ActivityScenarioRule
-import io.github.xxfast.decompose.router.app.screens.BACK_BUTTON_TAG
-import io.github.xxfast.decompose.router.app.screens.DETAILS_TAG
-import io.github.xxfast.decompose.router.app.screens.FAVORITE_TAG
-import io.github.xxfast.decompose.router.app.screens.LIST_TAG
-import io.github.xxfast.decompose.router.app.screens.TITLE_BAR_TAG
+import io.github.xxfast.decompose.router.screens.BACK_BUTTON_TAG
+import io.github.xxfast.decompose.router.screens.DETAILS_TAG
+import io.github.xxfast.decompose.router.screens.FAVORITE_TAG
+import io.github.xxfast.decompose.router.screens.LIST_TAG
+import io.github.xxfast.decompose.router.screens.TITLE_BAR_TAG
 import org.junit.Rule
 import org.junit.Test
 

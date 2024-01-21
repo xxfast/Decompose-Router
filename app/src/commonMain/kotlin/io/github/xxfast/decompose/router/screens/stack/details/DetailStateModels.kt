@@ -1,4 +1,4 @@
-package io.github.xxfast.decompose.router.app.screens.details
+package io.github.xxfast.decompose.router.screens.stack.details
 
 import kotlinx.serialization.Serializable
 
