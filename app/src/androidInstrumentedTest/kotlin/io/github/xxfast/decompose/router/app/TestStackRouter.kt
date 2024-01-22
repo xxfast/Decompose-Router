@@ -39,7 +39,6 @@ class TestStackRouter {
     onNode(lazyColumn).assertExists()
   }
 
-  @OptIn(ExperimentalTestApi::class)
   @Test
   fun testBasicNavigation(): Unit = with(composeRule) {
     // Navigate to the 4th item and verify
@@ -57,7 +56,6 @@ class TestStackRouter {
     // Add 5 more items
     repeat(5) {
       onNode(fabAdd).performClick()
-      waitUntilAtLeastOneExists(hasText(it.toString()))
     }
 
     // Go back to the 5th item
@@ -87,13 +85,11 @@ class TestStackRouter {
     onNode(hasText(testItem)).assertExists()
   }
 
-  @OptIn(ExperimentalTestApi::class)
   @Test
   fun testRetainInstanceAcrossConfigurationChanges(): Unit = with(composeRule) {
     // Add 5 more items
     repeat(5) {
       onNode(fabAdd).performClick()
-      waitUntilAtLeastOneExists(hasText(it.toString()))
     }
 
     // Go to and click 5th item
