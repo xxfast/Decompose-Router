@@ -1,18 +1,22 @@
+public final class io/github/xxfast/decompose/KeyKt {
+	public static final fun getKey (Lkotlin/reflect/KClass;)Ljava/lang/String;
+}
+
+public final class io/github/xxfast/decompose/SavedStateHandle : com/arkivanov/essenty/instancekeeper/InstanceKeeper$Instance {
+	public static final field $stable I
+	public fun <init> (Ljava/lang/Object;)V
+	public final fun get ()Ljava/lang/Object;
+	public final fun getValue ()Ljava/lang/Object;
+	public fun onDestroy ()V
+	public final fun set (Ljava/lang/Object;)V
+}
+
 public final class io/github/xxfast/decompose/router/DefaultRouterContextKt {
 	public static final fun defaultRouterContext (Lcom/arkivanov/essenty/backhandler/BackDispatcher;Lcom/arkivanov/essenty/lifecycle/LifecycleRegistry;Landroidx/compose/ui/window/WindowState;Landroidx/compose/runtime/Composer;II)Lio/github/xxfast/decompose/router/RouterContext;
 }
 
-public final class io/github/xxfast/decompose/router/KeyKt {
-	public static final fun getKey (Lkotlin/reflect/KClass;)Ljava/lang/String;
-}
-
-public final class io/github/xxfast/decompose/router/Router : com/arkivanov/decompose/router/stack/StackNavigation {
-	public static final field $stable I
-	public fun <init> (Lcom/arkivanov/decompose/router/stack/StackNavigation;Landroidx/compose/runtime/State;)V
-	public final fun getStack ()Landroidx/compose/runtime/State;
-	public fun navigate (Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function2;)V
-	public fun subscribe (Lkotlin/jvm/functions/Function1;)V
-	public fun unsubscribe (Lkotlin/jvm/functions/Function1;)V
+public final class io/github/xxfast/decompose/router/RememberOnRouteKt {
+	public static final fun rememberOnRoute (Lkotlin/reflect/KClass;Lkotlinx/serialization/KSerializer;Ljava/lang/Object;Lkotlin/jvm/functions/Function1;Landroidx/compose/runtime/Composer;II)Lcom/arkivanov/essenty/instancekeeper/InstanceKeeper$Instance;
 }
 
 public final class io/github/xxfast/decompose/router/RouterContext : com/arkivanov/decompose/ComponentContext {
@@ -31,23 +35,54 @@ public final class io/github/xxfast/decompose/router/RouterContextKt {
 	public static final fun getLocalRouterContext ()Landroidx/compose/runtime/ProvidableCompositionLocal;
 }
 
-public final class io/github/xxfast/decompose/router/RouterKt {
-	public static final fun asState (Lcom/arkivanov/decompose/value/Value;Lcom/arkivanov/essenty/lifecycle/Lifecycle;)Landroidx/compose/runtime/State;
-	public static final fun getLocalRouter ()Landroidx/compose/runtime/ProvidableCompositionLocal;
-	public static final fun rememberOnRoute (Lkotlin/reflect/KClass;Lkotlinx/serialization/KSerializer;Ljava/lang/Object;Lkotlin/jvm/functions/Function1;Landroidx/compose/runtime/Composer;II)Lcom/arkivanov/essenty/instancekeeper/InstanceKeeper$Instance;
-	public static final fun rememberRouter (Lkotlin/reflect/KClass;Ljava/lang/Object;ZLkotlin/jvm/functions/Function0;Landroidx/compose/runtime/Composer;II)Lio/github/xxfast/decompose/router/Router;
+public final class io/github/xxfast/decompose/router/pages/RoutedContentKt {
+	public static final fun RoutedContent (Lio/github/xxfast/decompose/router/pages/Router;Landroidx/compose/ui/Modifier;Lcom/arkivanov/decompose/extensions/compose/jetbrains/pages/PagesScrollAnimation;Lkotlin/jvm/functions/Function6;Lkotlin/jvm/functions/Function3;Landroidx/compose/runtime/Composer;II)V
 }
 
-public final class io/github/xxfast/decompose/router/SavedStateHandle : com/arkivanov/essenty/instancekeeper/InstanceKeeper$Instance {
+public final class io/github/xxfast/decompose/router/pages/Router : com/arkivanov/decompose/router/pages/PagesNavigation {
 	public static final field $stable I
-	public fun <init> (Ljava/lang/Object;)V
-	public final fun get ()Ljava/lang/Object;
-	public final fun getValue ()Ljava/lang/Object;
-	public fun onDestroy ()V
-	public final fun set (Ljava/lang/Object;)V
+	public final fun getPages ()Landroidx/compose/runtime/State;
+	public fun navigate (Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function2;)V
+	public fun subscribe (Lkotlin/jvm/functions/Function1;)V
+	public fun unsubscribe (Lkotlin/jvm/functions/Function1;)V
 }
 
-public final class io/github/xxfast/decompose/router/content/RoutedContentKt {
-	public static final fun RoutedContent (Lio/github/xxfast/decompose/router/Router;Landroidx/compose/ui/Modifier;Lcom/arkivanov/decompose/extensions/compose/jetbrains/stack/animation/StackAnimation;Lkotlin/jvm/functions/Function3;Landroidx/compose/runtime/Composer;II)V
+public final class io/github/xxfast/decompose/router/pages/RouterKt {
+	public static final fun pagesOf ([Ljava/lang/Object;I)Lcom/arkivanov/decompose/router/pages/Pages;
+	public static synthetic fun pagesOf$default ([Ljava/lang/Object;IILjava/lang/Object;)Lcom/arkivanov/decompose/router/pages/Pages;
+	public static final fun rememberRouter (Lkotlin/reflect/KClass;Ljava/lang/Object;ZLkotlin/jvm/functions/Function0;Landroidx/compose/runtime/Composer;II)Lio/github/xxfast/decompose/router/pages/Router;
+}
+
+public final class io/github/xxfast/decompose/router/slot/RoutedContentKt {
+	public static final fun RoutedContent (Lio/github/xxfast/decompose/router/slot/Router;Lkotlin/jvm/functions/Function3;Landroidx/compose/runtime/Composer;I)V
+}
+
+public final class io/github/xxfast/decompose/router/slot/Router : com/arkivanov/decompose/router/slot/SlotNavigation {
+	public static final field $stable I
+	public final fun getNavigation ()Lcom/arkivanov/decompose/router/slot/SlotNavigation;
+	public final fun getSlot ()Landroidx/compose/runtime/State;
+	public fun navigate (Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function2;)V
+	public fun subscribe (Lkotlin/jvm/functions/Function1;)V
+	public fun unsubscribe (Lkotlin/jvm/functions/Function1;)V
+}
+
+public final class io/github/xxfast/decompose/router/slot/RouterKt {
+	public static final fun rememberRouter (Lkotlin/reflect/KClass;Ljava/lang/Object;ZLkotlin/jvm/functions/Function0;Landroidx/compose/runtime/Composer;II)Lio/github/xxfast/decompose/router/slot/Router;
+}
+
+public final class io/github/xxfast/decompose/router/stack/RoutedContentKt {
+	public static final fun RoutedContent (Lio/github/xxfast/decompose/router/stack/Router;Landroidx/compose/ui/Modifier;Lcom/arkivanov/decompose/extensions/compose/jetbrains/stack/animation/StackAnimation;Lkotlin/jvm/functions/Function3;Landroidx/compose/runtime/Composer;II)V
+}
+
+public final class io/github/xxfast/decompose/router/stack/Router : com/arkivanov/decompose/router/stack/StackNavigation {
+	public static final field $stable I
+	public final fun getStack ()Landroidx/compose/runtime/State;
+	public fun navigate (Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function2;)V
+	public fun subscribe (Lkotlin/jvm/functions/Function1;)V
+	public fun unsubscribe (Lkotlin/jvm/functions/Function1;)V
+}
+
+public final class io/github/xxfast/decompose/router/stack/RouterKt {
+	public static final fun rememberRouter (Lkotlin/reflect/KClass;Ljava/lang/Object;ZLkotlin/jvm/functions/Function0;Landroidx/compose/runtime/Composer;II)Lio/github/xxfast/decompose/router/stack/Router;
 }
 
