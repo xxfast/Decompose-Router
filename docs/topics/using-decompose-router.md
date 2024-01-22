@@ -34,6 +34,17 @@ sealed class Screens {
 }
 ```
 
+Another example, collection of pages
+```kotlin
+@Serializable
+enum class Pages { Page1, Page2, Page3 }
+```
+
+Or if your navigation graph is just a single page, it can even be a single object 
+```kotlin
+@Serializable object Screen
+```
+
 > `@Serializable` is optional but **preferred** if you want your screen state to 
 >    1. Be retained across configuration changes (on Android) 
 >    2. Survive process death (on Android)  

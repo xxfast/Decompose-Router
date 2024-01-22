@@ -1,15 +1,16 @@
 # Stack Navigation
 
-Define your navigation model, (as already covered
-in [model-driven navigation section](using-decompose-router.md#model-driven-navigation))
+Stack navigation is for managing a stack of screens, where only screen at the top of the stack is shown to the user.
+
+Define your navigation model, (as already covered in [model-driven navigation section](using-decompose-router.md#model-driven-navigation))
 
 ```kotlin
 @Serializable
-sealed class Screens {
+sealed class StackScreens {
   @Serializable
-  data object List : Screens()
+  data object List : StackScreens()
   @Serializable
-  data class Details(val number: Int) : Screens()
+  data class Details(val number: Int) : StackScreens()
 }
 ```
 
@@ -17,18 +18,18 @@ sealed class Screens {
 
 ````kotlin
 @Composable
-fun HomeScreen() {
-  val router: Router<Screens> = rememberRouter(Screens::class) { 
-    listOf(Screens.List) // Root screen to be set here
+fun StackScreen() {
+  val router: Router<StackScreens> = rememberRouter(StackScreens::class) { 
+    listOf(StackScreens.List) // Root screen to be set here
   }
 }
 ````
 
 > Due to this [issue](https://github.com/JetBrains/compose-multiplatform/issues/2900), you will still need to provide this
-> type `Screen:class` manually for now.
+> type `StackScreens:class` manually for now.
 > Once resolved, you will be able to use the `inline` `refied` (and nicer) signature
 > ```kotlin
-> val router: Router<Screens> = rememberRouter { listOf(Screens.List) }
+> val router: Router<StackScreens> = rememberRouter { listOf(StackScreens.List) }
 > ```
 {style="warning"}
 
@@ -38,13 +39,13 @@ Use `RoutedContent` to consume the state from the router.
 
 ```kotlin
 @Composable
-fun HomeScreen() {
-  val router: Router<Screens> = rememberRouter(Screens::class) { listOf(Screens.List) }
+fun StackScreen() {
+  val router: Router<StackScreens> = rememberRouter(StackScreens::class) { listOf(StackScreens.List) }
 
-  RoutedContent(router = router) { screen: Screens ->
+  RoutedContent(router = router) { screen: StackScreens ->
     when (screen) {
-      HomeScreens.List -> ListScreen()
-      is Details -> DetailScreen(screen.number)
+      StackScreens.List -> ListScreen()
+      is StackScreens.Details -> DetailScreen(screen.number)
     }
   }
 }
@@ -56,10 +57,10 @@ Decompose-router exposes the same Decompose stack navigator extension [functions
 
 
 ```kotlin
-val router: Router<HomeScreens> = rememberRouter(HomeScreens::class) { listOf(HomeScreens.List) }
+val router: Router<StackScreens> = rememberRouter(StackScreens::class) { listOf(StackScreens.List) }
 
 // To go to details screen
-Button(onClick = { number -> router.push(Details(number)) })
+Button(onClick = { number -> router.push(StackScreens.Details(number)) })
 
 // To go back to list screen
 Button(onClick = { router.pop() })
