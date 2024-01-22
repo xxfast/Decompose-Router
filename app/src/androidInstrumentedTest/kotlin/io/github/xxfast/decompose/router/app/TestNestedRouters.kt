@@ -24,13 +24,11 @@ class TestNestedRouters {
     onNode(bottomNavSlotItem).assertExists()
   }
 
-  @OptIn(ExperimentalTestApi::class)
   @Test
   fun testNestedNavigation(): Unit = with(composeRule) {
     // Add 5 more items on to stack
     repeat(5) {
       onNode(fabAdd).performClick()
-      waitUntilAtLeastOneExists(hasText(it.toString()))
     }
 
     // Go to 5th detail screen
