@@ -18,12 +18,14 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 import com.arkivanov.decompose.ExperimentalDecomposeApi
 import com.arkivanov.decompose.router.pages.Pages
 import com.arkivanov.decompose.router.pages.selectFirst
 import io.github.xxfast.decompose.router.pages.RoutedContent
 import io.github.xxfast.decompose.router.pages.rememberRouter
+import io.github.xxfast.decompose.router.screens.PAGER
 
 @OptIn(
   ExperimentalDecomposeApi::class,
@@ -52,7 +54,12 @@ fun PagesScreen() {
     },
     contentWindowInsets = WindowInsets(0, 0, 0, 0)
   ) { scaffoldPadding ->
-    RoutedContent(router = router, modifier = Modifier.padding(scaffoldPadding)) { page ->
+    RoutedContent(
+      router = router,
+      modifier = Modifier
+        .padding(scaffoldPadding)
+        .testTag(PAGER)
+    ) { page ->
       Card(modifier = Modifier.padding(16.dp)) {
         Box(modifier = Modifier.fillMaxSize()) {
           Text(

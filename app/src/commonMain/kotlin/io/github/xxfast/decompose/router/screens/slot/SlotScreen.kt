@@ -25,6 +25,10 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 import com.arkivanov.decompose.router.slot.activate
 import com.arkivanov.decompose.router.slot.dismiss
+import io.github.xxfast.decompose.router.screens.BOTTOM_SHEET
+import io.github.xxfast.decompose.router.screens.BUTTON_BOTTOM_SHEET
+import io.github.xxfast.decompose.router.screens.BUTTON_DIALOG
+import io.github.xxfast.decompose.router.screens.DIALOG
 import io.github.xxfast.decompose.router.screens.TITLE_BAR_TAG
 import io.github.xxfast.decompose.router.slot.RoutedContent
 import io.github.xxfast.decompose.router.slot.Router
@@ -57,13 +61,15 @@ fun SlotScreen() {
       verticalArrangement = Arrangement.Center
     ) {
       Button(
-        onClick = { dialogRouter.activate(DialogScreens) }
+        onClick = { dialogRouter.activate(DialogScreens) },
+        modifier = Modifier.testTag(BUTTON_DIALOG)
       ) {
         Text("Show Dialog")
       }
 
       Button(
-        onClick = { bottomSheetRouter.activate(BottomSheetScreens()) }
+        onClick = { bottomSheetRouter.activate(BottomSheetScreens()) },
+        modifier = Modifier.testTag(BUTTON_BOTTOM_SHEET)
       ) {
         Text("Show Bottom Sheet")
       }
@@ -82,7 +88,8 @@ fun SlotScreen() {
           text = screens.toString(),
           modifier = Modifier.padding(8.dp)
         )
-      }
+      },
+      modifier = Modifier.testTag(DIALOG)
     )
   }
 
@@ -93,6 +100,7 @@ fun SlotScreen() {
       onDismissRequest = { bottomSheetRouter.dismiss() },
       modifier = Modifier
         .height(480.dp)
+        .testTag(BOTTOM_SHEET)
     ) {
       Scaffold(
         topBar = { TopAppBar(title = { Text("Bottom Sheet") }) },

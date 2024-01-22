@@ -18,6 +18,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 import io.github.xxfast.decompose.router.screens.BACK_BUTTON_TAG
+import io.github.xxfast.decompose.router.screens.DETAILS_TAG
 import io.github.xxfast.decompose.router.screens.TITLE_BAR_TAG
 import io.github.xxfast.decompose.router.screens.TOOLBAR_TAG
 import io.github.xxfast.decompose.router.screens.stack.Item
@@ -54,6 +55,7 @@ fun DetailScreen(
         modifier = Modifier
           .padding(16.dp)
           .align(Alignment.Center)
+          .testTag(DETAILS_TAG)
       )
     }
   }
