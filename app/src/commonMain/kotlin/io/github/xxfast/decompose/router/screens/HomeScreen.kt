@@ -25,6 +25,7 @@ import io.github.xxfast.decompose.router.screens.HomeScreens.Page
 import io.github.xxfast.decompose.router.screens.HomeScreens.Slot
 import io.github.xxfast.decompose.router.screens.HomeScreens.Stack
 import io.github.xxfast.decompose.router.screens.pages.PagesScreen
+import io.github.xxfast.decompose.router.screens.slot.SlotScreen
 import io.github.xxfast.decompose.router.screens.stack.StackScreen
 
 @OptIn(ExperimentalDecomposeApi::class, ExperimentalFoundationApi::class)
@@ -73,7 +74,7 @@ fun HomeScreen() {
       when (screen) {
         Stack -> StackScreen()
         Page -> PagesScreen()
-        Slot -> Text("Slot")
+        Slot -> SlotScreen()
       }
     }
   }

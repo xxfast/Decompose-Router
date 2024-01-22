@@ -33,17 +33,17 @@ fun <C: @Serializable Any> rememberRouter(
   initialPages: () -> Pages<C>,
 ): Router<C> {
   val routerContext: RouterContext = LocalRouterContext.current
-  val pagerKey = "$key.router"
+  val routerKey = "$key.router"
 
-  return remember(pagerKey) {
-    routerContext.getOrCreate(key = pagerKey) {
+  return remember(routerKey) {
+    routerContext.getOrCreate(key = routerKey) {
       val navigation: PagesNavigation<C> = PagesNavigation()
       val stack: State<ChildPages<C, RouterContext>> = routerContext
         .childPages(
           source = navigation,
           serializer = type.serializerOrNull(),
           initialPages = initialPages,
-          key = pagerKey,
+          key = routerKey,
           handleBackButton = handleBackButton,
           childFactory = { _, childComponentContext -> RouterContext(childComponentContext) },
         )
