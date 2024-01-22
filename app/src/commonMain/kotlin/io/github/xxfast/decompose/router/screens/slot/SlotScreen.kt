@@ -18,7 +18,6 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.rememberModalBottomSheetState
-import androidx.compose.material3.rememberStandardBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -58,7 +57,7 @@ fun SlotScreen() {
       verticalArrangement = Arrangement.Center
     ) {
       Button(
-        onClick = { dialogRouter.activate(DialogScreens()) }
+        onClick = { dialogRouter.activate(DialogScreens) }
       ) {
         Text("Show Dialog")
       }

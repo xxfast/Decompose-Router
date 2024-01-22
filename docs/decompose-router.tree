@@ -10,5 +10,7 @@
     <toc-element topic="installation.md" toc-title="Installation"/><toc-element topic="platform-configurations.md"/>
     <toc-element toc-title="Using Decompose Router" topic="using-decompose-router.md">
         <toc-element topic="using-stack-navigation.md"/>
+        <toc-element topic="using-pages-navigation.md"/>
+        <toc-element topic="using-slot-navigation.md"/>
     </toc-element><toc-element topic="Scoping-Instances-to-Screens.md"/>
     </instance-profile>
