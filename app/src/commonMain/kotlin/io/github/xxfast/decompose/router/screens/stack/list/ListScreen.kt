@@ -33,6 +33,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 import io.github.xxfast.decompose.router.rememberOnRoute
+import io.github.xxfast.decompose.router.screens.FAB_ADD
 import io.github.xxfast.decompose.router.screens.LIST_TAG
 import io.github.xxfast.decompose.router.screens.TITLE_BAR_TAG
 import io.github.xxfast.decompose.router.screens.TOOLBAR_TAG
@@ -76,7 +77,8 @@ fun ListScreen(
           instance.add()
           coroutineScope.launch { listState.animateScrollToItem(state.screens.lastIndex) }
         },
-        content = { Icon(Icons.Rounded.Add, null) }
+        content = { Icon(Icons.Rounded.Add, null) },
+        modifier = Modifier.testTag(FAB_ADD)
       )
     },
     contentWindowInsets = WindowInsets(0, 0, 0, 0)
