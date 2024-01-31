@@ -51,7 +51,7 @@ public final class io/github/xxfast/decompose/router/pages/Router : com/arkivano
 public final class io/github/xxfast/decompose/router/pages/RouterKt {
 	public static final fun pagesOf ([Ljava/lang/Object;I)Lcom/arkivanov/decompose/router/pages/Pages;
 	public static synthetic fun pagesOf$default ([Ljava/lang/Object;IILjava/lang/Object;)Lcom/arkivanov/decompose/router/pages/Pages;
-	public static final fun rememberRouter (Lkotlin/reflect/KClass;Ljava/lang/Object;ZLkotlin/jvm/functions/Function0;Landroidx/compose/runtime/Composer;II)Lio/github/xxfast/decompose/router/pages/Router;
+	public static final fun rememberRouter (Lkotlin/reflect/KClass;Ljava/lang/Object;ZLkotlinx/serialization/KSerializer;Lkotlin/jvm/functions/Function0;Landroidx/compose/runtime/Composer;II)Lio/github/xxfast/decompose/router/pages/Router;
 }
 
 public final class io/github/xxfast/decompose/router/slot/RoutedContentKt {
@@ -68,7 +68,7 @@ public final class io/github/xxfast/decompose/router/slot/Router : com/arkivanov
 }
 
 public final class io/github/xxfast/decompose/router/slot/RouterKt {
-	public static final fun rememberRouter (Lkotlin/reflect/KClass;Ljava/lang/Object;ZLkotlin/jvm/functions/Function0;Landroidx/compose/runtime/Composer;II)Lio/github/xxfast/decompose/router/slot/Router;
+	public static final fun rememberRouter (Lkotlin/reflect/KClass;Ljava/lang/Object;ZLkotlinx/serialization/KSerializer;Lkotlin/jvm/functions/Function0;Landroidx/compose/runtime/Composer;II)Lio/github/xxfast/decompose/router/slot/Router;
 }
 
 public final class io/github/xxfast/decompose/router/stack/RoutedContentKt {
@@ -84,6 +84,6 @@ public final class io/github/xxfast/decompose/router/stack/Router : com/arkivano
 }
 
 public final class io/github/xxfast/decompose/router/stack/RouterKt {
-	public static final fun rememberRouter (Lkotlin/reflect/KClass;Ljava/lang/Object;ZLkotlin/jvm/functions/Function0;Landroidx/compose/runtime/Composer;II)Lio/github/xxfast/decompose/router/stack/Router;
+	public static final fun rememberRouter (Lkotlin/reflect/KClass;Ljava/lang/Object;ZLkotlinx/serialization/KSerializer;Lkotlin/jvm/functions/Function0;Landroidx/compose/runtime/Composer;II)Lio/github/xxfast/decompose/router/stack/Router;
 }
 

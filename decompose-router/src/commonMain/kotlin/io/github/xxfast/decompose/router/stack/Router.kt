@@ -48,6 +48,7 @@ fun <C: @Serializable Any> rememberRouter(
   type: KClass<C>,
   key: Any = type.key,
   handleBackButton: Boolean = true,
+  serializer: KSerializer<C>? = type.serializerOrNull(),
   initialStack: () -> List<C>,
 ): Router<C> {
   val routerContext: RouterContext = LocalRouterContext.current
@@ -59,7 +60,7 @@ fun <C: @Serializable Any> rememberRouter(
       val stack: State<ChildStack<C, RouterContext>> = routerContext
         .childStack(
           source = navigation,
-          serializer = type.serializerOrNull(),
+          serializer = serializer,
           initialStack = initialStack,
           key = routerKey,
           handleBackButton = handleBackButton,
