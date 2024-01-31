@@ -14,6 +14,7 @@ import io.github.xxfast.decompose.asState
 import io.github.xxfast.decompose.router.getOrCreate
 import io.github.xxfast.decompose.key
 import kotlinx.serialization.InternalSerializationApi
+import kotlinx.serialization.KSerializer
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.serializerOrNull
 import kotlin.reflect.KClass
@@ -30,6 +31,7 @@ fun <C: @Serializable Any> rememberRouter(
   type: KClass<C>,
   key: Any = type.key,
   handleBackButton: Boolean = true,
+  serializer: KSerializer<C>? = type.serializerOrNull(),
   initialPages: () -> Pages<C>,
 ): Router<C> {
   val routerContext: RouterContext = LocalRouterContext.current
@@ -41,7 +43,7 @@ fun <C: @Serializable Any> rememberRouter(
       val stack: State<ChildPages<C, RouterContext>> = routerContext
         .childPages(
           source = navigation,
-          serializer = type.serializerOrNull(),
+          serializer = serializer,
           initialPages = initialPages,
           key = routerKey,
           handleBackButton = handleBackButton,
