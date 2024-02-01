@@ -6,8 +6,8 @@ import androidx.compose.runtime.remember
 import com.arkivanov.decompose.router.slot.ChildSlot
 import com.arkivanov.decompose.router.slot.SlotNavigation
 import com.arkivanov.decompose.router.slot.childSlot
-import io.github.xxfast.decompose.asState
-import io.github.xxfast.decompose.key
+import io.github.xxfast.decompose.router.asState
+import io.github.xxfast.decompose.router.key
 import io.github.xxfast.decompose.router.LocalRouterContext
 import io.github.xxfast.decompose.router.RouterContext
 import io.github.xxfast.decompose.router.getOrCreate

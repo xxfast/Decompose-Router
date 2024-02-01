@@ -40,22 +40,15 @@ import io.github.xxfast.decompose.router.screens.TOOLBAR_TAG
 import io.github.xxfast.decompose.router.screens.stack.Item
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
-import kotlinx.serialization.InternalSerializationApi
-import kotlinx.serialization.serializer
 
-@OptIn(ExperimentalMaterial3Api::class, InternalSerializationApi::class)
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ListScreen(
   onSelect: (screen: Item) -> Unit,
 ) {
-  val instance: ListInstance = rememberOnRoute(
-    type = ListInstance::class,
-    strategy = ListState::class.serializer()
-  ) { savedState ->
-    ListInstance(savedState)
-  }
+  val instance: ListInstance = rememberOnRoute(ListInstance::class) { context -> ListInstance(context) }
 
-  val state: ListState by instance.state.collectAsState()
+  val state: ListState by instance.states.collectAsState()
   val listState: LazyListState = rememberLazyListState()
   val coroutineScope: CoroutineScope = rememberCoroutineScope()
 
