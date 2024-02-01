@@ -8,6 +8,10 @@ import com.arkivanov.essenty.backhandler.BackHandler
 import com.arkivanov.essenty.instancekeeper.InstanceKeeper
 import com.arkivanov.essenty.lifecycle.Lifecycle
 import com.arkivanov.essenty.statekeeper.StateKeeper
+import kotlinx.serialization.InternalSerializationApi
+import kotlinx.serialization.KSerializer
+import kotlinx.serialization.Serializable
+import kotlinx.serialization.serializer
 
 class RouterContext(
   private val delegate: ComponentContext,
@@ -23,7 +27,7 @@ class RouterContext(
   val storage: MutableMap<Any, Any> = HashMap()
 }
 
-inline fun <reified T : Any> RouterContext.getOrCreate(key: Any, factory: () -> T) : T {
+inline fun <reified T : Any> RouterContext.getOrCreate(key: Any, factory: () -> T): T {
   var instance: T? = storage[key] as T?
   if (instance == null) {
     instance = factory()
@@ -41,3 +45,15 @@ inline fun <reified T : Any> RouterContext.getOrCreate(key: Any, factory: () -> 
  */
 val LocalRouterContext: ProvidableCompositionLocal<RouterContext> =
   staticCompositionLocalOf { error("Root RouterContext was not provided") }
+
+@OptIn(InternalSerializationApi::class)
+inline fun <reified T : @Serializable Any> RouterContext.state(
+  initial: T,
+  key: String = T::class.key,
+  serializer: KSerializer<T> = T::class.serializer(),
+  noinline supplier: () -> T,
+): T {
+  val state: T = stateKeeper.consume(key, serializer) ?: initial
+  if (!stateKeeper.isRegistered(key)) stateKeeper.register(key, serializer, supplier)
+  return state
+}

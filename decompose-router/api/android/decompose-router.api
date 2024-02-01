@@ -1,23 +1,14 @@
-public final class io/github/xxfast/decompose/KeyKt {
-	public static final fun getKey (Lkotlin/reflect/KClass;)Ljava/lang/String;
-}
-
-public final class io/github/xxfast/decompose/SavedStateHandle : com/arkivanov/essenty/instancekeeper/InstanceKeeper$Instance {
-	public static final field $stable I
-	public fun <init> (Ljava/lang/Object;)V
-	public final fun get ()Ljava/lang/Object;
-	public final fun getValue ()Ljava/lang/Object;
-	public fun onDestroy ()V
-	public final fun set (Ljava/lang/Object;)V
-}
-
 public final class io/github/xxfast/decompose/router/DefaultRouterContextKt {
 	public static final fun defaultRouterContext (Landroidx/activity/ComponentActivity;)Lio/github/xxfast/decompose/router/RouterContext;
 	public static final fun defaultRouterContext (Landroidx/fragment/app/Fragment;Landroidx/activity/OnBackPressedDispatcher;)Lio/github/xxfast/decompose/router/RouterContext;
 }
 
+public final class io/github/xxfast/decompose/router/KeyKt {
+	public static final fun getKey (Lkotlin/reflect/KClass;)Ljava/lang/String;
+}
+
 public final class io/github/xxfast/decompose/router/RememberOnRouteKt {
-	public static final fun rememberOnRoute (Lkotlin/reflect/KClass;Lkotlinx/serialization/KSerializer;Ljava/lang/Object;Lkotlin/jvm/functions/Function1;Landroidx/compose/runtime/Composer;II)Lcom/arkivanov/essenty/instancekeeper/InstanceKeeper$Instance;
+	public static final fun rememberOnRoute (Lkotlin/reflect/KClass;Ljava/lang/Object;Lkotlin/jvm/functions/Function1;Landroidx/compose/runtime/Composer;II)Ljava/lang/Object;
 }
 
 public final class io/github/xxfast/decompose/router/RouterContext : com/arkivanov/decompose/ComponentContext {

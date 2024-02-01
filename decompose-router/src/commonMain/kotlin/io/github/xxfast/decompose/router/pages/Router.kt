@@ -10,9 +10,9 @@ import com.arkivanov.decompose.router.pages.PagesNavigation
 import com.arkivanov.decompose.router.pages.childPages
 import io.github.xxfast.decompose.router.LocalRouterContext
 import io.github.xxfast.decompose.router.RouterContext
-import io.github.xxfast.decompose.asState
+import io.github.xxfast.decompose.router.asState
 import io.github.xxfast.decompose.router.getOrCreate
-import io.github.xxfast.decompose.key
+import io.github.xxfast.decompose.router.key
 import kotlinx.serialization.InternalSerializationApi
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.Serializable

@@ -1,4 +1,4 @@
-package io.github.xxfast.decompose
+package io.github.xxfast.decompose.router
 
 import kotlin.reflect.KClass
 
