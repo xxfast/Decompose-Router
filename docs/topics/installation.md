@@ -26,10 +26,8 @@ decompose-router = { module = "io.github.xxfast:decompose-router", version.ref =
 # For Compose Wear
 decompose-router-wear = { module = "io.github.xxfast:decompose-router-wear", version.ref = "decompose-router" }
 
-# You will need to also bring in decompose and essenty
-decompose = { module = "com.arkivanov.decompose:decompose", version.ref = "decompose" }
+# You will need to also bring in decompose extensions for compose-multiplatform
 decompose-compose-multiplatform = { module = "com.arkivanov.decompose:extensions-compose-jetbrains", version.ref = "decompose" }
-essenty-parcelable = { module = "com.arkivanov.essenty:parcelable", version.ref = "essenty" }
 ```
 
 **build.gradle.kts**
