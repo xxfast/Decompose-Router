@@ -23,9 +23,8 @@ A Compose-multiplatform navigation library that leverage [Decompose](https://git
 A detailed breakdown available in this [Medium article](https://proandroiddev.com/diy-compose-multiplatform-navigation-with-decompose-94ac8126e6b5)
 
 ## Features
-- 🚏 A `Router` that manages a FILO stack for your screen configurations
+- 🚏 A `Router` that manages a stack, pages or slot for your screen configurations
 - 📦 `rememberOnRoute()` lets you retain your view model across configuration changes and gets cleared when the user leaves the screen
-- ☠️ A `SavedStateHandle` to restore state gracefully after the process death. (for Android)
 - 🚉 Multiplatform! Supports Android, WearOS, Desktop, iOS and Web
 
 ## At a glance
@@ -54,25 +53,6 @@ fun ListDetailScreen() {
       is Details -> DetailsScreen(screen.detail)
     }
   }
-}
-
-@Composable
-fun DetailsScreen(detail: String) {
-  // 📦 Scope an instance (a view model, a state-holder or whatever) to a route with [rememberOnRoute] 
-  // This makes your instances survive configuration changes (on android) 🔁
-  // And holds-on the instance as long as it is in the backstack 🔗
-  // Pass in key if you want to reissue a new instance when key changes 🔑 (optional) 
-  val instance: DetailInstance = rememberOnRoute(key = detail) { savedState -> DetailInstance(savedState, detail) }
-  
-  val state: DetailState by instance.states.collectAsState()
-  Text(text = state.detail)
-}
-
-// If you want your state to survive process death ☠️ derive your initial state from [SavedStateHandle] 
-class DetailInstance(savedState: SavedStateHandle, detail: String) : InstanceKeeper.Instance {
-  private val initialState: DetailState = savedState.get() ?: DetailState(detail)
-  private val stateFlow = MutableStateFlow(initialState)
-  val states: StateFlow<DetailState> = stateFlow
 }
 ```
 

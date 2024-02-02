@@ -16,9 +16,8 @@
 A Compose-multiplatform navigation library that leverage [Decompose](https://github.com/arkivanov/Decompose) to create an API inspired by [Conductor](https://github.com/bluelinelabs/Conductor)
 
 ## Features
-- 🚏 A `Router` that manages a FILO stack for your screen configurations
-- 📦 `rememberOnRoute()` lets you retain your view model across configuration changes and gets cleared when the user leaves the screen
-- ☠️ A `SavedStateHandle` to restore state gracefully after the process death. (for Android)
+- 🚏 A `Router` that manages a stack, pages or slot for your screen configurations
+- 📦 `rememberOnRoute()` lets you retain your state holders across configuration changes and gets cleared when the user leaves the screen
 - 🚉 Multiplatform! Supports Android, WearOS, Desktop, iOS and Web
 
 ## At a glance

@@ -3,8 +3,8 @@
 Decompose router supports the following navigation models, that is driven by a [model](#model-driven-navigation)
 
 1. [Stack navigation](using-stack-navigation.md)
-2. Page navigation 🚧
-3. Slot navigation 🚧
+2. [Page navigation](using-pages-navigation.md)
+3. [Slot navigation](using-slot-navigation.md)
    
 These are the same ones supported by [Decompose](https://github.com/arkivanov/Decompose)
 
