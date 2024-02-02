@@ -46,9 +46,11 @@ import kotlinx.coroutines.launch
 fun ListScreen(
   onSelect: (screen: Item) -> Unit,
 ) {
-  val instance: ListInstance = rememberOnRoute(ListInstance::class) { context -> ListInstance(context) }
+  val listComponent: ListComponent = rememberOnRoute(ListComponent::class) { context ->
+    ListComponent(context)
+  }
 
-  val state: ListState by instance.states.collectAsState()
+  val state: ListState by listComponent.states.collectAsState()
   val listState: LazyListState = rememberLazyListState()
   val coroutineScope: CoroutineScope = rememberCoroutineScope()
 
@@ -67,7 +69,7 @@ fun ListScreen(
     floatingActionButton = {
       FloatingActionButton(
         onClick = {
-          instance.add()
+          listComponent.add()
           coroutineScope.launch { listState.animateScrollToItem(state.screens.lastIndex) }
         },
         content = { Icon(Icons.Rounded.Add, null) },

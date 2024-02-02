@@ -7,7 +7,7 @@
         <variables>
             <noindex-content>false</noindex-content>
             <color-preset>soft</color-preset>
-            <primary-color>blue</primary-color>
+            <primary-color>red</primary-color>
             <header-logo>decompose_router.svg</header-logo>
             <custom-favicons>fav.svg</custom-favicons>
         </variables>

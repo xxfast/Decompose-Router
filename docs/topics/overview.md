@@ -25,7 +25,7 @@ A Compose-multiplatform navigation library that leverage [Decompose](https://git
 
 ```kotlin
 // Declare your screen configurations for type-safety
-@Parcelize
+@Serializable
 sealed class Screen: Parcelable {
   object List : Screen()
   data class Details(val detail: String) : Screen()
@@ -55,15 +55,15 @@ fun DetailsScreen(detail: String) {
   // This makes your instances survive configuration changes (on android) 🔁
   // And holds-on the instance as long as it is in the backstack 🔗
   // Pass in key if you want to reissue a new instance when key changes 🔑 (optional) 
-  val instance: DetailInstance = rememberOnRoute(key = detail) { savedState -> DetailInstance(savedState, detail) }
+  val instance: DetailInstance = rememberOnRoute(key = detail) { context -> DetailInstance(context, detail) }
   
   val state: DetailState by instance.states.collectAsState()
   Text(text = state.detail)
 }
 
 // If you want your state to survive process death ☠️ derive your initial state from [SavedStateHandle] 
-class DetailInstance(savedState: SavedStateHandle, detail: String) : InstanceKeeper.Instance {
-  private val initialState: DetailState = savedState.get() ?: DetailState(detail)
+class DetailInstance(context: RouterContext, detail: String) : InstanceKeeper.Instance {
+  private val initialState: DetailState = context.state(DetailState(detail)) { states.value }
   private val stateFlow = MutableStateFlow(initialState)
   val states: StateFlow<DetailState> = stateFlow
 }
