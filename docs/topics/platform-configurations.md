@@ -55,7 +55,28 @@ fun HomeUIViewController(routerContext: RouterContext): UIViewController =
 You will need to tie root `RouterContext`'s lifecycle to an `AppDelegate`.
 
 > Important!
-> To invoke decompose router's `defaultRouterContext()` from swift, you will need to export decompose-router from your shared module
+> To invoke decompose router's `defaultRouterContext()` from swift, you will need to export decompose-router from your shared module.
+> 
+> Refer to the sample [here](https://github.com/xxfast/Decompose-Router/blob/main/app/build.gradle.kts)
+> ```kotlin
+> kotlin {
+>   ios {
+>     binaries{
+        framework {
+>         export(libs.decompose.router)
+>       }
+>     }
+>   }
+> 
+>    sourceSets {
+>       val commonMain by getting {
+>           dependencies {
+>           // Only need to add this as api if you wish to add your own AppDelegate in swift
+>           api(libs.decompose.router)
+>       }
+>   }
+> }
+> ```
 {style=warning}
 
 If you are using SwiftUI
