@@ -16,6 +16,7 @@ public final class io/github/xxfast/decompose/router/RouterContext : com/arkivan
 	public fun <init> (Lcom/arkivanov/essenty/lifecycle/Lifecycle;Lcom/arkivanov/essenty/statekeeper/StateKeeper;Lcom/arkivanov/essenty/instancekeeper/InstanceKeeper;Lcom/arkivanov/essenty/backhandler/BackHandler;)V
 	public synthetic fun <init> (Lcom/arkivanov/essenty/lifecycle/Lifecycle;Lcom/arkivanov/essenty/statekeeper/StateKeeper;Lcom/arkivanov/essenty/instancekeeper/InstanceKeeper;Lcom/arkivanov/essenty/backhandler/BackHandler;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public fun getBackHandler ()Lcom/arkivanov/essenty/backhandler/BackHandler;
+	public fun getComponentContextFactory ()Lcom/arkivanov/decompose/ComponentContextFactory;
 	public fun getInstanceKeeper ()Lcom/arkivanov/essenty/instancekeeper/InstanceKeeper;
 	public fun getLifecycle ()Lcom/arkivanov/essenty/lifecycle/Lifecycle;
 	public fun getStateKeeper ()Lcom/arkivanov/essenty/statekeeper/StateKeeper;
@@ -27,15 +28,14 @@ public final class io/github/xxfast/decompose/router/RouterContextKt {
 }
 
 public final class io/github/xxfast/decompose/router/pages/RoutedContentKt {
-	public static final fun RoutedContent (Lio/github/xxfast/decompose/router/pages/Router;Landroidx/compose/ui/Modifier;Lcom/arkivanov/decompose/extensions/compose/jetbrains/pages/PagesScrollAnimation;Lkotlin/jvm/functions/Function6;Lkotlin/jvm/functions/Function3;Landroidx/compose/runtime/Composer;II)V
+	public static final fun RoutedContent (Lio/github/xxfast/decompose/router/pages/Router;Landroidx/compose/ui/Modifier;Lcom/arkivanov/decompose/extensions/compose/pages/PagesScrollAnimation;Lkotlin/jvm/functions/Function6;Lkotlin/jvm/functions/Function3;Landroidx/compose/runtime/Composer;II)V
 }
 
 public final class io/github/xxfast/decompose/router/pages/Router : com/arkivanov/decompose/router/pages/PagesNavigation {
 	public static final field $stable I
 	public final fun getPages ()Landroidx/compose/runtime/State;
 	public fun navigate (Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function2;)V
-	public fun subscribe (Lkotlin/jvm/functions/Function1;)V
-	public fun unsubscribe (Lkotlin/jvm/functions/Function1;)V
+	public fun subscribe (Lkotlin/jvm/functions/Function1;)Lcom/arkivanov/decompose/Cancellation;
 }
 
 public final class io/github/xxfast/decompose/router/pages/RouterKt {
@@ -53,8 +53,7 @@ public final class io/github/xxfast/decompose/router/slot/Router : com/arkivanov
 	public final fun getNavigation ()Lcom/arkivanov/decompose/router/slot/SlotNavigation;
 	public final fun getSlot ()Landroidx/compose/runtime/State;
 	public fun navigate (Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function2;)V
-	public fun subscribe (Lkotlin/jvm/functions/Function1;)V
-	public fun unsubscribe (Lkotlin/jvm/functions/Function1;)V
+	public fun subscribe (Lkotlin/jvm/functions/Function1;)Lcom/arkivanov/decompose/Cancellation;
 }
 
 public final class io/github/xxfast/decompose/router/slot/RouterKt {
@@ -62,15 +61,14 @@ public final class io/github/xxfast/decompose/router/slot/RouterKt {
 }
 
 public final class io/github/xxfast/decompose/router/stack/RoutedContentKt {
-	public static final fun RoutedContent (Lio/github/xxfast/decompose/router/stack/Router;Landroidx/compose/ui/Modifier;Lcom/arkivanov/decompose/extensions/compose/jetbrains/stack/animation/StackAnimation;Lkotlin/jvm/functions/Function3;Landroidx/compose/runtime/Composer;II)V
+	public static final fun RoutedContent (Lio/github/xxfast/decompose/router/stack/Router;Landroidx/compose/ui/Modifier;Lcom/arkivanov/decompose/extensions/compose/stack/animation/StackAnimation;Lkotlin/jvm/functions/Function3;Landroidx/compose/runtime/Composer;II)V
 }
 
 public final class io/github/xxfast/decompose/router/stack/Router : com/arkivanov/decompose/router/stack/StackNavigation {
 	public static final field $stable I
 	public final fun getStack ()Landroidx/compose/runtime/State;
 	public fun navigate (Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function2;)V
-	public fun subscribe (Lkotlin/jvm/functions/Function1;)V
-	public fun unsubscribe (Lkotlin/jvm/functions/Function1;)V
+	public fun subscribe (Lkotlin/jvm/functions/Function1;)Lcom/arkivanov/decompose/Cancellation;
 }
 
 public final class io/github/xxfast/decompose/router/stack/RouterKt {
