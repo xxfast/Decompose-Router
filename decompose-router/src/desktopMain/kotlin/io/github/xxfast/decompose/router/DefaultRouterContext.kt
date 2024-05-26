@@ -3,12 +3,10 @@ package io.github.xxfast.decompose.router
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.window.WindowState
 import androidx.compose.ui.window.rememberWindowState
-import com.arkivanov.decompose.ExperimentalDecomposeApi
-import com.arkivanov.decompose.extensions.compose.jetbrains.lifecycle.LifecycleController
+import com.arkivanov.decompose.extensions.compose.lifecycle.LifecycleController
 import com.arkivanov.essenty.backhandler.BackDispatcher
 import com.arkivanov.essenty.lifecycle.LifecycleRegistry
 
-@OptIn(ExperimentalDecomposeApi::class)
 @Composable
 fun defaultRouterContext(
   backDispatcher: BackDispatcher = BackDispatcher(),
