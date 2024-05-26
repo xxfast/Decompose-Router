@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="browser" type="GradleRunConfiguration" factoryName="Gradle">
+  <configuration default="false" name="browserWasmJs" type="GradleRunConfiguration" factoryName="Gradle">
     <ExternalSystemSettings>
       <option name="executionName" />
       <option name="externalProjectPath" value="$PROJECT_DIR$/app" />
@@ -10,7 +10,7 @@
       </option>
       <option name="taskNames">
         <list>
-          <option value="jsBrowserDevelopmentRun" />
+          <option value="wasmJsBrowserDevelopmentRun" />
         </list>
       </option>
       <option name="vmOptions" />
@@ -18,7 +18,7 @@
     <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
     <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
     <DebugAllEnabled>false</DebugAllEnabled>
-    <ForceTestExec>false</ForceTestExec>
+    <RunAsTest>false</RunAsTest>
     <method v="2" />
   </configuration>
 </component>
