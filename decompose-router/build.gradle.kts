@@ -36,7 +36,7 @@ kotlin {
         implementation(compose.runtime)
         implementation(compose.foundation)
         implementation(libs.decompose.compose.multiplatform)
-        implementation(libs.kotlinx.serialization)
+        implementation(libs.kotlinx.serialization.core)
       }
     }
 

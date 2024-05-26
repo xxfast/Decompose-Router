@@ -7,9 +7,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Modifier
 import com.arkivanov.decompose.ExperimentalDecomposeApi
-import com.arkivanov.decompose.extensions.compose.jetbrains.pages.Pages
-import com.arkivanov.decompose.extensions.compose.jetbrains.pages.PagesScrollAnimation
-import com.arkivanov.decompose.extensions.compose.jetbrains.pages.defaultHorizontalPager
+import com.arkivanov.decompose.extensions.compose.pages.Pages
+import com.arkivanov.decompose.extensions.compose.pages.PagesScrollAnimation
+import com.arkivanov.decompose.extensions.compose.pages.defaultHorizontalPager
 import com.arkivanov.decompose.router.pages.select
 import io.github.xxfast.decompose.router.LocalRouterContext
 import kotlinx.serialization.Serializable
@@ -29,7 +29,7 @@ fun <C : @Serializable Any> RoutedContent(
   content: @Composable (C) -> Unit,
 ) {
   Pages(
-    pages = router.pages,
+    pages = router.pages.value,
     onPageSelected = { index -> router.select(index) },
     modifier = modifier,
     pager = pager,

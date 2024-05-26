@@ -2,9 +2,12 @@ package io.github.xxfast.decompose.router.screens.stack
 
 import androidx.compose.runtime.Composable
 import com.arkivanov.decompose.ExperimentalDecomposeApi
-import com.arkivanov.decompose.extensions.compose.jetbrains.stack.animation.predictiveback.predictiveBackAnimation
-import com.arkivanov.decompose.extensions.compose.jetbrains.stack.animation.slide
-import com.arkivanov.decompose.extensions.compose.jetbrains.stack.animation.stackAnimation
+import com.arkivanov.decompose.extensions.compose.stack.animation.fade
+import com.arkivanov.decompose.extensions.compose.stack.animation.plus
+import com.arkivanov.decompose.extensions.compose.stack.animation.predictiveback.androidPredictiveBackAnimatable
+import com.arkivanov.decompose.extensions.compose.stack.animation.predictiveback.predictiveBackAnimation
+import com.arkivanov.decompose.extensions.compose.stack.animation.scale
+import com.arkivanov.decompose.extensions.compose.stack.animation.stackAnimation
 import com.arkivanov.decompose.router.stack.pop
 import com.arkivanov.decompose.router.stack.push
 import io.github.xxfast.decompose.router.LocalRouterContext
@@ -24,9 +27,10 @@ fun StackScreen() {
   RoutedContent(
     router = router,
     animation = predictiveBackAnimation(
-      animation = stackAnimation(slide()),
+      backHandler = LocalRouterContext.current.backHandler,
+      fallbackAnimation = stackAnimation(fade() + scale()),
+      selector = { backEvent, _, _ -> androidPredictiveBackAnimatable(backEvent) },
       onBack = { router.pop() },
-      backHandler = LocalRouterContext.current.backHandler
     )
   ) { screen ->
     when (screen) {

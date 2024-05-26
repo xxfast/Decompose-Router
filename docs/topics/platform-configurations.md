@@ -68,7 +68,7 @@ You will need to tie root `RouterContext`'s lifecycle to an `AppDelegate`.
 >     }
 >   }
 > 
->    sourceSets {
+>   sourceSets {
 >       val commonMain by getting {
 >           dependencies {
 >           // Only need to add this as api if you wish to add your own AppDelegate in swift
