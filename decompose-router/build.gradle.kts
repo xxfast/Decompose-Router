@@ -1,4 +1,5 @@
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
+import org.jetbrains.kotlin.gradle.targets.js.dsl.ExperimentalWasmDsl
 
 plugins {
   kotlin("multiplatform")
@@ -25,6 +26,11 @@ kotlin {
   }
 
   js(IR) {
+    browser()
+  }
+
+  @OptIn(ExperimentalWasmDsl::class)
+  wasmJs {
     browser()
   }
 
@@ -58,8 +64,6 @@ kotlin {
       }
     }
 
-    val jsMain by getting
-
     val androidMain by getting {
       dependencies {
         implementation(compose.material3)
@@ -81,6 +85,12 @@ kotlin {
     sourceSets.invokeWhenCreated("androidDebug") {
       dependencies {
         implementation(libs.compose.ui.test.manifest)
+      }
+    }
+
+    val jsMain by getting {
+      dependencies {
+        implementation("org.jetbrains.kotlin-wrappers:kotlin-browser:1.0.0-pre.752")
       }
     }
   }

@@ -5,8 +5,7 @@ import com.arkivanov.essenty.lifecycle.LifecycleRegistry
 import com.arkivanov.essenty.lifecycle.resume
 import com.arkivanov.essenty.lifecycle.stop
 import kotlinx.browser.document
-import web.dom.DocumentVisibilityState
-import web.dom.document as webDocument
+import org.w3c.dom.Document
 
 fun defaultRouterContext(): RouterContext {
   val backDispatcher = BackDispatcher()
@@ -17,12 +16,12 @@ fun defaultRouterContext(): RouterContext {
 
 // Attaches the LifecycleRegistry to the document
 private fun LifecycleRegistry.attachToDocument() {
-  fun onVisibilityChanged() =
-    if (webDocument.visibilityState == DocumentVisibilityState.visible) resume()
-    else stop()
-
+  fun onVisibilityChanged() = if (visibilityState(document) == "visible") resume() else stop()
   onVisibilityChanged()
-
-  document.addEventListener("visibilitychange", callback = { onVisibilityChanged() })
+  document.addEventListener(type = "visibilitychange", callback = { onVisibilityChanged() })
 }
 
+// Workaround for Document#visibilityState not available in Wasm
+// From https://github.com/arkivanov/Minesweeper/blob/8270ffb0c75bf032b6d4da673c0bb2b01c9496ec/composeApp/src/wasmJsMain/kotlin/Main.kt#L47
+@JsFun("(document) => document.visibilityState")
+private external fun visibilityState(document: Document): String
