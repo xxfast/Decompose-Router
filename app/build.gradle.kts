@@ -77,7 +77,7 @@ kotlin {
         implementation(compose.materialIconsExtended)
 
         implementation(libs.decompose)
-        implementation(libs.decompose.compose.multiplatform)
+        implementation(libs.decompose.compose)
       }
     }
 
@@ -104,7 +104,7 @@ kotlin {
     val desktopMain by getting {
       dependencies {
         implementation(compose.desktop.currentOs)
-        implementation(libs.decompose.compose.multiplatform)
+        implementation(libs.decompose.compose)
         implementation(libs.kotlinx.coroutines.swing)
       }
     }

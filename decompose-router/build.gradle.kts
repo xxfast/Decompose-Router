@@ -41,7 +41,7 @@ kotlin {
 
         implementation(compose.runtime)
         implementation(compose.foundation)
-        implementation(libs.decompose.compose.multiplatform)
+        implementation(libs.decompose.compose)
         implementation(libs.kotlinx.serialization.core)
       }
     }
@@ -68,7 +68,7 @@ kotlin {
       dependencies {
         implementation(compose.material3)
         implementation(libs.decompose)
-        implementation(libs.decompose.compose.multiplatform)
+        implementation(libs.decompose.compose)
         implementation(libs.androidx.activity.ktx)
         implementation(libs.androidx.activity.compose)
         implementation(libs.androidx.fragment.ktx)

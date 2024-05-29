@@ -57,15 +57,38 @@ fun ListDetailScreen() {
 }
 ```
 
-### Installation and Usage
+### Installation
 
-Documentation [here](https://xxfast.github.io/Decompose-Router/)
+Decompose-Router is published on Maven Central. Latest version [![Maven Central](https://img.shields.io/maven-central/v/io.github.xxfast/decompose-router?color=blue)](https://search.maven.org/search?q=g:io.github.xxfast)
+```kotlin
+repositories { 
+  mavenCentral()
+  // or for snapshot builds
+  maven("https://s01.oss.sonatype.org/content/repositories/snapshots/")
+}
+```
 
-API Reference [here](https://xxfast.github.io/Decompose-Router//docs/)
+> **Note** - Check for compatible versions of Decompose and Compose in the [version catalog] [version catalog](gradle/libs.versions.toml)
+
+```toml
+[versions]
+decompose-router = "0.8.0"
+
+[libraries]
+# For Jetpack Compose / Compose Multiplatform
+decompose-router = { module = "io.github.xxfast:decompose-router", version.ref = "decompose-router" }
+
+# For Compose Wear
+decompose-router-wear = { module = "io.github.xxfast:decompose-router-wear", version.ref = "decompose-router" }
+```
+
+Read more
+ - Documentation [here](https://xxfast.github.io/Decompose-Router/)
+ - API Reference [here](https://xxfast.github.io/Decompose-Router//docs/)
 
 ## Licence
 
-    Copyright 2023 Isuru Rajapakse
+    Copyright 2024 Isuru Rajapakse
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
