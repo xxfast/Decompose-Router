@@ -72,7 +72,7 @@ repositories {
 
 ```toml
 [versions]
-decompose-router = "0.8.0"
+decompose-router = "<version>"
 
 [libraries]
 # For Jetpack Compose / Compose Multiplatform

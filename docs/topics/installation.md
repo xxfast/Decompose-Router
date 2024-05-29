@@ -9,7 +9,7 @@ repositories {
 }
 ```
 
-Include the dependency in `commonMain`. Latest version [![Maven Central](https://img.shields.io/maven-central/v/io.github.xxfast/decompose-router?color=blue)](https://search.maven.org/search?q=g:io.github.xxfast)
+Latest version [![Maven Central](https://img.shields.io/maven-central/v/io.github.xxfast/decompose-router?color=blue)](https://search.maven.org/search?q=g:io.github.xxfast)
 
 > **Note** - Check for compatible versions of Decompose and Compose in the [version catalog](https://github.com/xxfast/Decompose-Router/blob/main/gradle/libs.versions.toml)
 
@@ -17,8 +17,7 @@ Include the dependency in `commonMain`. Latest version [![Maven Central](https:/
 
 ```toml
 [versions]
-decompose = "0.8.0"
-decompose = "3.0.0"
+decompose-router = "<version>"
 
 [libraries]
 # For Jetpack Compose / Compose Multiplatform
@@ -55,19 +54,14 @@ sourceSets {
     // For Compose Multiplatform
     val commonMain by getting {
         dependencies {
-            implementation("io.github.xxfast:decompose-router:${versions.decompose - router}")
-
-            // You will need to also bring in decompose and essenty
-            implementation("com.arkivanov.decompose:decompose:${versions.decompose}")
-            implementation("com.arkivanov.decompose:extensions-compose-jetbrains:${versions.decompose}")
-            implementation("com.arkivanov.essenty:parcelable:${versions.essenty}")
+            implementation("io.github.xxfast:decompose-router:${versions.decompose-router}")
         }
     }
 
     // For Compose Wear
     val androidMain by getting {
         dependencies {
-            implementation("io.github.xxfast:decompose-router-wear:${versions.decompose - router}")
+            implementation("io.github.xxfast:decompose-router-wear:${versions.decompose-router}")
         }
     }
 }

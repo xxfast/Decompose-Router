@@ -165,6 +165,7 @@ class UIKitAppDelegate: UIResponder, UIApplicationDelegate {
 ## Web
 Create your default RouterContext once and supply with `CompositionLocalProvider` 
 
+### JsBrowser
 ```kotlin
 fun main() {
   val rootRouterContext: RouterContext = defaultRouterContext()
@@ -175,6 +176,21 @@ fun main() {
         MaterialTheme {
           // Your app goes here
         }
+      }
+    }
+  }
+}
+```
+
+### WasmJsBrowser
+```kotlin
+fun main() {
+  val rootRouterContext: RouterContext = defaultRouterContext()
+
+  BrowserViewportWindow("App") {
+    CompositionLocalProvider(LocalRouterContext provides rootRouterContext) {
+      MaterialTheme {
+        // Your app goes here
       }
     }
   }
