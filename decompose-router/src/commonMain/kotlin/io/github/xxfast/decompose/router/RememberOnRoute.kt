@@ -4,6 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisallowComposableCalls
 import androidx.compose.runtime.remember
 import com.arkivanov.essenty.instancekeeper.InstanceKeeper
+import com.arkivanov.essenty.instancekeeper.getOrCreate
 import kotlin.reflect.KClass
 
 /***
@@ -23,12 +24,7 @@ fun <T: Any> rememberOnRoute(
   val routerContext: RouterContext = LocalRouterContext.current
   val instanceKeeper: InstanceKeeper = routerContext.instanceKeeper
   val routeInstance: RouteInstance = remember(key) {
-    var instance: RouteInstance? = instanceKeeper.get(key) as RouteInstance?
-    if (instance == null) {
-      instance = RouteInstance(block(routerContext))
-      instanceKeeper.put(key, instance)
-    }
-    instance
+    instanceKeeper.getOrCreate(key) { RouteInstance(block(routerContext)) }
   }
   return routeInstance.instance
 }

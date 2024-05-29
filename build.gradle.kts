@@ -1,8 +1,13 @@
 import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
 
 plugins {
-  id("org.jetbrains.dokka") version "1.8.20"
-  id("org.jetbrains.kotlinx.binary-compatibility-validator") version "0.13.2"
+  alias(libs.plugins.android.application) apply false
+  alias(libs.plugins.android.library) apply false
+  alias(libs.plugins.kotlin.compose) apply false
+  alias(libs.plugins.compose.multiplatform) apply false
+
+  alias(libs.plugins.dokka)
+  alias(libs.plugins.binary.compatibility.validator)
 }
 
 buildscript {
@@ -10,13 +15,6 @@ buildscript {
     google()
     mavenCentral()
     gradlePluginPortal()
-  }
-
-  dependencies {
-    classpath(libs.agp)
-    classpath(libs.compose.multiplatform)
-    classpath(libs.kotlin.gradle.plugin)
-    classpath(libs.kotlin.serialization.plugin)
   }
 }
 
@@ -52,8 +50,8 @@ allprojects {
         )
 
         credentials {
-          username = gradleLocalProperties(rootDir).getProperty("sonatypeUsername")
-          password = gradleLocalProperties(rootDir).getProperty("sonatypePassword")
+          username = gradleLocalProperties(rootDir, providers).getProperty("sonatypeUsername")
+          password = gradleLocalProperties(rootDir, providers).getProperty("sonatypePassword")
         }
       }
     }
@@ -100,8 +98,8 @@ allprojects {
   val publishing = extensions.getByType<PublishingExtension>()
   extensions.configure<SigningExtension> {
     useInMemoryPgpKeys(
-      gradleLocalProperties(rootDir).getProperty("gpgKeySecret"),
-      gradleLocalProperties(rootDir).getProperty("gpgKeyPassword"),
+      gradleLocalProperties(rootDir, providers).getProperty("gpgKeySecret"),
+      gradleLocalProperties(rootDir, providers).getProperty("gpgKeyPassword"),
     )
 
     sign(publishing.publications)

@@ -5,14 +5,14 @@ import org.jetbrains.kotlin.gradle.targets.js.dsl.ExperimentalWasmDsl
 
 plugins {
   kotlin("multiplatform")
-  kotlin("plugin.serialization")
-  id("com.android.application")
-  id("org.jetbrains.compose")
+  alias(libs.plugins.android.application)
+  alias(libs.plugins.compose.multiplatform)
+  alias(libs.plugins.kotlin.compose)
+  alias(libs.plugins.kotlin.serialization)
 }
 
-@OptIn(org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi::class)
 kotlin {
-  targetHierarchy.default()
+  applyDefaultHierarchyTemplate()
 
   androidTarget {
     compilations.all {
