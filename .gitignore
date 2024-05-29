@@ -16,3 +16,6 @@ xcuserdata
 !/.idea/runConfigurations
 !/.idea/icon.svg
 !/.idea/.name
+
+# Kotlin metadata
+/.kotlin/metadata
