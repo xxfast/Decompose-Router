@@ -68,7 +68,7 @@ repositories {
 }
 ```
 
-> **Note** - Check for compatible versions of Decompose and Compose in the [version catalog] [version catalog](gradle/libs.versions.toml)
+> **Note** - Check for compatible versions of Decompose and Compose in the [version catalog](gradle/libs.versions.toml)
 
 ```toml
 [versions]
