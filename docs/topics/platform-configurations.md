@@ -62,7 +62,7 @@ You will need to tie root `RouterContext`'s lifecycle to an `AppDelegate`.
 > kotlin {
 >   ios {
 >     binaries{
-        framework {
+>        framework {
 >         export(libs.decompose.router)
 >       }
 >     }
