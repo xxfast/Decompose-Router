@@ -29,10 +29,9 @@ import io.github.xxfast.decompose.router.screens.pages.PagesScreen
 import io.github.xxfast.decompose.router.screens.slot.SlotScreen
 import io.github.xxfast.decompose.router.screens.stack.StackScreen
 
-@OptIn(ExperimentalDecomposeApi::class, ExperimentalFoundationApi::class)
 @Composable
 fun HomeScreen() {
-  val pager: Router<HomeScreens> = rememberRouter(HomeScreens::class) { pagesOf(Stack, Pages, Slot) }
+  val pager: Router<HomeScreens> = rememberRouter { pagesOf(Stack, Pages, Slot) }
 
   Scaffold(
     bottomBar = {

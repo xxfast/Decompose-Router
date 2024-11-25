@@ -26,22 +26,28 @@ class Router<C: Any> internal constructor(
   val stack: State<ChildStack<C, RouterContext>>,
 ) : StackNavigation<C> by navigation
 
-// TODO: Add this back to API once this [issue](https://github.com/JetBrains/compose-multiplatform/issues/2900) is fixed
-//@Composable
-//inline fun <reified C: @Serializable Any> rememberRouter(
-//  key: Any = C::class,
-//  handleBackButton: Boolean = true,
-//  noinline initialStack: () -> List<C>,
-//): Router<C> = rememberRouter(C::class, key, handleBackButton, initialStack)
+/***
+ * Creates a router that retains a stack of [C] configuration
+ * @param key
+ * @param initialStack initial stack of configurations
+ * @param handleBackButton should the router handle back button
+ */
+@Suppress("DEPRECATION") // For migration purposes
+@Composable
+inline fun <reified C: @Serializable Any> rememberRouter(
+  key: Any = C::class,
+  handleBackButton: Boolean = true,
+  noinline initialStack: () -> List<C>,
+): Router<C> = rememberRouter(C::class, key, handleBackButton,  initialStack = initialStack)
 
 /***
  * Creates a router that retains a stack of [C] configuration
- *
  * @param type configuration class type
  * @param key
  * @param initialStack initial stack of configurations
  * @param handleBackButton should the router handle back button
  */
+@Deprecated(message = "Use rememberRouter with reified type parameter")
 @OptIn(InternalSerializationApi::class)
 @Composable
 fun <C: @Serializable Any> rememberRouter(

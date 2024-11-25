@@ -1,6 +1,5 @@
 package io.github.xxfast.decompose.router.screens.pages
 
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
@@ -20,21 +19,17 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
-import com.arkivanov.decompose.ExperimentalDecomposeApi
 import com.arkivanov.decompose.router.pages.Pages
 import com.arkivanov.decompose.router.pages.selectFirst
 import io.github.xxfast.decompose.router.pages.RoutedContent
+import io.github.xxfast.decompose.router.pages.Router
 import io.github.xxfast.decompose.router.pages.rememberRouter
 import io.github.xxfast.decompose.router.screens.PAGER
 
-@OptIn(
-  ExperimentalDecomposeApi::class,
-  ExperimentalFoundationApi::class,
-  ExperimentalMaterial3Api::class
-)
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun PagesScreen() {
-  val router = rememberRouter(PagesScreens::class) {
+  val router: Router<PagesScreens> = rememberRouter {
     Pages(
       items = List(10) { PagesScreens(it) },
       selectedIndex = 0,
