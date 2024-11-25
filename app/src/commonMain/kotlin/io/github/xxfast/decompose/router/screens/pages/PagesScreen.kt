@@ -58,8 +58,8 @@ fun PagesScreen() {
       Card(modifier = Modifier.padding(16.dp)) {
         Box(modifier = Modifier.fillMaxSize()) {
           Text(
-            text = page.index.toString(),
-            style = MaterialTheme.typography.displayLarge,
+            text = "Page #${page.index}",
+            style = MaterialTheme.typography.displayMedium,
             modifier = Modifier.align(Alignment.Center)
           )
         }

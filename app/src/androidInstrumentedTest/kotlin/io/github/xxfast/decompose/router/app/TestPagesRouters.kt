@@ -21,14 +21,14 @@ class TestPagesRouters {
     // Go to pages and swipe to the 5th page
     onNode(bottomNavPagesItem).performClick()
     onNode(pager).performScrollToIndex(5)
-    onNode(hasText("5")).assertExists()
+    onNode(hasText("Page #5")).assertExists()
 
     // Verify pages screens are restored
     activity.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
     onNode(pager).assertExists()
-    onNode(hasText("5")).assertExists()
+    onNode(hasText("Page #5")).assertExists()
     activity.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
     onNode(pager).assertExists()
-    onNode(hasText("5")).assertExists()
+    onNode(hasText("Page #5")).assertExists()
   }
 }
