@@ -41,7 +41,7 @@ class TestNestedRouters {
     // Go to pages and swipe to the 5th page
     onNode(bottomNavPagesItem).performClick()
     onNode(pager).performScrollToIndex(5)
-    onNode(hasText("5")).assertExists()
+    onNode(hasText("Page #5")).assertExists()
 
     // Go to slots, open the bottom sheet and verify if it is visible
     onNode(bottomNavSlotItem).performClick()
@@ -58,7 +58,7 @@ class TestNestedRouters {
     onNode(bottomNavStackItem).performClick()
     onNode(details).assertExists().assertTextContains("Item@", substring = true)
     onNode(bottomNavPagesItem).performClick()
-    onNode(hasText("5")).assertExists()
+    onNode(hasText("Page #5")).assertExists()
     onNode(bottomNavSlotItem).performClick()
     onNode(buttonBottomSheet).performClick()
     activity.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
