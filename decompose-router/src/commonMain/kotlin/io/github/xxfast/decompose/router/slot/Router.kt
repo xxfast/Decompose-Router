@@ -22,6 +22,27 @@ class Router<C : Any> internal constructor(
   val slot: State<ChildSlot<C, RouterContext>>,
 ): SlotNavigation<C> by navigation
 
+
+/***
+ * Creates a router that retains a slot of [C] configuration
+ * @param key
+ * @param initialConfiguration initial configuration
+ * @param handleBackButton should the router handle back button
+ */
+@Suppress("DEPRECATION") // For migration purposes
+@Composable
+inline fun <reified C: @Serializable Any> rememberRouter(
+  key: Any = C::class,
+  handleBackButton: Boolean = true,
+  noinline initialConfiguration: () -> C?,
+): Router<C> = rememberRouter(
+  type = C::class,
+  key = key,
+  handleBackButton = handleBackButton,
+  initialConfiguration = initialConfiguration
+)
+
+@Deprecated(message = "Use rememberRouter with reified type parameter")
 @OptIn(InternalSerializationApi::class)
 @Composable
 fun <C : @Serializable Any> rememberRouter(

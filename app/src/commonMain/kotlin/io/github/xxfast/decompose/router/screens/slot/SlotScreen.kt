@@ -37,9 +37,8 @@ import io.github.xxfast.decompose.router.slot.rememberRouter
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SlotScreen() {
-  val dialogRouter: Router<DialogScreens> = rememberRouter(DialogScreens::class) { null }
-  val bottomSheetRouter: Router<BottomSheetScreens> =
-    rememberRouter(BottomSheetScreens::class) { null }
+  val dialogRouter: Router<DialogScreens> = rememberRouter { null }
+  val bottomSheetRouter: Router<BottomSheetScreens> = rememberRouter { null }
 
   Scaffold(
     topBar = {

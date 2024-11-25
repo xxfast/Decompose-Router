@@ -22,7 +22,7 @@ import io.github.xxfast.decompose.router.stack.rememberRouter
 @OptIn(ExperimentalDecomposeApi::class)
 @Composable
 fun StackScreen() {
-  val router: Router<StackScreens> = rememberRouter(StackScreens::class) { listOf(List) }
+  val router: Router<StackScreens> = rememberRouter { listOf(List) }
 
   RoutedContent(
     router = router,
