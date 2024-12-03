@@ -106,7 +106,7 @@ jobs:
           sudo udevadm trigger --name-match=kvm
 
       - name: Instrumentation tests
-        continue-on-error: ${{ matrix.api-level == 25}} # TODO: Figure out why this fails on API 25
+        continue-on-error: ${{ matrix.api-level == 25 }} # TODO: Figure out why this fails on API 25
         uses: reactivecircus/android-emulator-runner@v2
         with:
           api-level: ${{ matrix.api-level }}
