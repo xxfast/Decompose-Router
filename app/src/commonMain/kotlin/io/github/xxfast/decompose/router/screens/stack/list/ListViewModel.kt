@@ -1,9 +1,8 @@
 package io.github.xxfast.decompose.router.screens.stack.list
 
-import com.arkivanov.decompose.ComponentContext
 import io.github.xxfast.decompose.router.RouterContext
-import io.github.xxfast.decompose.router.state
 import io.github.xxfast.decompose.router.screens.stack.Item
+import io.github.xxfast.decompose.router.state
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -11,7 +10,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import kotlin.coroutines.CoroutineContext
 
-class ListComponent(context: RouterContext) : ComponentContext by context, CoroutineScope {
+class ListViewModel(context: RouterContext): CoroutineScope {
   private val initialState: ListState = context.state(ListState()) { states.value }
   private val _state: MutableStateFlow<ListState> = MutableStateFlow(initialState)
   val states: StateFlow<ListState> = _state

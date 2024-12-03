@@ -32,6 +32,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
+import com.arkivanov.essenty.lifecycle.doOnDestroy
 import io.github.xxfast.decompose.router.rememberOnRoute
 import io.github.xxfast.decompose.router.screens.FAB_ADD
 import io.github.xxfast.decompose.router.screens.LIST_TAG
@@ -39,18 +40,36 @@ import io.github.xxfast.decompose.router.screens.TITLE_BAR_TAG
 import io.github.xxfast.decompose.router.screens.TOOLBAR_TAG
 import io.github.xxfast.decompose.router.screens.stack.Item
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ListScreen(
   onSelect: (screen: Item) -> Unit,
 ) {
-  val listComponent: ListComponent = rememberOnRoute(ListComponent::class) { context ->
-    ListComponent(context)
+  val listComponent: ListViewModel = rememberOnRoute(ListViewModel::class) {
+    val viewModel = ListViewModel(this)
+    doOnDestroy { viewModel.cancel() }
+    return@rememberOnRoute viewModel
   }
 
   val state: ListState by listComponent.states.collectAsState()
+
+  ListView(
+    state = state,
+    onSelect = onSelect,
+    onAdd = { listComponent.add() }
+  )
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun ListView(
+  state: ListState,
+  onSelect: (screen: Item) -> Unit,
+  onAdd: () -> Unit,
+) {
+
   val listState: LazyListState = rememberLazyListState()
   val coroutineScope: CoroutineScope = rememberCoroutineScope()
 
@@ -69,7 +88,7 @@ fun ListScreen(
     floatingActionButton = {
       FloatingActionButton(
         onClick = {
-          listComponent.add()
+          onAdd()
           coroutineScope.launch { listState.animateScrollToItem(state.screens.lastIndex) }
         },
         content = { Icon(Icons.Rounded.Add, null) },
