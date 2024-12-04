@@ -77,8 +77,7 @@ fun DetailView(
         },
         actions = {
           IconButton(
-            modifier = Modifier
-              .testTag(BACK_BUTTON_TAG),
+            modifier = Modifier,
             onClick = onNext
           ) {
             Icon(Icons.AutoMirrored.Filled.ArrowForward, null)
@@ -87,7 +86,7 @@ fun DetailView(
     }) { paddingValues ->
     Box(modifier = Modifier.padding(paddingValues).fillMaxSize()) {
       Text(
-        text = "#${state.item.index} been in the stack for ${state.age}",
+        text = "${state.item} been in the stack for ${state.age}",
         modifier = Modifier
           .padding(16.dp)
           .align(Alignment.Center)

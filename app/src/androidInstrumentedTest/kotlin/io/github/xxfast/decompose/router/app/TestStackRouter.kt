@@ -45,7 +45,7 @@ class TestStackRouter {
     var testItem = "4"
     onNode(lazyColumn).performScrollToNode(hasText(testItem))
     onNode(hasText(testItem)).performClick()
-    onNode(titleBar).assertExists().assertTextEquals(testItem)
+    onNode(titleBar).assertExists().assertTextEquals("#$testItem")
     onNode(details).assertExists().assertTextContains("Item@", substring = true)
 
     // Navigate back
@@ -62,7 +62,7 @@ class TestStackRouter {
     testItem = "5"
     onNode(lazyColumn).performScrollToNode(hasText(testItem))
     onNode(hasText(testItem)).performClick()
-    onNode(titleBar).assertExists().assertTextEquals(testItem)
+    onNode(titleBar).assertExists().assertTextEquals("#$testItem")
     onNode(details).assertExists().assertTextContains("Item@", substring = true)
 
     // Navigate back and verify state and scroll position is restored
@@ -75,7 +75,7 @@ class TestStackRouter {
     testItem = "9"
     onNode(lazyColumn).performScrollToNode(hasText(testItem))
     onNode(hasText(testItem)).performClick()
-    onNode(titleBar).assertExists().assertTextEquals(testItem)
+    onNode(titleBar).assertExists().assertTextEquals("#$testItem")
     onNode(details).assertExists().assertTextContains("Item@", substring = true)
     activityRule.scenario.onActivity { activity ->
       activity.onBackPressedDispatcher.onBackPressed()
@@ -99,12 +99,12 @@ class TestStackRouter {
 
     // Trigger configuration change and verify if the state and scroll position is restored back on the list screen
     activity.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
-    onNode(titleBar).assertExists().assertTextEquals(testItem)
-    onNode(hasText(testItem)).assertExists()
+    onNode(titleBar).assertExists().assertTextEquals("#$testItem")
+    onNode(hasText("#$testItem")).assertExists()
 
     // Trigger configuration change again and verify scroll position is restored
     activity.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
-    onNode(hasText(testItem)).assertExists()
+    onNode(hasText("#$testItem")).assertExists()
 
     // Repeat the same test but this time navigate back with gestures
     activityRule.scenario.onActivity { activity ->
@@ -113,7 +113,7 @@ class TestStackRouter {
     testItem = "9"
     onNode(lazyColumn).performScrollToNode(hasText(testItem))
     onNode(hasText(testItem)).performClick()
-    onNode(titleBar).assertExists().assertTextEquals(testItem)
+    onNode(titleBar).assertExists().assertTextEquals("#$testItem")
     onNode(details).assertExists().assertTextContains("Item@", substring = true)
     activityRule.scenario.onActivity { activity ->
       activity.onBackPressedDispatcher.onBackPressed()

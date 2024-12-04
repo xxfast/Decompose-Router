@@ -32,10 +32,10 @@ class TestNestedRouters {
     }
 
     // Go to 5th detail screen
-    var testItem = "5"
+    val testItem = "5"
     onNode(lazyColumn).performScrollToNode(hasText(testItem))
     onNode(hasText(testItem)).performClick()
-    onNode(titleBar).assertExists().assertTextEquals(testItem)
+    onNode(titleBar).assertExists().assertTextContains("#$testItem")
     onNode(details).assertExists().assertTextContains("Item@", substring = true)
 
     // Go to pages and swipe to the 5th page

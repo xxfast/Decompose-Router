@@ -47,10 +47,8 @@ import kotlinx.coroutines.launch
 fun ListScreen(
   onSelect: (screen: Item) -> Unit,
 ) {
-  val listComponent: ListViewModel = rememberOnRoute(ListViewModel::class) {
-    val viewModel = ListViewModel(this)
-    doOnDestroy { viewModel.cancel() }
-    return@rememberOnRoute viewModel
+  val listComponent: ListViewModel = rememberOnRoute {
+    ListViewModel(this)
   }
 
   val state: ListState by listComponent.states.collectAsState()
