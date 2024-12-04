@@ -35,9 +35,8 @@ fun DetailScreen(
   onNext: () -> Unit,
 ) {
   val viewModel: DetailsViewModel = rememberOnRoute {
-    val viewModel = DetailsViewModel(this, item)
-    this.doOnDestroy { viewModel.cancel() }
-    return@rememberOnRoute viewModel
+    DetailsViewModel(this, item)
+      .apply { doOnDestroy { cancel() } }
   }
 
   val state: DetailState by viewModel.states.collectAsState()

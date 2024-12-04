@@ -25,8 +25,8 @@ A Compose-multiplatform navigation library that leverage [Decompose](https://git
 ```kotlin
 // Declare your screen configurations for type-safety
 @Serializable
-sealed class Screen: Parcelable {
-  object List : Screen()
+sealed class Screen : Parcelable {
+  data object List : Screen()
   data class Details(val detail: String) : Screen()
 }
 
@@ -40,9 +40,9 @@ fun ListDetailScreen() {
     when (screen) {
       List -> ListScreen(
         // Navigate by pushing new configurations on the router 🧭
-        onSelectItem = { detail -> router.push(detail) } 
+        onSelectItem = { detail -> router.push(detail) }
       )
-      
+
       is Details -> DetailsScreen(screen.detail)
     }
   }
@@ -54,16 +54,24 @@ fun DetailsScreen(detail: String) {
   // This makes your instances survive configuration changes (on android) 🔁
   // And holds-on the instance as long as it is in the backstack 🔗
   // Pass in key if you want to reissue a new instance when key changes 🔑 (optional) 
-  val instance: DetailInstance = rememberOnRoute(key = detail) { context -> DetailInstance(context, detail) }
-  
-  val state: DetailState by instance.states.collectAsState()
+  val viewModel: DetailViewModel = rememberOnRoute(key = detail) { // this: RouterContext 
+    DetailViewModel(this, detail)
+      // Optional, if you want your coroutine scope to be cancelled when the screen is removed from the backstack
+      .apply { doOnDestroy { cancel() } }
+  }
+
+  val state: DetailState by viewModel.states.collectAsState()
   Text(text = state.detail)
 }
 
-// If you want your state to survive process death ☠️ derive your initial state from [SavedStateHandle] 
-class DetailInstance(context: RouterContext, detail: String) : InstanceKeeper.Instance {
+class DetailViewModel(context: RouterContext, detail: String): CoroutineScope {
+  // Optional, if you want to scope your coroutines to the lifecycle of this screen
+  override val coroutineContext: CoroutineContext = Dispatchers.Main + SupervisorJob()
+  
+  // If you want your state to survive process death ☠️ derive your initial state from [RouterContext.state] 
   private val initialState: DetailState = context.state(DetailState(detail)) { states.value }
   private val stateFlow = MutableStateFlow(initialState)
+  
   val states: StateFlow<DetailState> = stateFlow
 }
 ```

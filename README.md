@@ -30,11 +30,12 @@ A detailed breakdown available in this [Medium article](https://proandroiddev.co
 
 ## At a glance
 
+
 ```kotlin
-// Declare your screen configurations for type-safety
-@Serializable 
-sealed class Screen {
-  object List : Screen()
+// Declare your screen configurations as @Serializable for type-safety
+@Serializable
+sealed class Screen : Parcelable {
+  data object List : Screen()
   data class Details(val detail: String) : Screen()
 }
 
@@ -48,12 +49,41 @@ fun ListDetailScreen() {
     when (screen) {
       List -> ListScreen(
         // Navigate by pushing new configurations on the router 🧭
-        onSelectItem = { detail -> router.push(detail) } 
+        onSelectItem = { detail -> router.push(detail) }
       )
-      
+
       is Details -> DetailsScreen(screen.detail)
     }
   }
+}
+
+@Composable
+fun DetailsScreen(detail: String) {
+  // 📦 Scope an instance (a view model, a state-holder or whatever) to a route with [rememberOnRoute] 
+  // This makes your instances survive configuration changes (on android) 🔁
+  // And holds-on the instance as long as it is in the backstack 🔗
+  // Pass in key if you want to reissue a new instance when key changes 🔑 (optional) 
+  val viewModel: DetailViewModel = rememberOnRoute(key = detail) { // this: RouterContext 
+    DetailViewModel(this, detail)
+      // Optional, if you want your coroutine scope to be cancelled when the screen is removed from the backstack
+      .apply { doOnDestroy { cancel() } }      
+  }
+
+  val state: DetailState by viewModel.states.collectAsState()
+  
+  Text(text = state.detail)
+}
+
+class DetailViewModel(context: RouterContext, detail: String): CoroutineScope {
+  // Optional, if you want to scope your coroutines to the lifecycle of this screen
+  override val coroutineContext: CoroutineContext = Dispatchers.Main + SupervisorJob()
+  
+  // Optional, if you want your state to survive process death ☠️ 
+  // Derive your initial state from [RouterContext.state] 
+  private val initialState: DetailState = context.state(DetailState(detail)) { states.value }
+  private val stateFlow = MutableStateFlow(initialState)
+  
+  val states: StateFlow<DetailState> = stateFlow
 }
 ```
 

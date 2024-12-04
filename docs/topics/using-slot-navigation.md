@@ -17,17 +17,9 @@ Define your navigation model, (as already covered in [model-driven navigation se
 ````kotlin
 @Composable
 fun SlotScreen() {
-  val router: Router<SlotScreens> = rememberRouter(SlotScreens::class) { null }
+  val router: Router<SlotScreens> = rememberRouter { null }
 }
 ````
-
-> Due to this [issue](https://github.com/JetBrains/compose-multiplatform/issues/2900), you will still need to provide this
-> type `SlotScreens:class` manually for now.
-> Once resolved, you will be able to use the `inline` `refied` (and nicer) signature
-> ```kotlin
-> val router: Router<SlotScreens> = rememberRouter { null }
-> ```
-{style="warning"}
 
 ## Using the router to open up a dialog
 
@@ -36,14 +28,14 @@ Use `RoutedContent` to use the router to open a dialog.
 ```kotlin
 @Composable
 fun SlotScreen() {
-  val router: Router<SlotScreens> = rememberRouter(SlotScreens::class) { null }
+  val router: Router<SlotScreens> = rememberRouter { null }
 
   RoutedContent(router) { _ ->
     AlertDialog(
       onDismissRequest = { dialogRouter.dismiss() },
-    ){
+    ) {
       // Dialog content here
-    )
+    }
   }
 }
 ```

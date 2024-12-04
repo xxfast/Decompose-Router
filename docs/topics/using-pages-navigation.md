@@ -14,17 +14,9 @@ enum class PagesScreens { Page1, Page2, Page3 }
 ````kotlin
 @Composable
 fun PagesScreen() {
-  val router: Router<PagesScreens> = rememberRouter(PagesScreens::class) { pagesOf(Page1, Page2, Page3) }
+  val router: Router<PagesScreens> = rememberRouter { pagesOf(Page1, Page2, Page3) }
 }
 ````
-
-> Due to this [issue](https://github.com/JetBrains/compose-multiplatform/issues/2900), you will still need to provide this
-> type `PagesScreens:class` manually for now.
-> Once resolved, you will be able to use the `inline` `refied` (and nicer) signature
-> ```kotlin
-> val router: Router<PagesScreens> = rememberRouter { pagesOf(Page1, Page2, Page3) }
-> ```
-{style="warning"}
 
 ## Consuming the state from the router
 
@@ -33,7 +25,7 @@ Use `RoutedContent` to consume the state from the router.
 ```kotlin
 @Composable
 fun PagesScreen() {
-  val router: Router<PagesScreens> = rememberRouter(PagesScreens::class) { pagesOf(Page1, Page2, Page3) }
+  val router: Router<PagesScreens> = rememberRouter { pagesOf(Page1, Page2, Page3) }
 
   RoutedContent(router = router) { screen: PagesScreens ->
     when (screen) {
@@ -50,7 +42,7 @@ fun PagesScreen() {
 Decompose-router exposes the same Decompose page navigator extension [functions](https://arkivanov.github.io/Decompose/navigation/stack/navigation/#stacknavigator-extension-functions)
 
 ```kotlin
-val router: Router<PagesScreens> = rememberRouter(PagesScreens::class) { pagesOf(Page1, Page2, Page3) }
+val router: Router<PagesScreens> = rememberRouter { pagesOf(Page1, Page2, Page3) }
 
 // To go to second page
 Button(onClick = { number -> router.select(1) })
