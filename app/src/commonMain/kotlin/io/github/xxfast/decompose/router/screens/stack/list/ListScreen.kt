@@ -32,15 +32,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
-import com.arkivanov.essenty.lifecycle.doOnDestroy
 import io.github.xxfast.decompose.router.rememberOnRoute
 import io.github.xxfast.decompose.router.screens.FAB_ADD
 import io.github.xxfast.decompose.router.screens.LIST_TAG
-import io.github.xxfast.decompose.router.screens.TITLE_BAR_TAG
-import io.github.xxfast.decompose.router.screens.TOOLBAR_TAG
+import io.github.xxfast.decompose.router.screens.TITLE_BAR
+import io.github.xxfast.decompose.router.screens.TOOLBAR
 import io.github.xxfast.decompose.router.screens.stack.Item
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 
 @Composable
@@ -74,11 +72,11 @@ fun ListView(
   Scaffold(
     topBar = {
       TopAppBar(
-        modifier = Modifier.testTag(TOOLBAR_TAG),
+        modifier = Modifier.testTag(TOOLBAR),
         title = {
           Text(
             text = "Stack (${state.screens.size})",
-            modifier = Modifier.testTag(TITLE_BAR_TAG)
+            modifier = Modifier.testTag(TITLE_BAR)
           )
         },
       )

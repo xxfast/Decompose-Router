@@ -21,10 +21,11 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 import com.arkivanov.essenty.lifecycle.doOnDestroy
 import io.github.xxfast.decompose.router.rememberOnRoute
-import io.github.xxfast.decompose.router.screens.BACK_BUTTON_TAG
-import io.github.xxfast.decompose.router.screens.DETAILS_TAG
-import io.github.xxfast.decompose.router.screens.TITLE_BAR_TAG
-import io.github.xxfast.decompose.router.screens.TOOLBAR_TAG
+import io.github.xxfast.decompose.router.screens.BUTTON_BACK
+import io.github.xxfast.decompose.router.screens.BUTTON_FORWARD
+import io.github.xxfast.decompose.router.screens.DETAILS
+import io.github.xxfast.decompose.router.screens.TITLE_BAR
+import io.github.xxfast.decompose.router.screens.TOOLBAR
 import io.github.xxfast.decompose.router.screens.stack.Item
 import kotlinx.coroutines.cancel
 
@@ -58,17 +59,17 @@ fun DetailView(
   Scaffold(
     topBar = {
       TopAppBar(
-        modifier = Modifier.testTag(TOOLBAR_TAG),
+        modifier = Modifier.testTag(TOOLBAR),
         title = {
           Text(
             text = "#${state.item.index}",
-            modifier = Modifier.testTag(TITLE_BAR_TAG)
+            modifier = Modifier.testTag(TITLE_BAR)
           )
         },
         navigationIcon = {
           IconButton(
             modifier = Modifier
-              .testTag(BACK_BUTTON_TAG),
+              .testTag(BUTTON_BACK),
             onClick = onBack
           ) {
             Icon(Icons.AutoMirrored.Filled.ArrowBack, null)
@@ -76,7 +77,8 @@ fun DetailView(
         },
         actions = {
           IconButton(
-            modifier = Modifier,
+            modifier = Modifier
+              .testTag(BUTTON_FORWARD),
             onClick = onNext
           ) {
             Icon(Icons.AutoMirrored.Filled.ArrowForward, null)
@@ -89,7 +91,7 @@ fun DetailView(
         modifier = Modifier
           .padding(16.dp)
           .align(Alignment.Center)
-          .testTag(DETAILS_TAG)
+          .testTag(DETAILS)
       )
     }
   }
