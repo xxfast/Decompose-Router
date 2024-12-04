@@ -16,7 +16,8 @@ kotlin {
   sourceSets {
     val androidMain by getting {
       dependencies {
-        implementation(project(":decompose-router"))
+        api(project(":decompose-router"))
+
         implementation(compose.uiTooling)
         implementation(compose.materialIconsExtended)
         implementation(libs.horologist.compose.layouts)

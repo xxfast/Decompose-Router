@@ -38,10 +38,10 @@ kotlin {
     val commonMain by getting {
       dependencies {
         api(libs.decompose)
+        api(libs.decompose.compose)
 
         implementation(compose.runtime)
         implementation(compose.foundation)
-        implementation(libs.decompose.compose)
         implementation(libs.kotlinx.serialization.core)
       }
     }
