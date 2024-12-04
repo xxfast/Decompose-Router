@@ -35,33 +35,48 @@ import androidx.compose.ui.unit.dp
 import io.github.xxfast.decompose.router.rememberOnRoute
 import io.github.xxfast.decompose.router.screens.FAB_ADD
 import io.github.xxfast.decompose.router.screens.LIST_TAG
-import io.github.xxfast.decompose.router.screens.TITLE_BAR_TAG
-import io.github.xxfast.decompose.router.screens.TOOLBAR_TAG
+import io.github.xxfast.decompose.router.screens.TITLE_BAR
+import io.github.xxfast.decompose.router.screens.TOOLBAR
 import io.github.xxfast.decompose.router.screens.stack.Item
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ListScreen(
   onSelect: (screen: Item) -> Unit,
 ) {
-  val listComponent: ListComponent = rememberOnRoute(ListComponent::class) { context ->
-    ListComponent(context)
+  val listComponent: ListViewModel = rememberOnRoute {
+    ListViewModel(this)
   }
 
   val state: ListState by listComponent.states.collectAsState()
+
+  ListView(
+    state = state,
+    onSelect = onSelect,
+    onAdd = { listComponent.add() }
+  )
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun ListView(
+  state: ListState,
+  onSelect: (screen: Item) -> Unit,
+  onAdd: () -> Unit,
+) {
+
   val listState: LazyListState = rememberLazyListState()
   val coroutineScope: CoroutineScope = rememberCoroutineScope()
 
   Scaffold(
     topBar = {
       TopAppBar(
-        modifier = Modifier.testTag(TOOLBAR_TAG),
+        modifier = Modifier.testTag(TOOLBAR),
         title = {
           Text(
             text = "Stack (${state.screens.size})",
-            modifier = Modifier.testTag(TITLE_BAR_TAG)
+            modifier = Modifier.testTag(TITLE_BAR)
           )
         },
       )
@@ -69,7 +84,7 @@ fun ListScreen(
     floatingActionButton = {
       FloatingActionButton(
         onClick = {
-          listComponent.add()
+          onAdd()
           coroutineScope.launch { listState.animateScrollToItem(state.screens.lastIndex) }
         },
         content = { Icon(Icons.Rounded.Add, null) },

@@ -10,30 +10,42 @@ If you want your screen level state holder to be scoped to a given screen, use `
 2. Holds-on the instance as long as it is in the backstack
 
 ```kotlin
-class List
+class ListViewModel
 
 @Composable
 fun ListScreen() {
-  val list: List = rememberOnRoute(List::class) { _ -> List() }
+  val viewModel: ListViewModel = rememberOnRoute { ListViewModel() }
 }
 ```
 
-If you want this instance to be recomputed, you can also provide a key to it 
+If you want this instance to be recomputed, you can also provide a key to it
+
 ```kotlin
-class Details(val id: String)
+class DetailsViewModel(val id: String)
 
 @Composable
 fun DetailsScreen(id: String) {
-  val details: Details = rememberOnRoute(Details::class, key = id) { _ -> Details(id) }
+  val viewModel: DetailsViewModel = rememberOnRoute(key = id) { DetailsViewModel(id) }
 }
 ```
-> Due to this [issue](https://github.com/JetBrains/compose-multiplatform/issues/2900), you will still need to provide this
-> type `ListScreen:class` manually for now.
-> Once resolved, you will be able to use the `inline` `refied` (and nicer) signature
-> ```kotlin
-> val list: List = rememberOnRoute { _ -> List() }
-> ```
-{style="warning"}
+
+### Cancelling Coroutines when Screen is Removed
+
+If you want to scope your coroutines to the lifecycle of this screen, you can use `doOnDestroy` to cancel the coroutine scope when the screen is removed from the backstack
+
+```kotlin
+class DetailsViewModel(val id: String): CoroutineScope {
+  override val coroutineContext: CoroutineContext = Dispatchers.Main + SupervisorJob()
+}
+
+@Composable
+fun DetailsScreen(id: String) {
+  val viewModel: DetailsViewModel = rememberOnRoute(key = id) { 
+    DetailsViewModel(id)
+      .apply { doOnDestroy { cancel() } }
+  }
+}
+```
 
 ### Integrating with Decompose Components
 
@@ -46,8 +58,8 @@ class ListComponent(context: RouterContext): ComponentContext by context
 
 @Composable
 fun MyScreen() {
-  val listComponent: ListComponent = rememberOnRoute(ListComponent::class) { context ->
-    ListComponent(context)
+  val component: ListComponent = rememberOnRoute { // this: RouterContext 
+    ListComponent(this)
   }
 }
 ```
@@ -64,7 +76,10 @@ class ListViewModel: ViewModel()
 
 @Composable
 fun ListScreen() {
-  val viewModel: ListViewModel = rememberOnRoute(type = ListViewModel::class) { ListViewModel() }
+  val viewModel: ListViewModel = rememberOnRoute { 
+    ListViewModel()
+      .apply { doOnDestroy { viewModelScope.cancel() } }
+  }
 }
 ```
 {collapsible="true" collapsed-title="class ListViewModel: androidx.lifecycle.ViewModel()"}
@@ -86,7 +101,7 @@ Within your **State Holder**, you can derive the initial state by using `RouterC
 Make sure to point the supplier lambda back to your state flow so that it knows where to grab the latest state from to save 
 
 ```kotlin
-class List(context: RouterContext) {
+class ListViewModel(context: RouterContext) {
   private val initialState: ListState = context.state(ListState()) { states.value }
   private val _state: MutableStateFlow<ListState> = MutableStateFlow(initialState)
   val states: StateFlow<ListState> = _state
@@ -98,7 +113,7 @@ class List(context: RouterContext) {
 For [Molecule](https://github.com/cashapp/molecule), initial state can be provided to your `moleculeFlow` in conjunction with `stateIn` 
 
 ```kotlin
-class List(context: RouterContext) {
+class ListViewModel(context: RouterContext) {
   private val initialState: ListState = context.state(ListState()) { states.value }
   val states: StateFlow<EquipmentSelectionState> = moleculeFlow(ContextClock) { ListPresenter() }
     .stateIn(this, SharingStarted.Lazily, initialState)

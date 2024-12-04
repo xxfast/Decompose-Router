@@ -14,6 +14,7 @@ import io.github.xxfast.decompose.router.LocalRouterContext
 import io.github.xxfast.decompose.router.screens.stack.StackScreens.Details
 import io.github.xxfast.decompose.router.screens.stack.StackScreens.List
 import io.github.xxfast.decompose.router.screens.stack.details.DetailScreen
+import io.github.xxfast.decompose.router.screens.stack.details.DetailView
 import io.github.xxfast.decompose.router.screens.stack.list.ListScreen
 import io.github.xxfast.decompose.router.stack.RoutedContent
 import io.github.xxfast.decompose.router.stack.Router
@@ -40,7 +41,11 @@ fun StackScreen() {
 
       is Details -> DetailScreen(
         item = screen.item,
-        onBack = { router.pop() }
+        onBack = { router.pop() },
+        onNext = {
+          val next = Details(Item(screen.item.index + 1))
+          router.push(next)
+        }
       )
     }
   }
