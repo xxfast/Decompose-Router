@@ -115,7 +115,11 @@ jobs:
           script: ./gradlew connectedDebugAndroidTest
 
   release:
-    name: Release to sonatype
+    name: Release ${{ matrix.module }} to Sonatype
+    strategy:
+      matrix:
+        module: [decompose-router, decompose-router-wear]
+
     if: ${{ github.event_name != 'pull_request' }}
     runs-on: macos-latest
     needs:
@@ -151,7 +155,7 @@ jobs:
           GPG_KEY_SECRET: ${{ secrets.GPG_KEY_SECRET }}
 
       - name: Release to sonatype
-        run: ./gradlew publishAllPublicationsToMavenRepository
+        run: ./gradlew :${{ matrix.module }}:publishAllPublicationsToMavenRepository
 
   documentation:
     name: Publish documentation
