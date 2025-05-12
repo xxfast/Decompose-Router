@@ -110,10 +110,10 @@ kotlin {
 
 android {
   namespace = "io.github.xxfast.decompose.router.app"
-  compileSdk = 34
+  compileSdk = 35
   defaultConfig {
     minSdk = 25
-    targetSdk = 34
+    targetSdk = 35
     testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
   }
 
