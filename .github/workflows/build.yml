@@ -200,7 +200,7 @@ jobs:
 
       - name: Unzip artifact
         run: |
-          unzip -qq artifacts/webHelpKSTORE2-all.zip -d build/docs
+          unzip -qq artifacts/webHelpDECOMPOSE-ROUTER2-all.zip -d build/docs
 
       - name: Move dokka api-doc to docs/api
         run: |
