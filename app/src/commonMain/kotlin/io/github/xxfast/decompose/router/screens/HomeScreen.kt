@@ -4,6 +4,7 @@ import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.rounded.List
 import androidx.compose.material.icons.rounded.CropSquare
 import androidx.compose.material.icons.rounded.ImportContacts
 import androidx.compose.material.icons.rounded.Reorder
@@ -25,13 +26,15 @@ import io.github.xxfast.decompose.router.pages.rememberRouter
 import io.github.xxfast.decompose.router.screens.HomeScreens.Pages
 import io.github.xxfast.decompose.router.screens.HomeScreens.Slot
 import io.github.xxfast.decompose.router.screens.HomeScreens.Stack
+import io.github.xxfast.decompose.router.screens.HomeScreens.Items
+import io.github.xxfast.decompose.router.screens.items.ItemsScreen
 import io.github.xxfast.decompose.router.screens.pages.PagesScreen
 import io.github.xxfast.decompose.router.screens.slot.SlotScreen
 import io.github.xxfast.decompose.router.screens.stack.StackScreen
 
 @Composable
 fun HomeScreen() {
-  val pager: Router<HomeScreens> = rememberRouter { pagesOf(Stack, Pages, Slot) }
+  val pager: Router<HomeScreens> = rememberRouter { pagesOf(Stack, Pages, Slot, Items) }
 
   Scaffold(
     bottomBar = {
@@ -47,6 +50,7 @@ fun HomeScreen() {
                   Stack -> Icons.Rounded.Reorder
                   Pages -> Icons.Rounded.ImportContacts
                   Slot -> Icons.Rounded.CropSquare
+                  Items -> Icons.AutoMirrored.Rounded.List
                 },
                 contentDescription = null,
               )
@@ -58,6 +62,7 @@ fun HomeScreen() {
                 Stack -> BOTTOM_NAV_STACK
                 Pages -> BOTTOM_NAV_PAGES
                 Slot -> BOTTOM_NAV_SLOT
+                Items -> BOTTOM_NAV_ITEMS
               }
             )
           )
@@ -84,6 +89,7 @@ fun HomeScreen() {
         Stack -> StackScreen()
         Pages -> PagesScreen()
         Slot -> SlotScreen()
+        Items -> ItemsScreen()
       }
     }
   }

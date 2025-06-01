@@ -4,4 +4,5 @@ enum class HomeScreens {
   Stack,
   Pages,
   Slot,
+  Items,
 }
