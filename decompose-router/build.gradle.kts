@@ -1,27 +1,38 @@
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
-import org.jetbrains.kotlin.gradle.targets.js.dsl.ExperimentalWasmDsl
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
 
 plugins {
-  kotlin("multiplatform")
-  alias(libs.plugins.android.library)
+  alias(libs.plugins.kotlin.multiplatform)
+  alias(libs.plugins.android.kotlin.multiplatform.library)
   alias(libs.plugins.compose.multiplatform)
   alias(libs.plugins.kotlin.compose)
 }
 
 kotlin {
-  androidTarget {
-    publishLibraryVariants("release", "debug")
+  android {
+    namespace = "io.github.xxfast.decompose.router"
+    compileSdk = 36
+    minSdk = 25
+
+    withHostTestBuilder {}
+    withDeviceTestBuilder {
+      sourceSetTreeName = "test"
+    }.configure {
+      instrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    compilerOptions {
+      jvmTarget.set(JvmTarget.JVM_17)
+    }
   }
 
-  iosX64()
   iosArm64()
   iosSimulatorArm64()
 
   jvm("desktop") {
-    compilations.all {
-      kotlinOptions {
-        jvmTarget = "15"
-      }
+    compilerOptions {
+      jvmTarget.set(JvmTarget.JVM_17)
     }
   }
 
@@ -52,12 +63,10 @@ kotlin {
       }
     }
 
-    val iosX64Main by getting
     val iosArm64Main by getting
     val iosSimulatorArm64Main by getting
     val iosMain by creating {
       dependsOn(commonMain)
-      iosX64Main.dependsOn(this)
       iosArm64Main.dependsOn(this)
       iosSimulatorArm64Main.dependsOn(this)
       dependencies {
@@ -75,15 +84,9 @@ kotlin {
       }
     }
 
-    val androidInstrumentedTest by getting {
+    val androidDeviceTest by getting {
       dependencies {
         implementation(libs.compose.ui.junit4)
-      }
-    }
-
-    @OptIn(ExperimentalKotlinGradlePluginApi::class)
-    sourceSets.invokeWhenCreated("androidDebug") {
-      dependencies {
         implementation(libs.compose.ui.test.manifest)
       }
     }
@@ -92,27 +95,6 @@ kotlin {
       dependencies {
         implementation("org.jetbrains.kotlin-wrappers:kotlin-browser:1.0.0-pre.752")
       }
-    }
-  }
-}
-
-android {
-  namespace = "io.github.xxfast.decompose.router"
-  compileSdk = 35
-  defaultConfig {
-    minSdk = 25
-    targetSdk = 35
-    testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-  }
-
-  compileOptions {
-    sourceCompatibility = JavaVersion.VERSION_17
-    targetCompatibility = JavaVersion.VERSION_17
-  }
-
-  testOptions {
-    unitTests {
-      isIncludeAndroidResources = true
     }
   }
 }

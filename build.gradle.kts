@@ -1,8 +1,8 @@
-import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
+import java.util.Properties
 
 plugins {
-  alias(libs.plugins.android.application) apply false
-  alias(libs.plugins.android.library) apply false
+  alias(libs.plugins.kotlin.multiplatform) apply false
+  alias(libs.plugins.android.kotlin.multiplatform.library) apply false
   alias(libs.plugins.kotlin.compose) apply false
   alias(libs.plugins.compose.multiplatform) apply false
 
@@ -18,8 +18,19 @@ buildscript {
   }
 }
 
+fun localProperties(): Properties = Properties().apply {
+  val file = rootProject.file("local.properties")
+  if (file.exists()) file.inputStream().use { load(it) }
+}
+
 apiValidation {
   ignoredProjects += listOf("app")
+}
+
+// Aggregate API documentation from the published modules into a single site
+dependencies {
+  dokka(project(":decompose-router"))
+  dokka(project(":decompose-router-wear"))
 }
 
 allprojects {
@@ -27,7 +38,6 @@ allprojects {
     google()
     mavenCentral()
     maven("https://maven.pkg.jetbrains.space/public/p/compose/dev")
-    maven("https://s01.oss.sonatype.org/content/repositories/snapshots/")
   }
 
   group = "io.github.xxfast"
@@ -40,26 +50,28 @@ allprojects {
   apply(plugin = "maven-publish")
   apply(plugin = "signing")
 
+  val localProperties: Properties = localProperties()
+
   extensions.configure<PublishingExtension> {
     repositories {
       maven {
         val isSnapshot = version.toString().endsWith("SNAPSHOT")
         url = uri(
-          if (!isSnapshot) "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2"
-          else "https://s01.oss.sonatype.org/content/repositories/snapshots"
+          if (!isSnapshot) "https://ossrh-staging-api.central.sonatype.com/service/local/staging/deploy/maven2"
+          else "https://central.sonatype.com/repository/maven-snapshots/"
         )
 
         credentials {
-          username = gradleLocalProperties(rootDir, providers).getProperty("sonatypeUsername")
-          password = gradleLocalProperties(rootDir, providers).getProperty("sonatypePassword")
+          username = localProperties.getProperty("sonatypeUsername")
+          password = localProperties.getProperty("sonatypePassword")
         }
       }
     }
 
     val javadocJar = tasks.register<Jar>("javadocJar") {
-      dependsOn(tasks.dokkaHtml)
+      dependsOn(tasks.named("dokkaGeneratePublicationHtml"))
       archiveClassifier.set("javadoc")
-      from("$buildDir/dokka")
+      from(layout.buildDirectory.dir("dokka/html"))
     }
 
     publications {
@@ -98,8 +110,8 @@ allprojects {
   val publishing = extensions.getByType<PublishingExtension>()
   extensions.configure<SigningExtension> {
     useInMemoryPgpKeys(
-      gradleLocalProperties(rootDir, providers).getProperty("gpgKeySecret"),
-      gradleLocalProperties(rootDir, providers).getProperty("gpgKeyPassword"),
+      localProperties.getProperty("gpgKeySecret"),
+      localProperties.getProperty("gpgKeyPassword"),
     )
 
     sign(publishing.publications)

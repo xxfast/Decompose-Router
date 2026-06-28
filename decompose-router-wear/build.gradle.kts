@@ -1,13 +1,21 @@
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+
 plugins {
-  kotlin("multiplatform")
-  alias(libs.plugins.android.library)
+  alias(libs.plugins.kotlin.multiplatform)
+  alias(libs.plugins.android.kotlin.multiplatform.library)
   alias(libs.plugins.compose.multiplatform)
   alias(libs.plugins.kotlin.compose)
 }
 
 kotlin {
-  androidTarget {
-    publishLibraryVariants("release", "debug")
+  android {
+    namespace = "io.github.xxfast.decompose.router.wear"
+    compileSdk = 36
+    minSdk = 25
+
+    compilerOptions {
+      jvmTarget.set(JvmTarget.JVM_17)
+    }
   }
 
   // TODO: Remove the phantom target after https://github.com/Kotlin/dokka/issues/3122
@@ -29,19 +37,5 @@ kotlin {
         implementation(libs.decompose.compose)
       }
     }
-  }
-}
-
-android {
-  namespace = "io.github.xxfast.decompose.router.wear"
-  compileSdk = 35
-  defaultConfig {
-    minSdk = 25
-    targetSdk = 35
-  }
-
-  compileOptions {
-    sourceCompatibility = JavaVersion.VERSION_17
-    targetCompatibility = JavaVersion.VERSION_17
   }
 }
