@@ -46,55 +46,35 @@ kotlin {
   }
 
   sourceSets {
-    val commonMain by getting {
-      dependencies {
-        api(libs.decompose)
-        api(libs.decompose.compose)
+    commonMain.dependencies {
+      api(libs.decompose)
+      api(libs.decompose.compose)
 
-        implementation(compose.runtime)
-        implementation(compose.foundation)
-        implementation(libs.kotlinx.serialization.core)
-      }
+      implementation(compose.runtime)
+      implementation(compose.foundation)
+      implementation(libs.kotlinx.serialization.core)
     }
 
-    val commonTest by getting {
-      dependencies {
-        implementation(kotlin("test"))
-      }
+    commonTest.dependencies {
+      implementation(kotlin("test"))
     }
 
-    val iosArm64Main by getting
-    val iosSimulatorArm64Main by getting
-    val iosMain by creating {
-      dependsOn(commonMain)
-      iosArm64Main.dependsOn(this)
-      iosSimulatorArm64Main.dependsOn(this)
-      dependencies {
-      }
+    androidMain.dependencies {
+      implementation(compose.material3)
+      implementation(libs.decompose)
+      implementation(libs.decompose.compose)
+      implementation(libs.androidx.activity.ktx)
+      implementation(libs.androidx.activity.compose)
+      implementation(libs.androidx.fragment.ktx)
     }
 
-    val androidMain by getting {
-      dependencies {
-        implementation(compose.material3)
-        implementation(libs.decompose)
-        implementation(libs.decompose.compose)
-        implementation(libs.androidx.activity.ktx)
-        implementation(libs.androidx.activity.compose)
-        implementation(libs.androidx.fragment.ktx)
-      }
+    named("androidDeviceTest").dependencies {
+      implementation(libs.compose.ui.junit4)
+      implementation(libs.compose.ui.test.manifest)
     }
 
-    val androidDeviceTest by getting {
-      dependencies {
-        implementation(libs.compose.ui.junit4)
-        implementation(libs.compose.ui.test.manifest)
-      }
-    }
-
-    val jsMain by getting {
-      dependencies {
-        implementation("org.jetbrains.kotlin-wrappers:kotlin-browser:1.0.0-pre.752")
-      }
+    jsMain.dependencies {
+      implementation("org.jetbrains.kotlin-wrappers:kotlin-browser:1.0.0-pre.752")
     }
   }
 }

@@ -78,49 +78,39 @@ kotlin {
   }
 
   sourceSets {
-    val commonMain by getting {
-      dependencies {
-        // Only need to add this as api if you wish to add your own AppDelegate in swift
-        api(project(":decompose-router"))
+    commonMain.dependencies {
+      // Only need to add this as api if you wish to add your own AppDelegate in swift
+      api(project(":decompose-router"))
 
-        implementation(compose.runtime)
-        implementation(compose.foundation)
-        implementation(compose.material3)
-        implementation(compose.materialIconsExtended)
-      }
+      implementation(compose.runtime)
+      implementation(compose.foundation)
+      implementation(compose.material3)
+      implementation(compose.materialIconsExtended)
     }
 
-    val commonTest by getting {
-      dependencies {
-        implementation(kotlin("test"))
-      }
+    commonTest.dependencies {
+      implementation(kotlin("test"))
     }
 
-    val androidMain by getting {
-      dependencies {
-        implementation(libs.androidx.activity.ktx)
-        implementation(libs.androidx.activity.compose)
-        implementation(libs.androidx.fragment.ktx)
-      }
+    androidMain.dependencies {
+      implementation(libs.androidx.activity.ktx)
+      implementation(libs.androidx.activity.compose)
+      implementation(libs.androidx.fragment.ktx)
     }
 
-    val androidDeviceTest by getting {
-      dependencies {
-        implementation(libs.compose.ui.junit4)
-        implementation(libs.compose.ui.test.manifest)
-        // compose-ui-test pulls in espresso-core 3.5.0 transitively, whose reflective
-        // InputManager.getInstance() call throws NoSuchMethodException on newer Android
-        // (API 35+). 3.7.0 switches to getSystemService and fixes instrumented tests.
-        implementation(libs.espresso.core)
-      }
+    named("androidDeviceTest").dependencies {
+      implementation(libs.compose.ui.junit4)
+      implementation(libs.compose.ui.test.manifest)
+      // compose-ui-test pulls in espresso-core 3.5.0 transitively, whose reflective
+      // InputManager.getInstance() call throws NoSuchMethodException on newer Android
+      // (API 35+). 3.7.0 switches to getSystemService and fixes instrumented tests.
+      implementation(libs.espresso.core)
     }
 
-    val desktopMain by getting {
-      dependencies {
-        implementation(compose.desktop.currentOs)
-        implementation(libs.decompose.compose)
-        implementation(libs.kotlinx.coroutines.swing)
-      }
+    named("desktopMain").dependencies {
+      implementation(compose.desktop.currentOs)
+      implementation(libs.decompose.compose)
+      implementation(libs.kotlinx.coroutines.swing)
     }
   }
 }
