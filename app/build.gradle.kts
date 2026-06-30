@@ -20,6 +20,11 @@ kotlin {
     compileSdk = 36
     minSdk = 25
 
+    // Workaround for CMP-9547: with the new com.android.kotlin.multiplatform.library
+    // plugin (AGP 9), the Compose resources copy task for the test variants is left
+    // with no configured outputDirectory and fails. Enabling android resources wires it up.
+    androidResources.enable = true
+
     withHostTestBuilder {}
     withDeviceTestBuilder {
       sourceSetTreeName = "test"
@@ -61,7 +66,7 @@ kotlin {
     }
   }
 
-  js(IR) {
+  js {
     browser()
     binaries.executable()
   }
@@ -103,6 +108,10 @@ kotlin {
       dependencies {
         implementation(libs.compose.ui.junit4)
         implementation(libs.compose.ui.test.manifest)
+        // compose-ui-test pulls in espresso-core 3.5.0 transitively, whose reflective
+        // InputManager.getInstance() call throws NoSuchMethodException on newer Android
+        // (API 35+). 3.7.0 switches to getSystemService and fixes instrumented tests.
+        implementation(libs.espresso.core)
       }
     }
 

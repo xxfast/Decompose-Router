@@ -5,6 +5,7 @@ androidx-fragment ="1.8.9"
 compose-multiplatform = "1.11.1"
 compose-test-rule = "1.11.3"
 decompose = "3.5.0"
+espresso = "3.7.0"
 dokka = "2.2.0"
 binary-compatibility-validator = "0.18.1"
 horologist = "0.7.15"
@@ -22,6 +23,7 @@ compose-ui-junit4 = { module = "androidx.compose.ui:ui-test-junit4", version.ref
 compose-ui-test-manifest = { module = "androidx.compose.ui:ui-test-manifest", version.ref = "compose-test-rule" }
 decompose = { module = "com.arkivanov.decompose:decompose", version.ref = "decompose" }
 decompose-compose = { module = "com.arkivanov.decompose:extensions-compose", version.ref = "decompose" }
+espresso-core = { module = "androidx.test.espresso:espresso-core", version.ref = "espresso" }
 horologist-compose-layouts = { module = "com.google.android.horologist:horologist-compose-layout", version.ref = "horologist" }
 kotlin-gradle-plugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
 kotlinx-coroutines-swing = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-swing", version.ref = "kotlinx-coroutines" }
