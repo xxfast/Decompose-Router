@@ -15,6 +15,11 @@ kotlin {
     compileSdk = 36
     minSdk = 25
 
+    // Workaround for CMP-9547: with the new com.android.kotlin.multiplatform.library
+    // plugin (AGP 9), the Compose resources copy task for the test variants is left
+    // with no configured outputDirectory and fails. Enabling android resources wires it up.
+    androidResources.enable = true
+
     withHostTestBuilder {}
     withDeviceTestBuilder {
       sourceSetTreeName = "test"
