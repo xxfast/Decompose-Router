@@ -36,7 +36,7 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 import com.arkivanov.decompose.ExperimentalDecomposeApi
 import com.arkivanov.decompose.router.items.setItems
-import io.github.xxfast.decompose.router.items.ItemsRouterLifecycleController
+import io.github.xxfast.decompose.router.items.RoutedContent
 import io.github.xxfast.decompose.router.items.Router
 import io.github.xxfast.decompose.router.items.items
 import io.github.xxfast.decompose.router.items.rememberRouter
@@ -136,7 +136,7 @@ fun ItemsScreen() {
     }
   }
 
-  ItemsRouterLifecycleController(
+  RoutedContent(
     router = router,
     lazyListState = listState,
     itemIndexConverter = { it },

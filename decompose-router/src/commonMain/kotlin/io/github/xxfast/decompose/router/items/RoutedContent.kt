@@ -8,7 +8,7 @@ import com.arkivanov.decompose.extensions.compose.lazyitems.ChildItemsLifecycleC
 
 @OptIn(ExperimentalDecomposeApi::class)
 @Composable
-fun <C : Any> ItemsRouterLifecycleController(
+fun <C : Any> RoutedContent(
   router: Router<C>,
   lazyListState: LazyListState,
   itemIndexConverter: (Int) -> Int,
@@ -26,7 +26,7 @@ fun <C : Any> ItemsRouterLifecycleController(
 
 @OptIn(ExperimentalDecomposeApi::class)
 @Composable
-fun <C : Any> ItemsRouterLifecycleController(
+fun <C : Any> RoutedContent(
   router: Router<C>,
   lazyGridState: LazyGridState,
   itemIndexConverter: (Int) -> Int,
