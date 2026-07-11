@@ -27,6 +27,28 @@ public final class io/github/xxfast/decompose/router/RouterContextKt {
 	public static final fun getLocalRouterContext ()Landroidx/compose/runtime/ProvidableCompositionLocal;
 }
 
+public final class io/github/xxfast/decompose/router/items/ItemsRouterLifecycleControllerKt {
+	public static final fun ItemsRouterLifecycleController (Lio/github/xxfast/decompose/router/items/Router;Landroidx/compose/foundation/lazy/LazyListState;Lkotlin/jvm/functions/Function1;IILandroidx/compose/runtime/Composer;II)V
+	public static final fun ItemsRouterLifecycleController (Lio/github/xxfast/decompose/router/items/Router;Landroidx/compose/foundation/lazy/grid/LazyGridState;Lkotlin/jvm/functions/Function1;IILandroidx/compose/runtime/Composer;II)V
+}
+
+public final class io/github/xxfast/decompose/router/items/RoutedItemsKt {
+	public static final fun items (Landroidx/compose/foundation/lazy/LazyListScope;Lio/github/xxfast/decompose/router/items/Router;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function4;)V
+	public static final fun items (Landroidx/compose/foundation/lazy/grid/LazyGridScope;Lio/github/xxfast/decompose/router/items/Router;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function4;)V
+	public static synthetic fun items$default (Landroidx/compose/foundation/lazy/LazyListScope;Lio/github/xxfast/decompose/router/items/Router;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function4;ILjava/lang/Object;)V
+	public static synthetic fun items$default (Landroidx/compose/foundation/lazy/grid/LazyGridScope;Lio/github/xxfast/decompose/router/items/Router;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function4;ILjava/lang/Object;)V
+}
+
+public final class io/github/xxfast/decompose/router/items/Router : com/arkivanov/decompose/router/items/ItemsNavigation {
+	public static final field $stable I
+	public fun <init> (Lcom/arkivanov/decompose/router/items/ItemsNavigation;Lcom/arkivanov/decompose/router/items/LazyChildItems;Lcom/arkivanov/essenty/lifecycle/Lifecycle;)V
+	public final fun getContext (Ljava/lang/Object;)Lio/github/xxfast/decompose/router/RouterContext;
+	public final fun getItems ()Landroidx/compose/runtime/State;
+	public final fun getLazyItems ()Lcom/arkivanov/decompose/router/items/LazyChildItems;
+	public fun navigate (Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function2;)V
+	public fun subscribe (Lkotlin/jvm/functions/Function1;)Lcom/arkivanov/decompose/Cancellation;
+}
+
 public final class io/github/xxfast/decompose/router/pages/RoutedContentKt {
 	public static final fun RoutedContent (Lio/github/xxfast/decompose/router/pages/Router;Landroidx/compose/ui/Modifier;Lcom/arkivanov/decompose/extensions/compose/pages/PagesScrollAnimation;Lkotlin/jvm/functions/Function6;Lkotlin/jvm/functions/Function3;Landroidx/compose/runtime/Composer;II)V
 }
