@@ -35,6 +35,7 @@ wear-compose-material = { module = "androidx.wear.compose:compose-material", ver
 wear-compose-ui-tooling = { module = "androidx.wear.compose:compose-ui-tooling", version.ref = "wear-compose" }
 
 [plugins]
+android-application = { id = "com.android.application", version.ref = "agp" }
 android-kotlin-multiplatform-library = { id = "com.android.kotlin.multiplatform.library", version.ref = "agp" }
 binary-compatibility-validator = { id = "org.jetbrains.kotlinx.binary-compatibility-validator", version.ref = "binary-compatibility-validator" }
 dokka = { id = "org.jetbrains.dokka", version.ref = "dokka" }

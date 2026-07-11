@@ -17,3 +17,4 @@ rootProject.name = "Decompose-Router"
 include(":decompose-router")
 include(":decompose-router-wear")
 include(":app")
+include(":androidApp")

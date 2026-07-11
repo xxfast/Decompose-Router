@@ -1,5 +1,6 @@
 plugins {
   alias(libs.plugins.kotlin.multiplatform) apply false
+  alias(libs.plugins.android.application) apply false
   alias(libs.plugins.android.kotlin.multiplatform.library) apply false
   alias(libs.plugins.kotlin.compose) apply false
   alias(libs.plugins.compose.multiplatform) apply false
@@ -18,7 +19,7 @@ buildscript {
 }
 
 apiValidation {
-  ignoredProjects += listOf("app")
+  ignoredProjects += listOf("app", "androidApp")
 }
 
 // Aggregate API documentation from the published modules into a single site
@@ -40,7 +41,7 @@ allprojects {
 
 subprojects {
   // The demo app is not published and has no API docs.
-  if (name == "app") return@subprojects
+  if (name == "app" || name == "androidApp") return@subprojects
 
   apply(plugin = "org.jetbrains.dokka")
   apply(plugin = "com.vanniktech.maven.publish")
