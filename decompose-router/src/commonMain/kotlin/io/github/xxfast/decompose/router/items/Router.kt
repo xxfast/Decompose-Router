@@ -23,11 +23,10 @@ import kotlinx.serialization.serializerOrNull
 class Router<C : Any> @PublishedApi internal constructor(
   private val navigation: ItemsNavigation<C>,
   @PublishedApi internal val lazyItems: LazyChildItems<C, RouterContext>,
-  private val lifecycle: Lifecycle
+  lifecycle: Lifecycle
 ) : ItemsNavigation<C> by navigation {
 
-  val items: State<ChildItems<C, RouterContext>>
-    get() = lazyItems.asState(lifecycle)
+  val items: State<ChildItems<C, RouterContext>> = lazyItems.asState(lifecycle)
 
   fun getContext(configuration: C): RouterContext = lazyItems[configuration]
 
