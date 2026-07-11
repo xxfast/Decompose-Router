@@ -43,6 +43,7 @@ import io.github.xxfast.decompose.router.items.rememberRouter
 import io.github.xxfast.decompose.router.rememberOnRoute
 import io.github.xxfast.decompose.router.screens.FAB_ADD
 import io.github.xxfast.decompose.router.screens.LIST_TAG
+import io.github.xxfast.decompose.router.screens.REMOVE_ITEM
 import io.github.xxfast.decompose.router.screens.TITLE_BAR
 import io.github.xxfast.decompose.router.screens.TOOLBAR
 import io.github.xxfast.decompose.router.screens.items.item.ItemViewModel
@@ -111,7 +112,9 @@ fun ItemsScreen() {
               onClick = {
                 router.setItems { it - item }
               },
-              modifier = Modifier.align(Alignment.TopEnd)
+              modifier = Modifier
+                .align(Alignment.TopEnd)
+                .testTag("$REMOVE_ITEM$item")
             ) {
               Icon(
                 imageVector = Icons.Rounded.Remove,
@@ -121,7 +124,7 @@ fun ItemsScreen() {
             }
 
             Text(
-              text = "#$item — ${state.tick}",
+              text = "#$item - ${state.tick}",
               style = MaterialTheme.typography.displayMedium,
               modifier = Modifier
                 .align(Alignment.Center)
