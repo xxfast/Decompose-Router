@@ -9,6 +9,7 @@ import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performScrollToIndex
 import androidx.compose.ui.test.performScrollToNode
+import androidx.compose.ui.test.waitUntilExactlyOneExists
 import org.junit.Rule
 import org.junit.Test
 
@@ -24,6 +25,7 @@ class TestNestedRouters {
     onNode(bottomNavSlotItem).assertExists()
   }
 
+  @OptIn(ExperimentalTestApi::class)
   @Test
   fun testNestedNavigation(): Unit = with(composeRule) {
     // Add 5 more items on to stack
@@ -50,7 +52,7 @@ class TestNestedRouters {
 
     // Verify all the screens of nested screens are restored
     activity.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
-    onNode(bottomSheet).assertExists()
+    waitUntilExactlyOneExists(bottomSheet, timeoutMillis = 5_000)
     activityRule.scenario.onActivity { activity ->
       activity.onBackPressedDispatcher.onBackPressed()
     }
@@ -62,6 +64,6 @@ class TestNestedRouters {
     onNode(bottomNavSlotItem).performClick()
     onNode(buttonBottomSheet).performClick()
     activity.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
-    onNode(bottomSheet).assertExists()
+    waitUntilExactlyOneExists(bottomSheet, timeoutMillis = 5_000)
   }
 }

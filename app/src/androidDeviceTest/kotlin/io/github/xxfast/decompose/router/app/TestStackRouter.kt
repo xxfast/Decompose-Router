@@ -9,6 +9,7 @@ import androidx.compose.ui.test.junit4.AndroidComposeTestRule
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performScrollToNode
+import androidx.compose.ui.test.waitUntilExactlyOneExists
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import kotlinx.coroutines.delay
 import org.junit.Rule
@@ -77,6 +78,7 @@ class TestStackRouter {
     onNode(hasText(testItem)).assertExists()
   }
 
+  @OptIn(ExperimentalTestApi::class)
   @Test
   fun testRetainInstanceAcrossConfigurationChanges(): Unit = with(composeRule) {
     // Add 5 more items
@@ -91,12 +93,13 @@ class TestStackRouter {
 
     // Trigger configuration change and verify if the state and scroll position is restored back on the list screen
     activity.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
-    onNode(titleBar).assertExists().assertTextEquals("#$testItem")
-    onNode(hasText("#$testItem")).assertExists()
+    waitUntilExactlyOneExists(titleBar, timeoutMillis = 5_000)
+    onNode(titleBar).assertTextEquals("#$testItem")
+    waitUntilExactlyOneExists(hasText("#$testItem"), timeoutMillis = 5_000)
 
     // Trigger configuration change again and verify scroll position is restored
     activity.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
-    onNode(hasText("#$testItem")).assertExists()
+    waitUntilExactlyOneExists(hasText("#$testItem"), timeoutMillis = 5_000)
 
     // Repeat the same test but this time navigate back with gestures
     activityRule.scenario.onActivity { activity ->

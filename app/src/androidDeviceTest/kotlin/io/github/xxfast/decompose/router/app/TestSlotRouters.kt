@@ -9,6 +9,7 @@ import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performScrollToIndex
 import androidx.compose.ui.test.performScrollToNode
+import androidx.compose.ui.test.waitUntilExactlyOneExists
 import org.junit.Rule
 import org.junit.Test
 
@@ -26,14 +27,14 @@ class TestSlotRouters {
 
     // Verify all the screens of nested screens are restored
     activity.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
-    onNode(bottomSheet).assertExists()
+    waitUntilExactlyOneExists(bottomSheet, timeoutMillis = 5_000)
     activityRule.scenario.onActivity { activity ->
       activity.onBackPressedDispatcher.onBackPressed()
     }
     onNode(bottomSheet).assertDoesNotExist()
     onNode(buttonBottomSheet).performClick()
     activity.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
-    onNode(bottomSheet).assertExists()
+    waitUntilExactlyOneExists(bottomSheet, timeoutMillis = 5_000)
     activityRule.scenario.onActivity { activity ->
       activity.onBackPressedDispatcher.onBackPressed()
     }
@@ -47,7 +48,7 @@ class TestSlotRouters {
     onNode(dialog).assertDoesNotExist()
     onNode(buttonDialog).performClick()
     activity.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
-    onNode(dialog).assertExists()
+    waitUntilExactlyOneExists(dialog, timeoutMillis = 5_000)
     activity.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
   }
 }

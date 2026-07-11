@@ -9,6 +9,7 @@ import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performScrollToIndex
 import androidx.compose.ui.test.performScrollToNode
+import androidx.compose.ui.test.waitUntilExactlyOneExists
 import org.junit.Rule
 import org.junit.Test
 
@@ -16,6 +17,7 @@ class TestPagesRouters {
   @get:Rule
   val composeRule: TestActivityRule = createAndroidComposeRule()
 
+  @OptIn(ExperimentalTestApi::class)
   @Test
   fun testPagesNavigation(): Unit = with(composeRule) {
     // Go to pages and swipe to the 5th page
@@ -25,10 +27,10 @@ class TestPagesRouters {
 
     // Verify pages screens are restored
     activity.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
-    onNode(pager).assertExists()
-    onNode(hasText("Page #5")).assertExists()
+    waitUntilExactlyOneExists(pager, timeoutMillis = 5_000)
+    waitUntilExactlyOneExists(hasText("Page #5"), timeoutMillis = 5_000)
     activity.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
-    onNode(pager).assertExists()
-    onNode(hasText("Page #5")).assertExists()
+    waitUntilExactlyOneExists(pager, timeoutMillis = 5_000)
+    waitUntilExactlyOneExists(hasText("Page #5"), timeoutMillis = 5_000)
   }
 }
