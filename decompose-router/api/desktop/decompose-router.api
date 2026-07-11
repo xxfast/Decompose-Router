@@ -27,9 +27,9 @@ public final class io/github/xxfast/decompose/router/RouterContextKt {
 	public static final fun getLocalRouterContext ()Landroidx/compose/runtime/ProvidableCompositionLocal;
 }
 
-public final class io/github/xxfast/decompose/router/items/ItemsRouterLifecycleControllerKt {
-	public static final fun ItemsRouterLifecycleController (Lio/github/xxfast/decompose/router/items/Router;Landroidx/compose/foundation/lazy/LazyListState;Lkotlin/jvm/functions/Function1;IILandroidx/compose/runtime/Composer;II)V
-	public static final fun ItemsRouterLifecycleController (Lio/github/xxfast/decompose/router/items/Router;Landroidx/compose/foundation/lazy/grid/LazyGridState;Lkotlin/jvm/functions/Function1;IILandroidx/compose/runtime/Composer;II)V
+public final class io/github/xxfast/decompose/router/items/RoutedContentKt {
+	public static final fun RoutedContent (Lio/github/xxfast/decompose/router/items/Router;Landroidx/compose/foundation/lazy/LazyListState;Lkotlin/jvm/functions/Function1;IILandroidx/compose/runtime/Composer;II)V
+	public static final fun RoutedContent (Lio/github/xxfast/decompose/router/items/Router;Landroidx/compose/foundation/lazy/grid/LazyGridState;Lkotlin/jvm/functions/Function1;IILandroidx/compose/runtime/Composer;II)V
 }
 
 public final class io/github/xxfast/decompose/router/items/RoutedItemsKt {
