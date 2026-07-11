@@ -1,10 +1,9 @@
-import java.util.Properties
-
 plugins {
   alias(libs.plugins.kotlin.multiplatform) apply false
   alias(libs.plugins.android.kotlin.multiplatform.library) apply false
   alias(libs.plugins.kotlin.compose) apply false
   alias(libs.plugins.compose.multiplatform) apply false
+  alias(libs.plugins.maven.publish) apply false
 
   alias(libs.plugins.dokka)
   alias(libs.plugins.binary.compatibility.validator)
@@ -16,11 +15,6 @@ buildscript {
     mavenCentral()
     gradlePluginPortal()
   }
-}
-
-fun localProperties(): Properties = Properties().apply {
-  val file = rootProject.file("local.properties")
-  if (file.exists()) file.inputStream().use { load(it) }
 }
 
 apiValidation {
@@ -42,83 +36,64 @@ allprojects {
 
   group = "io.github.xxfast"
   version = "0.10.0-SNAPSHOT"
+}
 
-  // Do not publish the app
-  if (name.contains("app")) return@allprojects
+subprojects {
+  // The demo app is not published and has no API docs.
+  if (name == "app") return@subprojects
 
   apply(plugin = "org.jetbrains.dokka")
-  apply(plugin = "maven-publish")
-  apply(plugin = "signing")
+  apply(plugin = "com.vanniktech.maven.publish")
 
-  val localProperties: Properties = localProperties()
+  // Publishes to the Sonatype Central Portal (central.sonatype.com). Credentials/signing
+  // come from Gradle properties: mavenCentralUsername/mavenCentralPassword and
+  // signingInMemoryKey/signingInMemoryKeyPassword (see CI env / ~/.gradle/gradle.properties).
+  configure<com.vanniktech.maven.publish.MavenPublishBaseExtension> {
+    publishToMavenCentral() // no automaticRelease: deployment waits for manual "Publish" on the portal
+    signAllPublications()
 
-  extensions.configure<PublishingExtension> {
+    pom {
+      name.set("Decompose-Router")
+      description.set("A Compose-multiplatform navigation library that leverage Decompose to create an API inspired by Conductor")
+      url.set("https://github.com/xxfast/Decompose-Router")
+      licenses {
+        license {
+          name.set("Apache-2.0")
+          url.set("https://opensource.org/licenses/Apache-2.0")
+        }
+      }
+      issueManagement {
+        system.set("Github")
+        url.set("https://github.com/xxfast/Decompose-Router/issues")
+      }
+      scm {
+        url.set("https://github.com/xxfast/Decompose-Router")
+        connection.set("scm:git:git://github.com/xxfast/Decompose-Router.git")
+        developerConnection.set("scm:git:ssh://git@github.com/xxfast/Decompose-Router.git")
+      }
+      developers {
+        developer {
+          id.set("xxfast")
+          name.set("Isuru Rajapakse")
+          email.set("isurukusumal36@gmail.com")
+        }
+      }
+    }
+  }
+
+  // Secondary target: GitHub Packages. Maven Central (above) stays the primary registry.
+  // Publish with `./gradlew publishAllPublicationsToGitHubPackagesRepository`. In CI the
+  // credentials come from the auto-provided GITHUB_ACTOR / GITHUB_TOKEN env vars.
+  configure<PublishingExtension> {
     repositories {
       maven {
-        val isSnapshot = version.toString().endsWith("SNAPSHOT")
-        url = uri(
-          if (!isSnapshot) "https://ossrh-staging-api.central.sonatype.com/service/local/staging/deploy/maven2"
-          else "https://central.sonatype.com/repository/maven-snapshots/"
-        )
-
+        name = "GitHubPackages"
+        url = uri("https://maven.pkg.github.com/xxfast/Decompose-Router")
         credentials {
-          username = localProperties.getProperty("sonatypeUsername")
-          password = localProperties.getProperty("sonatypePassword")
+          username = System.getenv("GITHUB_ACTOR")
+          password = System.getenv("GITHUB_TOKEN")
         }
       }
     }
-
-    val javadocJar = tasks.register<Jar>("javadocJar") {
-      dependsOn(tasks.named("dokkaGeneratePublicationHtml"))
-      archiveClassifier.set("javadoc")
-      from(layout.buildDirectory.dir("dokka/html"))
-    }
-
-    publications {
-      withType<MavenPublication> {
-        artifact(javadocJar)
-
-        pom {
-          name.set("Decompose-Router")
-          description.set("A Compose-multiplatform navigation library that leverage Decompose to create an API inspired by Conductor")
-          licenses {
-            license {
-              name.set("Apache-2.0")
-              url.set("https://opensource.org/licenses/Apache-2.0")
-            }
-          }
-          url.set("https://github.com/xxfast/Decompose-Router")
-          issueManagement {
-            system.set("Github")
-            url.set("https://github.com/xxfast/Decompose-Router/issues")
-          }
-          scm {
-            connection.set("https://github.com/xxfast/Decompose-Router.git")
-            url.set("https://github.com/xxfast/Decompose-Router")
-          }
-          developers {
-            developer {
-              name.set("Isuru Rajapakse")
-              email.set("isurukusumal36@gmail.com")
-            }
-          }
-        }
-      }
-    }
-  }
-
-  val publishing = extensions.getByType<PublishingExtension>()
-  extensions.configure<SigningExtension> {
-    useInMemoryPgpKeys(
-      localProperties.getProperty("gpgKeySecret"),
-      localProperties.getProperty("gpgKeyPassword"),
-    )
-
-    sign(publishing.publications)
-  }
-
-  // TODO: remove after https://youtrack.jetbrains.com/issue/KT-46466 is fixed
-  project.tasks.withType(AbstractPublishToMaven::class.java).configureEach {
-    dependsOn(project.tasks.withType(Sign::class.java))
   }
 }

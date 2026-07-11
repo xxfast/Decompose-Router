@@ -12,6 +12,7 @@ horologist = "0.7.15"
 kotlin = "2.4.0"
 kotlinx-coroutines = "1.11.0"
 kotlinx-serialization = "1.11.0"
+maven-publish = "0.37.0"
 wear-compose = "1.6.2"
 
 [libraries]
@@ -41,3 +42,4 @@ compose-multiplatform = { id = "org.jetbrains.compose", version.ref = "compose-m
 kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+maven-publish = { id = "com.vanniktech.maven.publish", version.ref = "maven-publish" }

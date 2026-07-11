@@ -115,17 +115,26 @@ jobs:
           script: ./gradlew connectedAndroidDeviceTest
 
   release:
-    name: Release ${{ matrix.module }} to Sonatype
-    strategy:
-      matrix:
-        module: [decompose-router, decompose-router-wear]
-
+    name: ${{ matrix.registry.name }}
     if: ${{ github.event_name != 'pull_request' }}
-    runs-on: macos-latest
+    runs-on: macos-latest # required to build the Apple-target klibs
     needs:
       - build
       - test
-
+    permissions:
+      contents: read
+      packages: write # for GitHub Packages
+    strategy:
+      # Don't let one registry failing cancel the upload to the other.
+      fail-fast: false
+      matrix:
+        registry:
+          # Uploads both modules as a single Central Portal deployment. Without
+          # automaticRelease, it waits for manual approval at central.sonatype.com.
+          - name: Publish to Maven Central
+            task: publishToMavenCentral
+          - name: Publish to GitHub Packages
+            task: publishAllPublicationsToGitHubPackagesRepository
     steps:
       - uses: actions/checkout@v4
 
@@ -138,21 +147,17 @@ jobs:
       - name: Setup gradle
         uses: gradle/actions/setup-gradle@v4
 
-      - name: Write secrets to local.properties
-        if: ${{ github.event_name != 'pull_request' }}
-        run: |
-          echo sonatypeUsername="${SONATYPE_USERNAME}" >> "local.properties"
-          echo sonatypePassword="${SONATYPE_PASSWORD}" >> "local.properties"
-          echo gpgKeyPassword="${GPG_KEY_PASSWORD}" >> "local.properties"
-          echo gpgKeySecret="${GPG_KEY_SECRET}" >> "local.properties"
+      - name: ${{ matrix.registry.name }}
+        run: ./gradlew ${{ matrix.registry.task }} --no-configuration-cache
         env:
-          SONATYPE_USERNAME: ${{ secrets.SONATYPE_USERNAME }}
-          SONATYPE_PASSWORD: ${{ secrets.SONATYPE_PASSWORD }}
-          GPG_KEY_PASSWORD: ${{ secrets.GPG_KEY_PASSWORD }}
-          GPG_KEY_SECRET: ${{ secrets.GPG_KEY_SECRET }}
-
-      - name: Release to sonatype
-        run: ./gradlew :${{ matrix.module }}:publishAllPublicationsToMavenRepository
+          # Maven Central credentials (ignored by the GitHub Packages task, and vice versa).
+          ORG_GRADLE_PROJECT_mavenCentralUsername: ${{ secrets.MAVEN_CENTRAL_USERNAME }}
+          ORG_GRADLE_PROJECT_mavenCentralPassword: ${{ secrets.MAVEN_CENTRAL_PASSWORD }}
+          ORG_GRADLE_PROJECT_signingInMemoryKey: ${{ secrets.GPG_KEY_SECRET }}
+          ORG_GRADLE_PROJECT_signingInMemoryKeyPassword: ${{ secrets.GPG_KEY_PASSWORD }}
+          # GitHub Packages credentials — GITHUB_TOKEN is auto-provided, no secret needed.
+          GITHUB_ACTOR: ${{ github.actor }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   documentation:
     name: Publish documentation
